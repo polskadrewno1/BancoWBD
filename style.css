@@ -1,0 +1,148 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    color: #17243a;
+    line-height: 1.6;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 6%;
+    background: white;
+    border-bottom: 1px solid #e3e9f1;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo span {
+    background: #10284d;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.logo strong {
+    display: block;
+    color: #10284d;
+    font-size: 21px;
+}
+
+.logo small {
+    display: block;
+    color: #73829a;
+    font-size: 9px;
+    letter-spacing: 2px;
+}
+
+nav {
+    display: flex;
+    gap: 22px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #10284d;
+    font-weight: bold;
+}
+
+main {
+    max-width: 1150px;
+    margin: auto;
+    padding: 25px;
+}
+
+.hero {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 35px;
+    align-items: center;
+    padding: 65px 0;
+}
+
+.tag {
+    color: #5276a8;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    line-height: 1.15;
+    color: #10284d;
+    margin: 15px 0;
+}
+
+.hero p {
+    color: #607089;
+    margin-bottom: 20px;
+}
+
+.button {
+    display: inline-block;
+    background: #17447e;
+    color: white;
+    text-decoration: none;
+    padding: 13px 23px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.hero-card {
+    background: linear-gradient(145deg, #10284d, #2863a4);
+    color: white;
+    padding: 40px;
+    border-radius: 18px;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 15px 35px #10284d25;
+}
+
+.hero-card h2 {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.hero-card p {
+    color: #d7e5f7;
+}
+
+.hero-card small {
+    letter-spacing: 2px;
+}
+
+.line {
+    width: 65px;
+    height: 4px;
+    background: #a9c6ec;
+    margin: 25px 0;
+}
+
+section h2 {
+    color: #10284d;
+    margin-bottom: 22px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1
