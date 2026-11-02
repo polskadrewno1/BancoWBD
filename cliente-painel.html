@@ -1,55 +1,62 @@
 <!DOCTYPE html>
 <html lang="pt-PT">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BancoWBD | Painel do cliente</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Área de Cliente | BancoWBD</title>
 
-<style>
-.painel {
-  max-width: 750px;
-  margin: 50px auto;
-  padding: 30px;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 8px 30px #10284d18;
-}
-.painel h1 { color: #10284d; }
-.info {
-  background: #f1f5fa;
-  padding: 18px;
-  border-radius: 10px;
-  margin-top: 20px;
-}
-#logoutButton {
-  margin-top: 25px;
-  cursor: pointer;
-}
-#message { margin-top: 15px; }
-</style>
-</head>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<body>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-<header>
-  <div class="logo">
-    <span>W</span>
-    <div>
-      <strong>BancoWBD</strong>
-      <small>BANCA DIGITAL</small>
-    </div>
-  </div>
-</header>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f1f5f9;
+      color: #172b4d;
+    }
 
-<main>
-  <section class="painel">
-    <p class="tag">ÁREA DE CLIENTE</p>
+    header {
+      background: #09264a;
+      color: white;
+      padding: 22px 16px;
+      text-align: center;
+    }
 
-    <h1>Bem-vindo à sua área pessoal</h1>
+    header h2 {
+      margin: 0;
+      font-size: 25px;
+      letter-spacing: 1px;
+    }
 
-    <p>A sua sessão foi iniciada com sucesso.</p>
+    header p {
+      margin: 8px 0 0;
+      color: #cbd5e1;
+      font-size: 13px;
+    }
 
-    <div class="info">
-      <strong>Conta autenticada</strong>
-      <p>Endereço de e-mail:</p>
+    main {
+      max-width: 650px;
+      margin: 45px auto;
+      padding: 0 16px;
+    }
+
+    .card {
+      background: white;
+      padding: 30px 24px;
+      border-radius: 12px;
+      box-shadow: 0 5px 22px rgba(0,0,0,0.07);
+    }
+
+    h1 {
+      font-size: 25px;
+      margin-top: 0;
+      color: #09264a;
+    }
+
+    .info {
+      background: #eef4fa;
+      padding: 18px;
