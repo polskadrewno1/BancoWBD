@@ -83,3 +83,47 @@
 <footer>
   © 2026 BancoWBD — Projeto em desenvolvimento.
 </footer>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL =
+"https://mzrxzuwtndegpwcbkwhj.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+"REMPLACER_PAR_TA_CLE_PUBLICABLE";
+
+const supabaseClient = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
+const form = document.getElementById("loginForm");
+const message = document.getElementById("message");
+const button = document.getElementById("loginButton");
+
+form.addEventListener("submit", async function(event) {
+  event.preventDefault();
+
+  button.disabled = true;
+  message.textContent = "A autenticar...";
+
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const { error } = await supabaseClient.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  button.disabled = false;
+
+  if (error) {
+    message.textContent = "Não foi possível iniciar sessão.";
+    return;
+  }
+
+  message.textContent = "Sessão iniciada com sucesso!";
+});
+</script>
+</body>
+</html>
