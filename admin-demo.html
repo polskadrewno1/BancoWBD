@@ -290,7 +290,22 @@ async function carregarPedidos() {
     approvedInput.value = pedido.montant_approuve ?? "";
     approvedInput.style.display = "block";
     approvedInput.style.margin = "8px 0 16px";
-    card.appendChild(approvedInput);
+    card.appendChild(approvedInput);const fundsLabel = document.createElement("label");
+fundsLabel.style.display = "block";
+fundsLabel.style.margin = "15px 0";
+
+const fundsCheckbox = document.createElement("input");
+fundsCheckbox.type = "checkbox";
+fundsCheckbox.checked = pedido.fundos_disponibilizados === true;
+
+fundsLabel.appendChild(fundsCheckbox);
+fundsLabel.appendChild(
+  document.createTextNode(
+    " Confirmar disponibilização efetiva dos fundos"
+  )
+);
+
+card.appendChild(fundsLabel);
 
     adicionarCampo(
       card,
