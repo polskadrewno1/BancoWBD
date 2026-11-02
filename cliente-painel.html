@@ -13,41 +13,40 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: #f1f5f9;
-  color: #172b4d;
+  color: #1e293b;
 }
 
 header {
-  background: #09264a;
+  background: #102b50;
   color: white;
-  padding: 22px 16px;
   text-align: center;
+  padding: 25px 15px;
 }
 
-header h2 { margin: 0; font-size: 25px; }
-header p { color: #cbd5e1; font-size: 13px; }
+header h2 { margin: 0 0 8px; }
+header p { margin: 0; font-size: 13px; }
 
 main {
-  max-width: 750px;
-  margin: 35px auto;
-  padding: 0 16px;
+  max-width: 850px;
+  margin: 25px auto;
+  padding: 0 15px;
 }
 
 .card {
   background: white;
-  padding: 28px 22px;
+  padding: 22px;
   border-radius: 12px;
-  box-shadow: 0 5px 22px rgba(0,0,0,.07);
-  margin-bottom: 22px;
+  margin-bottom: 20px;
+  box-shadow: 0 3px 12px rgba(0,0,0,.06);
 }
 
-h1, h2 { color: #09264a; }
-h1 { font-size: 25px; }
+h1 { font-size: 23px; }
+h2 { color: #12365e; }
 
 .info {
-  background: #eef4fa;
-  padding: 18px;
+  background: #edf4fb;
+  padding: 14px;
   border-radius: 8px;
-  margin-top: 20px;
   overflow-wrap: anywhere;
 }
 
@@ -55,11 +54,10 @@ button {
   background: #123f70;
   color: white;
   border: 0;
-  padding: 13px 22px;
-  border-radius: 6px;
+  padding: 12px 18px;
+  border-radius: 7px;
   cursor: pointer;
-  margin-top: 18px;
-  font-size: 15px;
+  margin-top: 12px;
 }
 
 .request {
@@ -154,4 +152,169 @@ const SUPABASE_KEY =
 "sb_publishable_WXC0WbSEvvnhcrR6-7VUSw_kABFoXYU";
 
 const supabaseClient = window.supabase.createClient(
-  SUPABASE
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+const userEmail = document.getElementById("userEmail");
+const statusElement = document.getElementById("status");
+const requestsMessage = document.getElementById("requestsMessage");
+const requestsList = document.getElementById("requestsList");
+
+let currentUser = null;
+
+function adicionarCampo(container, label, value) {
+  const p = document.createElement("p");
+  const strong = document.createElement("strong");
+
+  strong.textContent = label + ": ";
+  p.appendChild(strong);
+  p.appendChild(document.createTextNode(
+    value === null || value === undefined || value === ""
+      ? "Não indicado"
+      : String(value)
+  ));
+
+  container.appendChild(p);
+}
+
+function formatarEuro(value) {
+  if (value === null || value === undefined || value === "") {
+    return "Não indicado";
+  }
+
+  return Number(value).toLocaleString("pt-PT", {
+    style: "currency",
+    currency: "EUR"
+  });
+}
+
+async function carregarPedidos() {
+  requestsMessage.textContent = "A carregar os seus pedidos...";
+  requestsList.replaceChildren();
+
+  const { data, error } = await supabaseClient
+    .from("demandes_financement")
+    .select(`
+      id,
+      nome_completo,
+      idade,
+      pais,
+      cidade,
+      profissao,
+      rendimento_mensal,
+      montant_demande,
+      prazo_reembolso,
+      email_contacto,
+      telefone,
+      objet_demande,
+      statut,
+      date_creation
+    `)
+    .eq("user_id", currentUser.id)
+    .order("date_creation", { ascending: false });
+
+  if (error) {
+    requestsMessage.textContent =
+      "Não foi possível carregar os pedidos. " + error.message;
+    return;
+  }
+
+  if (!data || data.length === 0) {
+    requestsMessage.textContent = "Ainda não tem pedidos registados.";
+    return;
+  }
+
+  requestsMessage.textContent =
+    "Total de pedidos: " + data.length;
+
+  data.forEach((pedido, index) => {
+    const card = document.createElement("div");
+    card.className = "request";
+
+    const title = document.createElement("h3");
+    title.textContent = "Pedido de financiamento " + (index + 1);
+    card.appendChild(title);
+
+    adicionarCampo(card, "Nome completo", pedido.nome_completo);
+    adicionarCampo(card, "Idade", pedido.idade);
+    adicionarCampo(card, "País", pedido.pais);
+    adicionarCampo(card, "Cidade", pedido.cidade);
+    adicionarCampo(card, "Profissão", pedido.profissao);
+    adicionarCampo(
+      card,
+      "Rendimento mensal aproximado",
+      formatarEuro(pedido.rendimento_mensal)
+    );
+    adicionarCampo(
+      card,
+      "Montante solicitado",
+      formatarEuro(pedido.montant_demande)
+    );
+    adicionarCampo(
+      card,
+      "Prazo de reembolso",
+      pedido.prazo_reembolso
+        ? pedido.prazo_reembolso + " meses"
+        : "Não indicado"
+    );
+    adicionarCampo(card, "E-mail de contacto", pedido.email_contacto);
+    adicionarCampo(card, "Telefone / WhatsApp", pedido.telefone);
+    adicionarCampo(card, "Finalidade", pedido.objet_demande);
+
+    const p = document.createElement("p");
+    const strong = document.createElement("strong");
+    strong.textContent = "Estado: ";
+
+    const span = document.createElement("span");
+    span.className = "status";
+    span.textContent = pedido.statut || "Em análise";
+
+    p.appendChild(strong);
+    p.appendChild(span);
+    card.appendChild(p);
+
+    const date = pedido.date_creation
+      ? new Date(pedido.date_creation).toLocaleDateString("pt-PT")
+      : "Não indicada";
+
+    adicionarCampo(card, "Data do pedido", date);
+
+    requestsList.appendChild(card);
+  });
+}
+
+async function iniciarPagina() {
+  const { data, error } = await supabaseClient.auth.getSession();
+
+  if (error || !data.session) {
+    statusElement.textContent =
+      "A sua sessão terminou. Inicie sessão novamente.";
+    requestsMessage.textContent = "";
+    return;
+  }
+
+  currentUser = data.session.user;
+  userEmail.textContent = currentUser.email || "Não disponível";
+
+  await carregarPedidos();
+}
+
+document.getElementById("refreshButton").addEventListener(
+  "click",
+  carregarPedidos
+);
+
+document.getElementById("logoutButton").addEventListener(
+  "click",
+  async () => {
+    await supabaseClient.auth.signOut();
+    window.location.href = "cliente-demo.html";
+  }
+);
+
+iniciarPagina();
+</script>
+
+</body>
+</html>
