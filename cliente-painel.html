@@ -1,73 +1,54 @@
 <!DOCTYPE html>
 <html lang="pt-PT">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Área de Cliente | BancoWBD</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Área de Cliente | BancoWBD</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+* { box-sizing: border-box; }
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f1f5f9;
-      color: #172b4d;
-    }
-
-    header {
-      background: #09264a;
-      color: white;
-      padding: 22px 16px;
-      text-align: center;
-    }
-
-    header h2 {
-      margin: 0;
-      font-size: 25px;
-      letter-spacing: 1px;
-    }
-
-    header p {
-      margin: 8px 0 0;
-      color: #cbd5e1;
-      font-size: 13px;
-    }
-
-    main {
-      max-width: 650px;
-      margin: 45px auto;
-      padding: 0 16px;
-    }
-
-    .card {
-      background: white;
-      padding: 30px 24px;
-      border-radius: 12px;
-      box-shadow: 0 5px 22px rgba(0,0,0,0.07);
-    }
-
-    h1 {
-      font-size: 25px;
-      margin-top: 0;
-      color: #09264a;
-    }
-
-    .info {
-      background: #eef4fa;
-      padding: 18px;
-border-radius: 8px;
-margin-top: 25px;
-overflow-wrap: anywhere;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f1f5f9;
+  color: #172b4d;
 }
 
-.info strong {
-  display: block;
-  margin-bottom: 10px;
+header {
+  background: #09264a;
+  color: white;
+  padding: 22px 16px;
+  text-align: center;
+}
+
+header h2 { margin: 0; font-size: 25px; }
+header p { color: #cbd5e1; font-size: 13px; }
+
+main {
+  max-width: 750px;
+  margin: 35px auto;
+  padding: 0 16px;
+}
+
+.card {
+  background: white;
+  padding: 28px 22px;
+  border-radius: 12px;
+  box-shadow: 0 5px 22px rgba(0,0,0,.07);
+  margin-bottom: 22px;
+}
+
+h1, h2 { color: #09264a; }
+h1 { font-size: 25px; }
+
+.info {
+  background: #eef4fa;
+  padding: 18px;
+  border-radius: 8px;
+  margin-top: 20px;
+  overflow-wrap: anywhere;
 }
 
 button {
@@ -77,24 +58,41 @@ button {
   padding: 13px 22px;
   border-radius: 6px;
   cursor: pointer;
-  margin-top: 22px;
+  margin-top: 18px;
   font-size: 15px;
 }
 
-button:hover {
-  background: #09264a;
+button:hover { background: #09264a; }
+
+.request {
+  border: 1px solid #dbe3ec;
+  border-radius: 9px;
+  padding: 16px;
+  margin-top: 14px;
+  overflow-wrap: anywhere;
+}
+
+.request p { line-height: 1.5; }
+
+.status {
+  display: inline-block;
+  padding: 6px 10px;
+  background: #eaf2ff;
+  color: #123f70;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+#status, #requestsMessage {
+  line-height: 1.5;
+  margin-top: 15px;
 }
 
 .notice {
-  margin-top: 24px;
+  color: #64748b;
   font-size: 13px;
   line-height: 1.6;
-  color: #64748b;
-}
-
-#status {
-  color: #b45309;
-  margin-top: 15px;
 }
 
 footer {
@@ -108,88 +106,160 @@ footer {
 
 <body>
 
-  <header>
-    <h2>BancoWBD</h2>
-    <p>BANCA DIGITAL | ÁREA DE CLIENTE</p>
-  </header>
+<header>
+  <h2>BancoWBD</h2>
+  <p>SOLUÇÕES FINANCEIRAS | ÁREA DE CLIENTE</p>
+</header>
 
-  <main>
-    <section class="card">
-      <h1>Bem-vindo à sua área pessoal</h1>
+<main>
 
-      <p>A sua sessão foi iniciada com sucesso.</p>
+<section class="card">
+  <h1>Bem-vindo à sua área pessoal</h1>
+  <p>A sua sessão foi iniciada com sucesso.</p>
 
-      <div class="info">
-        <strong>Conta autenticada</strong>
-        <p>Endereço de e-mail:</p>
-        <p id="userEmail">A carregar...</p>
-      </div>
+  <div class="info">
+    <strong>Conta autenticada</strong>
+    <p>Endereço de e-mail:</p>
+    <p id="userEmail">A carregar...</p>
+  </div>
 
-      <p id="status"></p>
+  <p id="status"></p>
 
-      <button id="logoutButton" type="button">
-        Terminar sessão
-      </button>
+  <button id="logoutButton" type="button">
+    Terminar sessão
+  </button>
+</section>
 
-      <p>É um prazer tê-lo connosco. Aceda à sua área pessoal e acompanhe as suas informações com comodidade e simplicidade.</p>
-    </section>
-  </main>
+<section class="card">
+  <h2>Os meus pedidos de financiamento</h2>
+  <p>Consulte os pedidos que enviou através da sua conta.</p>
 
-  <footer>
-    © 2026 BancoWBD — Todos os direitos reservados.
-  </footer>
+  <div id="requestsMessage">A carregar os seus pedidos...</div>
+  <div id="requestsList"></div>
 
-  <script>
-    const SUPABASE_URL =
-      "https://mzrxzuwtndegpwcbkwhj.supabase.co";
+  <button id="refreshButton" type="button">
+    Atualizar pedidos
+  </button>
+</section>
 
-    const SUPABASE_KEY =
-      "sb_publishable_WXC0WbSEvvnhcrR6-7VUSw_kABFoXYU";
+<p class="notice">
+  As informações apresentadas correspondem aos pedidos registados na plataforma.
+  A apresentação de um pedido não representa uma aprovação de financiamento.
+</p>
 
-    const supabaseClient = window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_KEY
-    );
+</main>
 
-    async function carregarSessao() {
-      const emailElement = document.getElementById("userEmail");
-      const statusElement = document.getElementById("status");
+<footer>
+  © 2026 BancoWBD — Projeto em desenvolvimento.
+</footer>
 
-      try {
-        const { data, error } =
-          await supabaseClient.auth.getSession();
+<script>
+const SUPABASE_URL =
+"https://mzrxzuwtndegpwcbkwhj.supabase.co";
 
-        if (error || !data.session) {
-          window.location.href = "cliente-demo.html";
-          return;
-        }
+const SUPABASE_KEY =
+"sb_publishable_WXC0WbSEvvnhcrR6-7VUSw_kABFoXYU";
 
-        emailElement.textContent =
-          data.session.user.email || "E-mail não disponível";
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 
-      } catch (error) {
-        statusElement.textContent =
-          "Não foi possível verificar a sessão.";
-      }
-    }
+let currentUser = null;
 
-    document.getElementById("logoutButton")
-      .addEventListener("click", async function () {
+async function carregarSessao() {
+  const { data, error } =
+    await supabaseClient.auth.getSession();
 
-        const { error } =
-          await supabaseClient.auth.signOut();
+  if (error || !data.session) {
+    window.location.href = "cliente-demo.html";
+    return;
+  }
 
-        if (error) {
-          document.getElementById("status").textContent =
-            "Não foi possível terminar a sessão.";
-          return;
-        }
+  currentUser = data.session.user;
 
-        window.location.href = "cliente-demo.html";
-      });
+  document.getElementById("userEmail").textContent =
+    currentUser.email || "E-mail não disponível";
 
-    carregarSessao();
-  </script>
+  await carregarPedidos();
+}
+
+async function carregarPedidos() {
+  const message = document.getElementById("requestsMessage");
+  const list = document.getElementById("requestsList");
+
+  message.textContent = "A carregar os seus pedidos...";
+  list.innerHTML = "";
+
+  const { data, error } = await supabaseClient
+    .from("demandes_financement")
+    .select("id, montant_demande, objet_demande, statut, date_creation")
+    .eq("user_id", currentUser.id)
+    .order("date_creation", { ascending: false });
+
+  if (error) {
+    message.textContent =
+      "Não foi possível carregar os pedidos. Tente novamente mais tarde.";
+    return;
+  }
+
+  if (!data || data.length === 0) {
+    message.textContent =
+      "Ainda não tem pedidos de financiamento registados.";
+    return;
+  }
+
+  message.textContent = "Total de pedidos: " + data.length;
+
+  data.forEach(function(pedido) {
+    const item = document.createElement("article");
+    item.className = "request";
+
+    const titulo = document.createElement("h3");
+    titulo.textContent = "Pedido de financiamento";
+
+    const valor = document.createElement("p");
+    valor.textContent =
+      "Montante solicitado: " +
+      Number(pedido.montant_demande).toLocaleString("pt-PT") +
+      " €";
+
+    const objetivo = document.createElement("p");
+    objetivo.textContent =
+      "Objetivo: " + pedido.objet_demande;
+
+    const estado = document.createElement("p");
+    estado.className = "status";
+    estado.textContent = "Estado: " + pedido.statut;
+
+    const dataPedido = document.createElement("p");
+    dataPedido.textContent =
+      "Data: " +
+      new Date(pedido.date_creation).toLocaleDateString("pt-PT");
+
+    item.append(titulo, valor, objetivo, estado, dataPedido);
+    list.appendChild(item);
+  });
+}
+
+document.getElementById("refreshButton")
+.addEventListener("click", carregarPedidos);
+
+document.getElementById("logoutButton")
+.addEventListener("click", async function() {
+  const { error } = await supabaseClient.auth.signOut();
+
+  if (error) {
+    document.getElementById("status").textContent =
+      "Não foi possível terminar a sessão.";
+    return;
+  }
+
+  window.location.href = "cliente-demo.html";
+});
+
+carregarSessao();
+</script>
 
 </body>
 </html>
