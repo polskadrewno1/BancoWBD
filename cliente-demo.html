@@ -5,19 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BancoWBD | Área de cliente</title>
 <link rel="stylesheet" href="style.css">
+
 <style>
 .login-box {
   max-width: 480px;
-  margin: 60px auto;
+  margin: 40px auto;
   padding: 30px;
   background: white;
   border-radius: 16px;
   box-shadow: 0 8px 30px #10284d18;
 }
-.login-box h1 { color: #10284d; margin-bottom: 15px; }
+.login-box h1 { color: #10284d; }
 .login-box label {
   display: block;
-  margin-top: 18px;
+  margin-top: 16px;
   font-weight: bold;
 }
 .login-box input {
@@ -27,14 +28,23 @@
   border: 1px solid #ccd5e1;
   border-radius: 8px;
   font-size: 16px;
+  box-sizing: border-box;
 }
 .login-box button {
   width: 100%;
   border: 0;
   cursor: pointer;
-  margin-top: 22px;
+  margin-top: 20px;
 }
-#message { margin-top: 18px; }
+#message {
+  margin-top: 18px;
+  line-height: 1.5;
+}
+.separator {
+  border: 0;
+  border-top: 1px solid #ddd;
+  margin: 28px 0;
+}
 </style>
 </head>
 
@@ -54,36 +64,55 @@
 </header>
 
 <main>
-  <div class="login-box">
-    <p class="tag">ÁREA DE CLIENTE</p>
-    <h1>Iniciar sessão</h1>
-    <p>Aceda à sua área pessoal.</p>
+<div class="login-box">
 
-    <form id="loginForm">
-      <label for="email">Endereço de e-mail</label>
-      <input id="email" type="email" required autocomplete="username">
+  <p class="tag">ÁREA DE CLIENTE</p>
 
-      <label for="password">Palavra-passe</label>
-      <input id="password" type="password" required autocomplete="current-password">
+  <h1>Criar uma conta</h1>
+  <p>Registe-se para aceder à sua área pessoal.</p>
 
-      <button class="button" id="loginButton" type="submit">
-        Entrar
-      </button>
-    </form>
+  <form id="registerForm">
+    <label for="name">Nome completo</label>
+    <input id="name" type="text" required autocomplete="name">
 
-    <p id="message" role="status"></p>
+    <label for="registerEmail">Endereço de e-mail</label>
+    <input id="registerEmail" type="email" required autocomplete="email">
 
-    <p style="font-size:13px;color:#607089;margin-top:20px">
-      Esta área permite testar a autenticação. Não representa
-      uma conta bancária nem disponibiliza financiamento real.
-    </p>
-  </div>
+    <label for="registerPassword">Criar palavra-passe</label>
+    <input id="registerPassword" type="password"
+           minlength="8" required autocomplete="new-password">
+
+    <button class="button" id="registerButton" type="submit">
+      Criar conta
+    </button>
+  </form>
+
+  <hr class="separator">
+
+  <h1>Iniciar sessão</h1>
+  <p>Já tem uma conta? Entre na sua área pessoal.</p>
+
+  <form id="loginForm">
+    <label for="email">Endereço de e-mail</label>
+    <input id="email" type="email" required autocomplete="username">
+
+    <label for="password">Palavra-passe</label>
+    <input id="password" type="password"
+           required autocomplete="current-password">
+
+    <button class="button" id="loginButton" type="submit">
+      Entrar
+    </button>
+  </form>
+
+  <p id="message" role="status" aria-live="polite"></p>
+
+</div>
 </main>
 
-<footer>
-  © 2026 BancoWBD — Projeto em desenvolvimento.
-</footer>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<footer>© 2026 BancoWBD — Projeto em desenvolvimento.</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 const SUPABASE_URL =
@@ -97,35 +126,76 @@ const supabaseClient = supabase.createClient(
   SUPABASE_PUBLISHABLE_KEY
 );
 
-const form = document.getElementById("loginForm");
 const message = document.getElementById("message");
-const button = document.getElementById("loginButton");
 
-form.addEventListener("submit", async function(event) {
+document.getElementById("registerForm")
+.addEventListener("submit", async function(event) {
+
   event.preventDefault();
 
+  const button = document.getElementById("registerButton");
   button.disabled = true;
-  message.textContent = "A autenticar...";
+  message.textContent = "A criar a sua conta...";
 
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("registerEmail").value.trim();
+  const password = document.getElementById("registerPassword").value;
 
-  const { error } = await supabaseClient.auth.signInWithPassword({
-    email,
-    password
+  const { data, error } = await supabaseClient.auth.signUp({
+    email: email,
+    password: password,
+    options: {
+      data: {
+        full_name: name
+      }
+    }
   });
 
   button.disabled = false;
 
   if (error) {
-    message.textContent = "Não foi possível iniciar sessão.";
+    message.textContent = "Não foi possível criar a conta. Verifique os dados.";
+    return;
+  }
+
+  if (data.session) {
+    message.textContent = "Conta criada com sucesso! A entrar...";
+    window.location.href = "cliente-painel.html";
+  } else {
+    message.textContent =
+      "Registo recebido. Consulte o seu e-mail para confirmar a conta antes de iniciar sessão.";
+  }
+});
+
+document.getElementById("loginForm")
+.addEventListener("submit", async function(event) {
+
+  event.preventDefault();
+
+  const button = document.getElementById("loginButton");
+  button.disabled = true;
+  message.textContent = "A autenticar...";
+
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+
+  const { error } = await supabaseClient.auth.signInWithPassword({
+    email: email,
+    password: password
+  });
+
+  button.disabled = false;
+
+  if (error) {
+    message.textContent =
+      "Não foi possível iniciar sessão. Verifique o e-mail e a palavra-passe.";
     return;
   }
 
   message.textContent = "Sessão iniciada com sucesso!";
-
-window.location.href = "cliente-painel.html";
+  window.location.href = "cliente-painel.html";
 });
 </script>
+
 </body>
 </html>
