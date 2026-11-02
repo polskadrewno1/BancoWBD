@@ -360,9 +360,28 @@ async function carregarPedidos() {
       saveButton.disabled = true;
       saveButton.textContent = "A guardar...";
 
+            const approvedText = approvedInput.value.trim();
+      const approvedAmount = Number(approvedText);
+
+      if (
+        select.value === "aprovada" &&
+        (!approvedText || !Number.isFinite(approvedAmount) || approvedAmount <= 0)
+      ) {
+        alert("Indique um montante aprovado válido antes de aprovar o pedido.");
+        saveButton.disabled = false;
+        saveButton.textContent = "Guardar estado";
+        return;
+      }
+
+      const updateValues = { statut: select.value };
+
+      if (approvedText !== "") {
+        updateValues.montant_approuve = approvedAmount;
+      }
+
       const { error: updateError } = await client
         .from("demandes_financement")
-        .update({ statut: select.value })
+        .update(updateValues)
         .eq("id", pedido.id);
 
       saveButton.disabled = false;
