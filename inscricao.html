@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BancoWBD | Candidatura</title>
+    <title>BancoWBD | Pedido de financiamento</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -20,74 +20,138 @@
 </header>
 
 <main>
-<section class="notice">
-    <h1>Pedido de financiamento</h1>
-    <p>
-        Preencha os campos abaixo para apresentar a sua candidatura.
-        O envio do formulário não representa uma aprovação
-        nem garante a concessão de financiamento.
-    </p>
-</section>
+    <section class="notice">
+        <h1>Pedido de financiamento</h1>
+        <p>
+            Preencha os campos para apresentar o seu pedido.
+            O envio não representa uma aprovação nem garante
+            a concessão de financiamento.
+        </p>
+    </section>
 
-<section class="card">
-    <form id="formulario">
+    <section class="card">
+        <form id="formulario">
 
-        <label>Nome completo</label>
-        <input type="text" name="nome" required>
+            <label>Montante pretendido (€)</label>
+            <input
+                type="number"
+                name="montante"
+                min="1"
+                step="0.01"
+                required
+            >
 
-        <label>Idade</label>
-        <input type="number" name="idade" min="18" required>
+            <label>Finalidade do financiamento</label>
+            <textarea
+                name="finalidade"
+                rows="5"
+                placeholder="Descreva a finalidade do financiamento..."
+                required
+            ></textarea>
 
-        <label>País</label>
-        <input type="text" name="pais" required>
+            <label>
+                <input type="checkbox" name="consentimento" required>
+                Autorizo o tratamento destes dados para análise
+                do meu pedido.
+            </label>
 
-        <label>Cidade</label>
-        <input type="text" name="cidade" required>
+            <button type="submit">Enviar candidatura</button>
 
-        <label>Profissão</label>
-        <input type="text" name="profissao" required>
-
-        <label>Rendimento mensal aproximado</label>
-        <input type="number" name="rendimento" min="0" required>
-
-        <label>Montante (€)</label>
-        <input type="number" name="montante" min="1" required>
-
-        <label>Prazo de reembolso (em meses)</label>
-<input type="number" name="prazo" min="1"
-       placeholder="Introduza o número de meses" required>
-
-        <label>Endereço de e-mail</label>
-        <input type="email" name="email" required>
-
-        <label>Contacto telefónico / WhatsApp</label>
-        <input type="tel" name="telefone" required>
-
-        <label>Finalidade do financiamento</label>
-        
-<textarea name="finalidade" rows="5" placeholder="Descreva a finalidade do financiamento..." required></textarea>
-        <label>
-    <input type="checkbox" name="consentimento" required>
-    Autorizo o contacto para efeitos de análise da candidatura.
-</label>
-
-        <button type="submit">Enviar candidatura</button>
-
-<p id="mensagem"></p>
-</form>
-</section>
+            <p id="mensagem" role="status"></p>
+        </form>
+    </section>
 </main>
 
 <footer>
     © 2026 BancoWBD. Todos os direitos reservados.
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
-document.getElementById("formulario").addEventListener("submit", function(event) {
+const SUPABASE_URL = "https://mzrxzuwtndegpwcbkwhj.supabase.co";
+const SUPABASE_KEY = "sb_publishable_WXC0WbSEvvnhcrR6-7VUSw_kABFoXYU";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+const formulario = document.getElementById("formulario");
+const mensagem = document.getElementById("mensagem");
+const botao = formulario.querySelector("button");
+
+async function verificarSessao() {
+    const { data, error } = await supabaseClient.auth.getSession();
+
+    if (error || !data.session) {
+        mensagem.textContent =
+            "Inicie sessão na sua conta antes de enviar um pedido.";
+        formulario.querySelectorAll("input, textarea, button")
+            .forEach(campo => campo.disabled = true);
+
+        const link = document.createElement("a");
+        link.href = "cliente-demo.html";
+        link.textContent = "Iniciar sessão ou criar conta";
+        mensagem.appendChild(document.createElement("br"));
+        mensagem.appendChild(link);
+        return false;
+    }
+
+    return true;
+}
+
+formulario.addEventListener("submit", async function(event) {
     event.preventDefault();
-    document.getElementById("mensagem").textContent =
-        "Demonstração: o formulário ainda não está ligado à base de dados.";
+
+    mensagem.textContent = "";
+
+    const { data: sessaoData, error: sessaoError } =
+        await supabaseClient.auth.getSession();
+
+    if (sessaoError || !sessaoData.session) {
+        mensagem.textContent =
+            "A sua sessão terminou. Inicie sessão novamente.";
+        return;
+    }
+
+    const montante = Number(formulario.montante.value);
+    const finalidade = formulario.finalidade.value.trim();
+
+    if (!Number.isFinite(montante) || montante <= 0 || !finalidade) {
+        mensagem.textContent = "Verifique os campos preenchidos.";
+        return;
+    }
+
+    botao.disabled = true;
+    botao.textContent = "A enviar...";
+
+    const pedido = {
+        user_id: sessaoData.session.user.id,
+        montant_demande: montante,
+        objet_demande: finalidade,
+        statut: "reçue"
+    };
+
+    const { error } = await supabaseClient
+        .from("demandes_financement")
+        .insert([pedido]);
+
+    botao.disabled = false;
+    botao.textContent = "Enviar candidatura";
+
+    if (error) {
+        mensagem.textContent =
+            "Não foi possível enviar o pedido: " + error.message;
+        return;
+    }
+
+    mensagem.textContent =
+        "O seu pedido foi enviado com sucesso. Aguarde a análise.";
+    formulario.reset();
 });
+
+verificarSessao();
 </script>
 
 </body>
