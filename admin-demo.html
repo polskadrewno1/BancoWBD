@@ -71,5 +71,25 @@
     © 2026 BancoWBD — Projeto demonstrativo.
 </footer>
 
-</body>
+<script>
+const SUPABASE_URL = "https://mzrxzuwtndegpwcbkwhj.supabase.co";
+
+const SUPABASE_KEY = "sb_publishable_WXC0WbSEvvnhcrR6-7VUSw_kABFoXYU";
+
+const client = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+async function verifierAdmin() {
+  const { data } = await client.auth.getSession();
+  const session = data.session;
+
+  if (!session || session.user.app_metadata.role !== "admin") {
+    window.location.href = "cliente-demo.html";
+  }
+}
+
+verifierAdmin();
+</script></body>
 </html>
