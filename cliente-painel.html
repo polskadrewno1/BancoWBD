@@ -251,7 +251,46 @@ async function carregarPedidos() {
       card,
       "Montante solicitado",
       formatarEuro(pedido.montant_demande)
-    );
+    );    if (
+      pedido.statut === "aprovada" &&
+      Number(pedido.montant_approuve) > 0
+    ) {
+      const approvalBox = document.createElement("div");
+      approvalBox.className = "info";
+      approvalBox.style.marginTop = "18px";
+
+      const approvalTitle = document.createElement("h3");
+      approvalTitle.textContent = "Financiamento aprovado";
+      approvalBox.appendChild(approvalTitle);
+
+      adicionarCampo(
+        approvalBox,
+        "Nome do cliente",
+        pedido.nome_completo
+      );
+
+      adicionarCampo(
+        approvalBox,
+        "Montante aprovado",
+        formatarEuro(pedido.montant_approuve)
+      );
+
+      const withdrawalButton = document.createElement("button");
+      withdrawalButton.type = "button";
+      withdrawalButton.textContent = "Retirada indisponível";
+      withdrawalButton.disabled = true;
+      withdrawalButton.style.opacity = "0.6";
+      withdrawalButton.style.cursor = "not-allowed";
+      approvalBox.appendChild(withdrawalButton);
+
+      const note = document.createElement("p");
+      note.className = "notice";
+      note.textContent =
+        "O montante aprovado não representa um saldo disponível. A retirada só poderá ser ativada quando os fundos forem efetivamente disponibilizados.";
+      approvalBox.appendChild(note);
+
+      card.appendChild(approvalBox);
+    }
     adicionarCampo(
       card,
       "Prazo de reembolso",
