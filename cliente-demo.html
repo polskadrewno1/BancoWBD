@@ -276,7 +276,8 @@ document.getElementById("recoveryForm")
     return;
   }
 
-      "Se a conta existir, receberá um e-mail com o link de recuperação.";
+        message.textContent =
+    "Se a conta existir, receberá um e-mail com o link de recuperação.";
 });
 
 supabaseClient.auth.onAuthStateChange((event, session) => {
