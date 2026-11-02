@@ -278,7 +278,19 @@ async function carregarPedidos() {
       card,
       "Montante solicitado",
       formatarEuro(pedido.montant_demande)
-    );
+    );    const approvedLabel = document.createElement("label");
+    approvedLabel.textContent = "Montante aprovado (€): ";
+    card.appendChild(approvedLabel);
+
+    const approvedInput = document.createElement("input");
+    approvedInput.type = "number";
+    approvedInput.min = "0.01";
+    approvedInput.step = "0.01";
+    approvedInput.placeholder = "Indique o montante aprovado";
+    approvedInput.value = pedido.montant_approuve ?? "";
+    approvedInput.style.display = "block";
+    approvedInput.style.margin = "8px 0 16px";
+    card.appendChild(approvedInput);
 
     adicionarCampo(
       card,
