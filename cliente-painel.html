@@ -62,12 +62,10 @@ button {
   font-size: 15px;
 }
 
-button:hover { background: #09264a; }
-
 .request {
   border: 1px solid #dbe3ec;
   border-radius: 9px;
-  padding: 16px;
+  padding: 18px;
   margin-top: 14px;
   overflow-wrap: anywhere;
 }
@@ -82,11 +80,6 @@ button:hover { background: #09264a; }
   border-radius: 20px;
   font-size: 13px;
   font-weight: bold;
-}
-
-#status, #requestsMessage {
-  line-height: 1.5;
-  margin-top: 15px;
 }
 
 .notice {
@@ -132,7 +125,7 @@ footer {
 
 <section class="card">
   <h2>Os meus pedidos de financiamento</h2>
-  <p>Consulte os pedidos que enviou através da sua conta.</p>
+  <p>Consulte todos os detalhes dos pedidos que enviou.</p>
 
   <div id="requestsMessage">A carregar os seus pedidos...</div>
   <div id="requestsList"></div>
@@ -161,105 +154,4 @@ const SUPABASE_KEY =
 "sb_publishable_WXC0WbSEvvnhcrR6-7VUSw_kABFoXYU";
 
 const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
-
-let currentUser = null;
-
-async function carregarSessao() {
-  const { data, error } =
-    await supabaseClient.auth.getSession();
-
-  if (error || !data.session) {
-    window.location.href = "cliente-demo.html";
-    return;
-  }
-
-  currentUser = data.session.user;
-
-  document.getElementById("userEmail").textContent =
-    currentUser.email || "E-mail não disponível";
-
-  await carregarPedidos();
-}
-
-async function carregarPedidos() {
-  const message = document.getElementById("requestsMessage");
-  const list = document.getElementById("requestsList");
-
-  message.textContent = "A carregar os seus pedidos...";
-  list.innerHTML = "";
-
-  const { data, error } = await supabaseClient
-    .from("demandes_financement")
-    .select("id, montant_demande, objet_demande, statut, date_creation")
-    .eq("user_id", currentUser.id)
-    .order("date_creation", { ascending: false });
-
-  if (error) {
-    message.textContent =
-      "Não foi possível carregar os pedidos. Tente novamente mais tarde.";
-    return;
-  }
-
-  if (!data || data.length === 0) {
-    message.textContent =
-      "Ainda não tem pedidos de financiamento registados.";
-    return;
-  }
-
-  message.textContent = "Total de pedidos: " + data.length;
-
-  data.forEach(function(pedido) {
-    const item = document.createElement("article");
-    item.className = "request";
-
-    const titulo = document.createElement("h3");
-    titulo.textContent = "Pedido de financiamento";
-
-    const valor = document.createElement("p");
-    valor.textContent =
-      "Montante solicitado: " +
-      Number(pedido.montant_demande).toLocaleString("pt-PT") +
-      " €";
-
-    const objetivo = document.createElement("p");
-    objetivo.textContent =
-      "Objetivo: " + pedido.objet_demande;
-
-    const estado = document.createElement("p");
-    estado.className = "status";
-    estado.textContent = "Estado: " + pedido.statut;
-
-    const dataPedido = document.createElement("p");
-    dataPedido.textContent =
-      "Data: " +
-      new Date(pedido.date_creation).toLocaleDateString("pt-PT");
-
-    item.append(titulo, valor, objetivo, estado, dataPedido);
-    list.appendChild(item);
-  });
-}
-
-document.getElementById("refreshButton")
-.addEventListener("click", carregarPedidos);
-
-document.getElementById("logoutButton")
-.addEventListener("click", async function() {
-  const { error } = await supabaseClient.auth.signOut();
-
-  if (error) {
-    document.getElementById("status").textContent =
-      "Não foi possível terminar a sessão.";
-    return;
-  }
-
-  window.location.href = "cliente-demo.html";
-});
-
-carregarSessao();
-</script>
-
-</body>
-</html>
+  SUPABASE
