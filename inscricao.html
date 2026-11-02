@@ -71,6 +71,24 @@
     Autorizo o contacto para efeitos de análise da candidatura.
 </label>
 
-        <label>
-            <input type="checkbox" required>
-            Li
+        <button type="submit">Enviar candidatura</button>
+
+<p id="mensagem"></p>
+</form>
+</section>
+</main>
+
+<footer>
+    © 2026 BancoWBD. Todos os direitos reservados.
+</footer>
+
+<script>
+document.getElementById("formulario").addEventListener("submit", function(event) {
+    event.preventDefault();
+    document.getElementById("mensagem").textContent =
+        "Demonstração: o formulário ainda não está ligado à base de dados.";
+});
+</script>
+
+</body>
+</html>
