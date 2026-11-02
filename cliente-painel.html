@@ -268,7 +268,14 @@ async function carregarPedidos() {
 
     const span = document.createElement("span");
     span.className = "status";
-    span.textContent = pedido.statut || "Em análise";
+    const estados = {
+  "reçue": "Recebido",
+  "aprovada": "Aprovado",
+  "recusada": "Recusado",
+  "em análise": "Em análise"
+};
+
+span.textContent = estados[pedido.statut] || pedido.statut || "Recebido";
 
     p.appendChild(strong);
     p.appendChild(span);
