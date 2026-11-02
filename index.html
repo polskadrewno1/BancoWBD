@@ -1,104 +1,379 @@
 <!DOCTYPE html>
 <html lang="pt-PT">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BancoWBD | Banca Digital</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BancoWBD | Soluções Financeiras</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f3f6fb;
+  color: #1e293b;
+  line-height: 1.6;
+}
+
+header {
+  background: white;
+  padding: 18px 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-mark {
+  background: #102b50;
+  color: white;
+  padding: 9px 15px;
+  border-radius: 9px;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.logo strong {
+  display: block;
+  color: #102b50;
+  font-size: 21px;
+}
+
+.logo small {
+  color: #64748b;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #102b50;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+nav a:hover {
+  color: #3976b8;
+}
+
+main {
+  max-width: 1150px;
+  margin: auto;
+  padding: 25px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 35px;
+  align-items: center;
+  padding: 65px 0;
+}
+
+.tag {
+  color: #5276a8;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.hero h1 {
+  color: #102b50;
+  font-size: 45px;
+  line-height: 1.2;
+  margin: 15px 0;
+}
+
+.hero p {
+  color: #64748b;
+  margin-bottom: 20px;
+}
+
+.button {
+  display: inline-block;
+  background: #17447e;
+  color: white;
+  text-decoration: none;
+  padding: 13px 22px;
+  border-radius: 8px;
+  font-weight: bold;
+  margin: 5px 5px 5px 0;
+}
+
+.button.secondary {
+  background: white;
+  color: #17447e;
+  border: 1px solid #17447e;
+}
+
+.hero-card {
+  background: linear-gradient(145deg, #10284d, #2863a4);
+  color: white;
+  padding: 40px;
+  border-radius: 18px;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 15px 35px #10284d25;
+}
+
+.hero-card h2 {
+  color: white;
+  font-size: 35px;
+}
+
+.hero-card p {
+  color: #d7e5f7;
+}
+
+.line {
+  width: 65px;
+  height: 4px;
+  background: #a9c6ec;
+  margin: 25px 0;
+}
+
+section {
+  margin-bottom: 45px;
+}
+
+section h2 {
+  color: #102b50;
+  margin-bottom: 20px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 3px 15px #10284d0d;
+}
+
+.card h3 {
+  color: #17447e;
+  margin-bottom: 12px;
+}
+
+.card p {
+  color: #64748b;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.card a {
+  color: #17447e;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.notice {
+  background: #eaf1fa;
+  padding: 25px;
+  border-radius: 12px;
+}
+
+.notice h2 {
+  margin-bottom: 10px;
+}
+
+.contact {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+}
+
+.contact p {
+  margin: 8px 0;
+}
+
+footer {
+  text-align: center;
+  background: #102b50;
+  color: white;
+  padding: 25px 15px;
+  font-size: 13px;
+}
+
+@media (max-width: 750px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav {
+    gap: 12px;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 40px 0;
+  }
+
+  .hero h1 {
+    font-size: 34px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  main {
+    padding: 18px;
+  }
+}
+</style>
 </head>
 
 <body>
 
 <header>
-    <div class="logo">
-        <span>W</span>
-        <div>
-            <strong>BancoWBD</strong>
-            <small>SOLUÇÕES FINANCEIRAS</small>
-        </div>
-    </div>
 
-    <nav>
-        <a href="#inicio">Início</a>
-        <a href="#servicos">Serviços</a>
-        <a href="#contacto">Contacto</a>
-    </nav>
+  <div class="logo">
+    <span class="logo-mark">W</span>
+    <div>
+      <strong>BancoWBD</strong>
+      <small>SOLUÇÕES FINANCEIRAS</small>
+    </div>
+  </div>
+
+  <nav>
+    <a href="#inicio">Início</a>
+    <a href="#servicos">Serviços</a>
+    <a href="inscricao.html">Financiamento</a>
+    <a href="cliente-demo.html">Área de cliente</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+
 </header>
 
 <main>
 
 <section class="hero" id="inicio">
-    <div>
-        <p class="tag">SOLUÇÕES DE FINANCIAMENTO</p>
 
-        <h1>O futuro financeiro começa com uma nova experiência.</h1>
+  <div>
+    <p class="tag">SOLUÇÕES DE FINANCIAMENTO</p>
 
-        <p>
-            Bem-vindo ao BancoWBD.
-            Conheça o nosso projeto e a sua visão de serviços financeiros digitais.
-        </p>
+    <h1>O futuro financeiro começa com uma nova experiência.</h1>
 
-        <a class="button" href="#servicos">Descobrir o projeto</a> <a class="button" href="inscricao.html">
-  Apresentar candidatura
-</a>
-    </div>
+    <p>
+      Bem-vindo ao BancoWBD.
+      Conheça o nosso projeto, consulte os serviços disponíveis
+      e acompanhe os seus pedidos através da área de cliente.
+    </p>
 
-    <div class="hero-card">
-        <h2>BancoWBD</h2>
-        <p>Modernidade. Clareza. Proximidade.</p>
-        <div class="line"></div>
-        <small>PARTICULARES E EMPRESAS</small>
-    </div>
+    <a class="button" href="inscricao.html">
+      Apresentar candidatura
+    </a>
+
+    <a class="button secondary" href="cliente-demo.html">
+      Entrar na minha conta
+    </a>
+  </div>
+
+  <div class="hero-card">
+    <h2>BancoWBD</h2>
+    <p>Modernidade. Clareza. Proximidade.</p>
+    <div class="line"></div>
+    <small>SOLUÇÕES FINANCEIRAS</small>
+  </div>
+
 </section>
 
 <section id="servicos">
-    <h2>Áreas do projeto</h2>
 
-    <div class="cards">
+  <h2>Conheça os nossos serviços</h2>
 
-        <article class="card">
-    <h3>Financiamento</h3>
-    <p>O BancoWBD disponibiliza soluções de financiamento destinadas a particulares e empresas, procurando responder às diferentes necessidades e objetivos de cada cliente.</p>
-    <p>Seja para concretizar um projeto pessoal, investir numa atividade profissional ou expandir uma empresa, poderá apresentar um pedido de financiamento.</p>
-    <p>Cada candidatura será analisada individualmente, tendo em conta os critérios de elegibilidade, a situação financeira do requerente e as condições aplicáveis.</p>
-</article>
+  <div class="cards">
 
-        <article class="card">
-            <h3>Área de cliente</h3>
-            <p>Consulte uma demonstração de uma página individual.</p>
-            <a href="cliente-demo.html">Ver demonstração</a>
-        </article>
+    <article class="card">
+      <h3>Financiamento</h3>
+      <p>
+        Consulte as informações sobre o processo de candidatura
+        e apresente um pedido para análise.
+      </p>
+      <a href="inscricao.html">Apresentar candidatura →</a>
+    </article>
 
-        <article class="card">
-            <h3>Administração</h3>
-            <p>Pré-visualização do painel administrativo.</p>
-            <a href="admin-demo.html">Ver painel</a>
-        </article>
+    <article class="card">
+      <h3>Área de cliente</h3>
+      <p>
+        Aceda à sua conta, consulte os seus pedidos
+        e acompanhe as respetivas atualizações.
+      </p>
+      <a href="cliente-demo.html">Aceder à minha conta →</a>
+    </article>
 
-    </div>
+    <article class="card">
+      <h3>Acompanhamento</h3>
+      <p>
+        Consulte o estado dos pedidos submetidos
+        através da sua área pessoal.
+      </p>
+      <a href="cliente-painel.html">Consultar área pessoal →</a>
+    </article>
+
+  </div>
+
 </section>
 
 <section class="notice">
-    <h3>Financiamento com responsabilidade</h3>
-    <p>
-        O BancoWBD disponibiliza soluções de financiamento
-        para particulares e empresas elegíveis.
-        Todas as candidaturas estão sujeitas a uma análise
-        individual, à avaliação da capacidade financeira
-        do requerente e às condições de aprovação aplicáveis.
-    </p>
+
+  <h2>Financiamento com responsabilidade</h2>
+
+  <p>
+    Todas as candidaturas estão sujeitas a uma análise individual.
+    A apresentação de um pedido não representa uma aprovação
+    nem garante a disponibilização de financiamento.
+    As condições aplicáveis devem ser comunicadas antes
+    de qualquer contratação.
+  </p>
+
 </section>
 
-<section id="contacto">
-    <h2>Fale connosco</h2>
-    <p>Email: wbdwirtschaft@gmail.com</p>
-    <p>WhatsApp: +351 964 809 733</p>
+<section id="contacto" class="contact">
+
+  <h2>Fale connosco</h2>
+
+  <p><strong>Email:</strong> wbdwirtschaft@gmail.com</p>
+
+  <p><strong>WhatsApp:</strong> +351 964 809 733</p>
+
 </section>
 
 </main>
 
 <footer>
-    © 2026 BancoWBD. Todos os direitos reservados.
+  © 2026 BancoWBD — Projeto em desenvolvimento.
 </footer>
 
 </body>
