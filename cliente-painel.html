@@ -59,4 +59,97 @@
 
     .info {
       background: #eef4fa;
-      padding: 18px;
+      padding: 18px;  </style>
+</head>
+
+<body>
+
+  <header>
+    <h2>BancoWBD</h2>
+    <p>BANCA DIGITAL | ÁREA DE CLIENTE</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <h1>Bem-vindo à sua área pessoal</h1>
+
+      <p>A sua sessão foi iniciada com sucesso.</p>
+
+      <div class="info">
+        <strong>Conta autenticada</strong>
+        <p>Endereço de e-mail:</p>
+        <p id="userEmail">A carregar...</p>
+      </div>
+
+      <p id="status"></p>
+
+      <button id="logoutButton" type="button">
+        Terminar sessão
+      </button>
+
+      <p class="notice">
+        Esta página permite testar a autenticação de utilizadores.
+        Não representa uma conta bancária real nem confirma a
+        disponibilidade de serviços financeiros.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 BancoWBD — Todos os direitos reservados.
+  </footer>
+
+  <script>
+    const SUPABASE_URL =
+      "https://mzrxzuwtndegpwcbkwhj.supabase.co";
+
+    const SUPABASE_KEY =
+      "sb_publishable_WXC0WbSEvvnhcrR6-7VUSw_kABFoXYU";
+
+    const supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+
+    async function carregarSessao() {
+      const emailElement = document.getElementById("userEmail");
+      const statusElement = document.getElementById("status");
+
+      try {
+        const { data, error } =
+          await supabaseClient.auth.getSession();
+
+        if (error || !data.session) {
+          window.location.href = "cliente-demo.html";
+          return;
+        }
+
+        emailElement.textContent =
+          data.session.user.email || "E-mail não disponível";
+
+      } catch (error) {
+        statusElement.textContent =
+          "Não foi possível verificar a sessão.";
+      }
+    }
+
+    document.getElementById("logoutButton")
+      .addEventListener("click", async function () {
+
+        const { error } =
+          await supabaseClient.auth.signOut();
+
+        if (error) {
+          document.getElementById("status").textContent =
+            "Não foi possível terminar a sessão.";
+          return;
+        }
+
+        window.location.href = "cliente-demo.html";
+      });
+
+    carregarSessao();
+  </script>
+
+</body>
+</html>
