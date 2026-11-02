@@ -388,7 +388,10 @@ card.appendChild(fundsLabel);
         return;
       }
 
-      const updateValues = { statut: select.value };
+      const updateValues = {
+  statut: select.value,
+  fundos_disponibilizados: fundsCheckbox.checked
+};
 
       if (approvedText !== "") {
         updateValues.montant_approuve = approvedAmount;
