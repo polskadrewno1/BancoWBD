@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BancoWBD | Candidatura</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+        <span>W</span>
+        <div>
+            <strong>BancoWBD</strong>
+            <small>SOLUÇÕES FINANCEIRAS</small>
+        </div>
+    </div>
+</header>
+
+<main>
+<section class="notice">
+    <h1>Pedido de financiamento</h1>
+    <p>
+        Preencha os campos abaixo para apresentar a sua candidatura.
+        O envio do formulário não representa uma aprovação
+        nem garante a concessão de financiamento.
+    </p>
+</section>
+
+<section class="card">
+    <form id="formulario">
+
+        <label>Nome completo</label>
+        <input type="text" name="nome" required>
+
+        <label>Idade</label>
+        <input type="number" name="idade" min="18" required>
+
+        <label>País</label>
+        <input type="text" name="pais" required>
+
+        <label>Cidade</label>
+        <input type="text" name="cidade" required>
+
+        <label>Profissão</label>
+        <input type="text" name="profissao" required>
+
+        <label>Rendimento mensal aproximado</label>
+        <input type="number" name="rendimento" min="0" required>
+
+        <label>Montante de financiamento pretendido (€)</label>
+        <input type="number" name="montante" min="1" required>
+
+        <label>Prazo de reembolso pretendido</label>
+        <select name="prazo" required>
+            <option value="">Selecione</option>
+            <option>6 meses</option>
+            <option>12 meses</option>
+            <option>24 meses</option>
+            <option>36 meses</option>
+            <option>48 meses</option>
+            <option>60 meses</option>
+        </select>
+
+        <label>Endereço de e-mail</label>
+        <input type="email" name="email" required>
+
+        <label>Contacto telefónico / WhatsApp</label>
+        <input type="tel" name="telefone" required>
+
+        <label>Finalidade do financiamento</label>
+        <textarea name="finalidade" rows="4" required></textarea>
+
+        <p class="notice">
+            Por motivos de segurança, não introduza palavras-passe,
+            dados bancários, números de cartão ou documentos de identificação
+            neste formulário.
+        </p>
+
+        <label>
+            <input type="checkbox" required>
+            Li
