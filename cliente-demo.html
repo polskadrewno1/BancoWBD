@@ -154,9 +154,9 @@ document.getElementById("registerForm")
   button.disabled = false;
 
   if (error) {
-    message.textContent = "Não foi possível criar a conta. Verifique os dados.";
-    return;
-  }
+  message.textContent = "Erro Supabase: " + error.message;
+  return;
+}
 
   if (data.session) {
     message.textContent = "Conta criada com sucesso! A entrar...";
