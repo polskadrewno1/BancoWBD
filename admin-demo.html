@@ -1,95 +1,377 @@
 <!DOCTYPE html>
 <html lang="pt-PT">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BancoWBD | Painel demonstrativo</title>
-   <link rel="stylesheet" href="style.css"> <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Administração | BancoWBD</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+header {
+  background: #102b50;
+  color: white;
+  padding: 22px 15px;
+  text-align: center;
+}
+
+header h2 { margin: 0 0 8px; }
+
+main {
+  max-width: 950px;
+  margin: 25px auto;
+  padding: 0 15px;
+}
+
+.card {
+  background: white;
+  padding: 22px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 3px 12px rgba(0,0,0,.06);
+}
+
+h1, h2, h3 { color: #12365e; }
+
+button, select {
+  padding: 11px 14px;
+  border-radius: 7px;
+  border: 1px solid #cbd5e1;
+  margin-top: 8px;
+}
+
+button {
+  background: #123f70;
+  color: white;
+  cursor: pointer;
+  border: none;
+}
+
+.request {
+  border: 1px solid #dbe3ec;
+  border-radius: 9px;
+  padding: 18px;
+  margin-top: 16px;
+  overflow-wrap: anywhere;
+}
+
+.request p { line-height: 1.5; }
+
+.status {
+  display: inline-block;
+  padding: 6px 10px;
+  background: #eaf2ff;
+  color: #123f70;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.message {
+  padding: 12px;
+  background: #edf4fb;
+  border-radius: 8px;
+  overflow-wrap: anywhere;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #64748b;
+  font-size: 12px;
+}
+</style>
 </head>
+
 <body>
 
 <header>
-    <div class="logo">
-        <span>W</span>
-        <div>
-            <strong>BancoWBD</strong>
-            <small>BANCA DIGITAL</small>
-        </div>
-    </div>
-    <nav>
-        <a href="index.html">Página inicial</a>
-        <a href="cliente-demo.html">Área de cliente</a>
-    </nav>
+  <h2>BancoWBD</h2>
+  <p>PAINEL DE ADMINISTRAÇÃO</p>
 </header>
 
 <main>
-    <section class="hero">
-        <div>
-            <p class="tag">PAINEL DE ADMINISTRAÇÃO</p>
-            <h1>Gestão demonstrativa</h1>
-            <p>Bem-vindo ao painel de administração do BancoWBD..</p>
-        </div>
-        <div class="hero-card">
-            <h2>BancoWBD</h2>
-            <p>Painel de demonstração</p>
-            <div class="line"></div>
-            <small>SEM OPERAÇÕES REAIS</small>
-        </div>
-    </section>
 
-    <section class="notice">
-    <h3>Painel de Administração BancoWBD</h3>
-    <p>Bem-vindo ao centro de gestão BancoWBD. Consulte os pedidos recebidos, acompanhe a sua evolução e organize as informações dos clientes num único espaço.</p>
+<section class="card">
+  <h1>Gestão de pedidos</h1>
+  <p>Consulte e acompanhe os pedidos de financiamento recebidos.</p>
+
+  <p id="adminEmail">A verificar a sessão...</p>
+  <p id="message" class="message">A carregar...</p>
+
+  <button id="refreshButton" type="button">
+    Atualizar pedidos
+  </button>
+
+  <button id="logoutButton" type="button">
+    Terminar sessão
+  </button>
 </section>
 
-    <section>
-        <h2>Exemplos de pedidos</h2>
+<section class="card">
+  <h2>Pedidos de financiamento</h2>
+  <div id="requestsList"></div>
+</section>
 
-        <div class="cards">
-            <article class="card">
-                <h3>Pedido DEMO-001</h3>
-                <p>Estado: Em análise (exemplo)</p>
-                <p>Montante ilustrativo: 5 000 €</p>
-            </article>
-
-            <article class="card">
-                <h3>Pedido DEMO-002</h3>
-                <p>Estado: Pendente (exemplo)</p>
-                <p>Montante ilustrativo: 8 500 €</p>
-            </article>
-
-            <article class="card">
-                <h3>Pedido DEMO-003</h3>
-                <p>Estado: Concluído (exemplo)</p>
-                <p>Montante ilustrativo: 3 000 €</p>
-            </article>
-        </div>
-    </section>
 </main>
 
 <footer>
-    © 2026 BancoWBD — Projeto demonstrativo.
+  © 2026 BancoWBD — Projeto em desenvolvimento.
 </footer>
 
 <script>
-const SUPABASE_URL = "https://mzrxzuwtndegpwcbkwhj.supabase.co";
+const SUPABASE_URL =
+"https://mzrxzuwtndegpwcbkwhj.supabase.co";
 
-const SUPABASE_KEY = "sb_publishable_WXC0WbSEvvnhcrR6-7VUSw_kABFoXYU";
+const SUPABASE_KEY =
+"sb_publishable_WXC0WbSEvvnhcrR6-7VUSw_kABFoXYU";
 
-const client = supabase.createClient(
+const client = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
 
-async function verifierAdmin() {
-  const { data } = await client.auth.getSession();
-  const session = data.session;
+const message = document.getElementById("message");
+const requestsList = document.getElementById("requestsList");
+const adminEmail = document.getElementById("adminEmail");
 
-  if (!session || session.user.app_metadata.role !== "admin") {
-    window.location.href = "cliente-demo.html";
-  }
+let adminUser = null;
+
+const estados = {
+  "reçue": "Recebido",
+  "Recebido": "Recebido",
+  "em análise": "Em análise",
+  "Em análise": "Em análise",
+  "aprovada": "Aprovado",
+  "Aprovado": "Aprovado",
+  "recusada": "Recusado",
+  "Recusado": "Recusado"
+};
+
+function adicionarCampo(container, label, value) {
+  const p = document.createElement("p");
+  const strong = document.createElement("strong");
+
+  strong.textContent = label + ": ";
+  p.appendChild(strong);
+
+  p.appendChild(document.createTextNode(
+    value === null || value === undefined || value === ""
+      ? "Não indicado"
+      : String(value)
+  ));
+
+  container.appendChild(p);
 }
 
-verifierAdmin();
-</script></body>
+function formatarEuro(value) {
+  if (value === null || value === undefined || value === "") {
+    return "Não indicado";
+  }
+
+  return Number(value).toLocaleString("pt-PT", {
+    style: "currency",
+    currency: "EUR"
+  });
+}
+
+async function verificarAdmin() {
+  const { data, error } = await client.auth.getSession();
+
+  if (error || !data.session) {
+    window.location.href = "cliente-demo.html";
+    return;
+  }
+
+  adminUser = data.session.user;
+
+  if (adminUser.app_metadata.role !== "admin") {
+    alert("Acesso reservado à administração.");
+    window.location.href = "cliente-demo.html";
+    return;
+  }
+
+  adminEmail.textContent =
+    "Administrador autenticado: " + adminUser.email;
+
+  await carregarPedidos();
+}
+
+async function carregarPedidos() {
+  message.textContent = "A carregar os pedidos...";
+  requestsList.replaceChildren();
+
+  const { data, error } = await client
+    .from("demandes_financement")
+    .select(`
+      id,
+      nome_completo,
+      idade,
+      pais,
+      cidade,
+      profissao,
+      rendimento_mensal,
+      montant_demande,
+      prazo_reembolso,
+      email_contacto,
+      telefone,
+      objet_demande,
+      statut,
+      date_creation
+    `)
+    .order("date_creation", { ascending: false });
+
+  if (error) {
+    message.textContent =
+      "Erro ao carregar os pedidos: " + error.message;
+    return;
+  }
+
+  if (!data || data.length === 0) {
+    message.textContent = "Ainda não existem pedidos registados.";
+    return;
+  }
+
+  message.textContent = "Total de pedidos: " + data.length;
+
+  data.forEach((pedido, index) => {
+    const card = document.createElement("article");
+    card.className = "request";
+
+    const title = document.createElement("h3");
+    title.textContent = "Pedido " + (index + 1);
+    card.appendChild(title);
+
+    adicionarCampo(card, "Nome completo", pedido.nome_completo);
+    adicionarCampo(card, "Idade", pedido.idade);
+    adicionarCampo(card, "País", pedido.pais);
+    adicionarCampo(card, "Cidade", pedido.cidade);
+    adicionarCampo(card, "Profissão", pedido.profissao);
+
+    adicionarCampo(
+      card,
+      "Rendimento mensal",
+      formatarEuro(pedido.rendimento_mensal)
+    );
+
+    adicionarCampo(
+      card,
+      "Montante solicitado",
+      formatarEuro(pedido.montant_demande)
+    );
+
+    adicionarCampo(
+      card,
+      "Prazo de reembolso",
+      pedido.prazo_reembolso
+        ? pedido.prazo_reembolso + " meses"
+        : "Não indicado"
+    );
+
+    adicionarCampo(card, "E-mail de contacto", pedido.email_contacto);
+    adicionarCampo(card, "Telefone / WhatsApp", pedido.telefone);
+    adicionarCampo(card, "Finalidade", pedido.objet_demande);
+
+    const statusLine = document.createElement("p");
+    const statusLabel = document.createElement("strong");
+    statusLabel.textContent = "Estado: ";
+
+    const statusValue = document.createElement("span");
+    statusValue.className = "status";
+    statusValue.textContent =
+      estados[pedido.statut] || pedido.statut || "Recebido";
+
+    statusLine.appendChild(statusLabel);
+    statusLine.appendChild(statusValue);
+    card.appendChild(statusLine);
+
+    const date = pedido.date_creation
+      ? new Date(pedido.date_creation).toLocaleDateString("pt-PT")
+      : "Não indicada";
+
+    adicionarCampo(card, "Data do pedido", date);
+
+    const label = document.createElement("label");
+    label.textContent = "Alterar estado: ";
+    label.htmlFor = "estado-" + pedido.id;
+    card.appendChild(label);
+
+    const select = document.createElement("select");
+    select.id = "estado-" + pedido.id;
+
+    const options = [
+      ["reçue", "Recebido"],
+      ["em análise", "Em análise"],
+      ["aprovada", "Aprovado"],
+      ["recusada", "Recusado"]
+    ];
+
+    options.forEach(([value, text]) => {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = text;
+
+      if (pedido.statut === value) {
+        option.selected = true;
+      }
+
+      select.appendChild(option);
+    });
+
+    card.appendChild(select);
+
+    const saveButton = document.createElement("button");
+    saveButton.type = "button";
+    saveButton.textContent = "Guardar estado";
+
+    saveButton.addEventListener("click", async () => {
+      saveButton.disabled = true;
+      saveButton.textContent = "A guardar...";
+
+      const { error: updateError } = await client
+        .from("demandes_financement")
+        .update({ statut: select.value })
+        .eq("id", pedido.id);
+
+      saveButton.disabled = false;
+      saveButton.textContent = "Guardar estado";
+
+      if (updateError) {
+        alert("Não foi possível atualizar: " + updateError.message);
+        return;
+      }
+
+      alert("Estado atualizado com sucesso.");
+      await carregarPedidos();
+    });
+
+    card.appendChild(saveButton);
+    requestsList.appendChild(card);
+  });
+}
+
+document.getElementById("refreshButton").addEventListener(
+  "click",
+  carregarPedidos
+);
+
+document.getElementById("logoutButton").addEventListener(
+  "click",
+  async () => {
+    await client.auth.signOut();
+    window.location.href = "cliente-demo.html";
+  }
+);
+
+verificarAdmin();
+</script>
+
+</body>
 </html>
