@@ -286,8 +286,8 @@ async function carregarPedidos() {
       const note = document.createElement("p");
       note.className = "notice";
       note.textContent =
-        "O montante aprovado não representa um saldo disponível. A retirada só poderá ser ativada quando os fundos forem efetivamente disponibilizados.";
-      approvalBox.appendChild(note);
+  "Para disponibilizar o montante aprovado na sua conta, deverá concluir o processo de ativação dos fundos. Após a disponibilização efetiva do saldo, poderá aceder à funcionalidade de levantamento.";
+approvalBox.appendChild(note);
 
       card.appendChild(approvalBox);
     }
