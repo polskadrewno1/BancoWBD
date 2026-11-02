@@ -183,18 +183,30 @@ function formatarEuro(value) {
 }
 
 async function verificarAdmin() {
-  const { data, error } = await client.auth.getSession();
+  message.textContent = "A verificar a conta de administrador...";
 
-  if (error || !data.session) {
-    window.location.href = "cliente-demo.html";
+  const { data: refreshData, error: refreshError } =
+    await client.auth.refreshSession();
+
+  if (refreshError || !refreshData.session) {
+    message.textContent =
+      "Sessão não encontrada. Inicie sessão novamente.";
     return;
   }
 
-  adminUser = data.session.user;
+  const { data, error } = await client.auth.getUser();
 
-  if (adminUser.app_metadata.role !== "admin") {
-    alert("Acesso reservado à administração.");
-    window.location.href = "cliente-demo.html";
+  if (error || !data.user) {
+    message.textContent =
+      "Não foi possível verificar a conta.";
+    return;
+  }
+
+  adminUser = data.user;
+
+  if (adminUser.app_metadata?.role !== "admin") {
+    message.textContent =
+      "Acesso reservado à administração.";
     return;
   }
 
