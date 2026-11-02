@@ -6,7 +6,6 @@
     <title>BancoWBD | Pedido de financiamento</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <header>
@@ -23,36 +22,57 @@
     <section class="notice">
         <h1>Pedido de financiamento</h1>
         <p>
-            Preencha os campos para apresentar o seu pedido.
-            O envio não representa uma aprovação nem garante
-            a concessão de financiamento.
+            Preencha cuidadosamente os seus dados.
+            O envio deste formulário não representa aprovação
+            nem garante a concessão de financiamento.
         </p>
     </section>
 
     <section class="card">
         <form id="formulario">
 
+            <label>Nome completo</label>
+            <input type="text" name="nome_completo" required maxlength="150">
+
+            <label>Idade</label>
+            <input type="number" name="idade" min="18" max="120" required>
+
+            <label>País</label>
+            <input type="text" name="pais" required maxlength="100">
+
+            <label>Cidade</label>
+            <input type="text" name="cidade" required maxlength="100">
+
+            <label>Profissão</label>
+            <input type="text" name="profissao" required maxlength="150">
+
+            <label>Rendimento mensal aproximado (€)</label>
+            <input type="number" name="rendimento_mensal"
+                   min="0" step="0.01" required>
+
             <label>Montante pretendido (€)</label>
-            <input
-                type="number"
-                name="montante"
-                min="1"
-                step="0.01"
-                required
-            >
+            <input type="number" name="montante"
+                   min="1" step="0.01" required>
+
+            <label>Prazo de reembolso (meses)</label>
+            <input type="number" name="prazo_reembolso"
+                   min="1" max="600" required>
+
+            <label>Endereço de e-mail</label>
+            <input type="email" name="email_contacto" required maxlength="200">
+
+            <label>Contacto telefónico / WhatsApp</label>
+            <input type="tel" name="telefone" required maxlength="40">
 
             <label>Finalidade do financiamento</label>
-            <textarea
-                name="finalidade"
-                rows="5"
-                placeholder="Descreva a finalidade do financiamento..."
-                required
-            ></textarea>
+            <textarea name="finalidade" rows="5"
+                placeholder="Explique para que pretende utilizar o financiamento..."
+                required maxlength="3000"></textarea>
 
-            <label>
+            <label class="consentimento">
                 <input type="checkbox" name="consentimento" required>
-                Autorizo o tratamento destes dados para análise
-                do meu pedido.
+                Autorizo o tratamento dos meus dados para análise
+                do meu pedido de financiamento.
             </label>
 
             <button type="submit">Enviar candidatura</button>
@@ -87,39 +107,50 @@ async function verificarSessao() {
     if (error || !data.session) {
         mensagem.textContent =
             "Inicie sessão na sua conta antes de enviar um pedido.";
+
         formulario.querySelectorAll("input, textarea, button")
             .forEach(campo => campo.disabled = true);
 
         const link = document.createElement("a");
         link.href = "cliente-demo.html";
         link.textContent = "Iniciar sessão ou criar conta";
+
         mensagem.appendChild(document.createElement("br"));
         mensagem.appendChild(link);
-        return false;
+        return;
     }
-
-    return true;
 }
 
 formulario.addEventListener("submit", async function(event) {
     event.preventDefault();
-
     mensagem.textContent = "";
 
-    const { data: sessaoData, error: sessaoError } =
+    const { data, error: erroSessao } =
         await supabaseClient.auth.getSession();
 
-    if (sessaoError || !sessaoData.session) {
+    if (erroSessao || !data.session) {
         mensagem.textContent =
             "A sua sessão terminou. Inicie sessão novamente.";
         return;
     }
 
-    const montante = Number(formulario.montante.value);
-    const finalidade = formulario.finalidade.value.trim();
+    const f = formulario;
 
-    if (!Number.isFinite(montante) || montante <= 0 || !finalidade) {
-        mensagem.textContent = "Verifique os campos preenchidos.";
+    const idade = Number(f.idade.value);
+    const rendimento = Number(f.rendimento_mensal.value);
+    const montante = Number(f.montante.value);
+    const prazo = Number(f.prazo_reembolso.value);
+    const finalidade = f.finalidade.value.trim();
+
+    if (
+        idade < 18 ||
+        rendimento < 0 ||
+        montante <= 0 ||
+        prazo < 1 ||
+        !finalidade
+    ) {
+        mensagem.textContent =
+            "Verifique os valores introduzidos nos campos.";
         return;
     }
 
@@ -127,8 +158,17 @@ formulario.addEventListener("submit", async function(event) {
     botao.textContent = "A enviar...";
 
     const pedido = {
-        user_id: sessaoData.session.user.id,
+        user_id: data.session.user.id,
+        nome_completo: f.nome_completo.value.trim(),
+        idade: idade,
+        pais: f.pais.value.trim(),
+        cidade: f.cidade.value.trim(),
+        profissao: f.profissao.value.trim(),
+        rendimento_mensal: rendimento,
         montant_demande: montante,
+        prazo_reembolso: prazo,
+        email_contacto: f.email_contacto.value.trim(),
+        telefone: f.telefone.value.trim(),
         objet_demande: finalidade,
         statut: "reçue"
     };
@@ -147,7 +187,8 @@ formulario.addEventListener("submit", async function(event) {
     }
 
     mensagem.textContent =
-        "O seu pedido foi enviado com sucesso. Aguarde a análise.";
+        "O seu pedido foi recebido com sucesso. Aguarde o contacto da nossa equipa.";
+
     formulario.reset();
 });
 
