@@ -260,8 +260,8 @@ document.getElementById("loginForm")
   if (user?.app_metadata?.role === "admin") {
     window.location.href = "admin-demo.html";
   } else {
-    window.location.href = "cliente-painel.html";
-  }
+  window.location.href = nextPage;
+}
 });
 
 document.getElementById("forgotLink")
