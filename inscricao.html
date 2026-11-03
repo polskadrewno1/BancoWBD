@@ -102,22 +102,16 @@ const mensagem = document.getElementById("mensagem");
 const botao = formulario.querySelector("button");
 
 async function verificarSessao() {
-    const { data, error } = await supabaseClient.auth.getSession();
+    const { data, error } =
+        await supabaseClient.auth.getSession();
 
     if (error || !data.session) {
         mensagem.textContent =
-            "Inicie sessão na sua conta antes de enviar um pedido.";
+            "Para apresentar uma candidatura, deve primeiro criar uma conta ou iniciar sessão.";
 
-        formulario.querySelectorAll("input, textarea, button")
-            .forEach(campo => campo.disabled = true);
-
-        const link = document.createElement("a");
-        link.href = "cliente-demo.html";
-        link.textContent = "Iniciar sessão ou criar conta";
-
-        mensagem.appendChild(document.createElement("br"));
-        mensagem.appendChild(link);
-        return;
+        window.location.replace(
+            "cliente-demo.html?redirect=inscricao.html"
+        );
     }
 }
 
