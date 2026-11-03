@@ -131,7 +131,7 @@ const botao = formulario.querySelector("button");
     botao.textContent = "A enviar...";
 
     const pedido = {
-        user_id: data.session.user.id,
+        user_id: null,
         nome_completo: f.nome_completo.value.trim(),
         idade: idade,
         pais: f.pais.value.trim(),
