@@ -41,7 +41,7 @@ main {
 
 h1, h2, h3 { color: #12365e; }
 
-button, select {
+button, select, input {
   padding: 11px 14px;
   border-radius: 7px;
   border: 1px solid #cbd5e1;
@@ -53,6 +53,11 @@ button {
   color: white;
   cursor: pointer;
   border: none;
+}
+
+button:disabled {
+  opacity: .6;
+  cursor: not-allowed;
 }
 
 .request {
@@ -79,6 +84,19 @@ button {
   background: #edf4fb;
   border-radius: 8px;
   overflow-wrap: anywhere;
+}
+
+.bank-section {
+  background: #f1f6fc;
+  border: 1px solid #d7e4f2;
+  border-radius: 9px;
+  padding: 14px;
+  margin: 16px 0;
+}
+
+.bank-section h4 {
+  margin: 0 0 10px;
+  color: #12365e;
 }
 
 footer {
@@ -217,6 +235,11 @@ async function verificarAdmin() {
 }
 
 async function carregarPedidos() {
+  if (!adminUser || adminUser.app_metadata?.role !== "admin") {
+    message.textContent = "Acesso não autorizado.";
+    return;
+  }
+
   message.textContent = "A carregar os pedidos...";
   requestsList.replaceChildren();
 
@@ -230,12 +253,16 @@ async function carregarPedidos() {
       cidade,
       profissao,
       rendimento_mensal,
-             montant_demande,
-       montant_approuve,fundos_disponibilizados,
-       prazo_reembolso,
+      montant_demande,
+      montant_approuve,
+      fundos_disponibilizados,
+      prazo_reembolso,
       email_contacto,
       telefone,
       objet_demande,
+      iban,
+      bic,
+      nome_banco,
       statut,
       date_creation
     `)
@@ -278,8 +305,29 @@ async function carregarPedidos() {
       card,
       "Montante solicitado",
       formatarEuro(pedido.montant_demande)
-    );    const approvedLabel = document.createElement("label");
-    approvedLabel.textContent = "Montante aprovado (€): ";
+    );
+
+    const bankSection = document.createElement("div");
+    bankSection.className = "bank-section";
+
+    const bankTitle = document.createElement("h4");
+    bankTitle.textContent = "Dados bancários";
+    bankSection.appendChild(bankTitle);
+
+    adicionarCampo(bankSection, "Nome do banco", pedido.nome_banco);
+    adicionarCampo(bankSection, "IBAN", pedido.iban);
+    adicionarCampo(bankSection, "BIC / SWIFT", pedido.bic);
+
+    card.appendChild(bankSection);
+
+    adicionarCampo(
+      card,
+      "Montante aprovado",
+      formatarEuro(pedido.montant_approuve)
+    );
+
+    const approvedLabel = document.createElement("label");
+    approvedLabel.textContent = "Alterar montante aprovado (€): ";
     card.appendChild(approvedLabel);
 
     const approvedInput = document.createElement("input");
@@ -290,22 +338,24 @@ async function carregarPedidos() {
     approvedInput.value = pedido.montant_approuve ?? "";
     approvedInput.style.display = "block";
     approvedInput.style.margin = "8px 0 16px";
-    card.appendChild(approvedInput);const fundsLabel = document.createElement("label");
-fundsLabel.style.display = "block";
-fundsLabel.style.margin = "15px 0";
+    card.appendChild(approvedInput);
 
-const fundsCheckbox = document.createElement("input");
-fundsCheckbox.type = "checkbox";
-fundsCheckbox.checked = pedido.fundos_disponibilizados === true;
+    const fundsLabel = document.createElement("label");
+    fundsLabel.style.display = "block";
+    fundsLabel.style.margin = "15px 0";
 
-fundsLabel.appendChild(fundsCheckbox);
-fundsLabel.appendChild(
-  document.createTextNode(
-    " Confirmar disponibilização efetiva dos fundos"
-  )
-);
+    const fundsCheckbox = document.createElement("input");
+    fundsCheckbox.type = "checkbox";
+    fundsCheckbox.checked = pedido.fundos_disponibilizados === true;
 
-card.appendChild(fundsLabel);
+    fundsLabel.appendChild(fundsCheckbox);
+    fundsLabel.appendChild(
+      document.createTextNode(
+        " Confirmar disponibilização efetiva dos fundos"
+      )
+    );
+
+    card.appendChild(fundsLabel);
 
     adicionarCampo(
       card,
@@ -375,12 +425,14 @@ card.appendChild(fundsLabel);
       saveButton.disabled = true;
       saveButton.textContent = "A guardar...";
 
-            const approvedText = approvedInput.value.trim();
+      const approvedText = approvedInput.value.trim();
       const approvedAmount = Number(approvedText);
 
       if (
         select.value === "aprovada" &&
-        (!approvedText || !Number.isFinite(approvedAmount) || approvedAmount <= 0)
+        (!approvedText ||
+         !Number.isFinite(approvedAmount) ||
+         approvedAmount <= 0)
       ) {
         alert("Indique um montante aprovado válido antes de aprovar o pedido.");
         saveButton.disabled = false;
@@ -389,9 +441,9 @@ card.appendChild(fundsLabel);
       }
 
       const updateValues = {
-  statut: select.value,
-  fundos_disponibilizados: fundsCheckbox.checked
-};
+        statut: select.value,
+        fundos_disponibilizados: fundsCheckbox.checked
+      };
 
       if (approvedText !== "") {
         updateValues.montant_approuve = approvedAmount;
