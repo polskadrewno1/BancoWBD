@@ -231,7 +231,7 @@ document.getElementById("loginForm")
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
 
-  const { error } = await supabaseClient.auth.signInWithPassword({
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
     email,
     password
   });
@@ -244,7 +244,13 @@ document.getElementById("loginForm")
     return;
   }
 
-  window.location.href = "cliente-painel.html";
+  const user = data.user;
+
+  if (user?.app_metadata?.role === "admin") {
+    window.location.href = "admin-demo.html";
+  } else {
+    window.location.href = "cliente-painel.html";
+  }
 });
 
 document.getElementById("forgotLink")
