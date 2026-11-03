@@ -105,14 +105,7 @@ const botao = formulario.querySelector("button");
     event.preventDefault();
     mensagem.textContent = "";
 
-    const { data, error: erroSessao } =
-        await supabaseClient.auth.getSession();
-
-    if (erroSessao || !data.session) {
-        mensagem.textContent =
-            "A sua sessão terminou. Inicie sessão novamente.";
-        return;
-    }
+    
 
     const f = formulario;
 
