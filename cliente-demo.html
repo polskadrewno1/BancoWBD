@@ -175,7 +175,18 @@ const recoveryArea = document.getElementById("recoveryArea");
 const newPasswordArea = document.getElementById("newPasswordArea");
 
 const recoveryUrl =
-"https://polskadrewno1.github.io/BancoWBD/cliente-demo.html";
+"https://polskadrewno1.github.io/BancoWBD/cliente-demo.html"; const requestedRedirect =
+  new URLSearchParams(window.location.search).get("redirect");
+
+const nextPage =
+  requestedRedirect === "inscricao.html"
+    ? "inscricao.html"
+    : "cliente-painel.html";
+
+const signupRedirectUrl =
+  requestedRedirect === "inscricao.html"
+    ? "https://polskadrewno1.github.io/BancoWBD/cliente-demo.html?redirect=inscricao.html"
+    : recoveryUrl;
 
 function showArea(area) {
   normalArea.classList.add("hidden");
