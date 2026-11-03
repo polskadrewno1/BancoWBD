@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>BancoWBD | Pedido de financiamento</title>
-
     <link rel="stylesheet" href="style.css">
 
     <style>
@@ -57,6 +55,16 @@
             margin-bottom: 25px;
         }
 
+        .pedido-section {
+            margin-top: 30px;
+            padding-top: 24px;
+            border-top: 1px solid #e3e9f1;
+        }
+
+        .pedido-section h2 {
+            margin-bottom: 8px;
+        }
+
         .pedido-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -67,6 +75,7 @@
             display: flex;
             flex-direction: column;
             gap: 7px;
+            min-width: 0;
         }
 
         .campo.full {
@@ -82,6 +91,7 @@
         .campo input,
         .campo textarea {
             width: 100%;
+            box-sizing: border-box;
             padding: 13px 14px;
             border: 1px solid #dce4ef;
             border-radius: 9px;
@@ -202,9 +212,7 @@
 
     <section class="pedido-intro">
         <span class="tag">BANCO WBD · FINANCIAMENTO</span>
-
         <h1>Pedido de financiamento</h1>
-
         <p>
             Preencha cuidadosamente os seus dados para apresentar
             o seu pedido à nossa equipa.
@@ -214,9 +222,8 @@
     <section class="pedido-card">
 
         <h2>Informações do requerente</h2>
-
         <p class="pedido-description">
-            Todos os campos assinalados devem ser preenchidos.
+            Preencha os campos necessários para apresentar o seu pedido.
         </p>
 
         <form id="formulario">
@@ -225,135 +232,127 @@
 
                 <div class="campo full">
                     <label for="nome_completo">Nome completo</label>
-                    <input type="text"
-                           id="nome_completo"
-                           name="nome_completo"
-                           required
-                           maxlength="150">
+                    <input type="text" id="nome_completo"
+                           name="nome_completo" required maxlength="150">
                 </div>
 
                 <div class="campo">
                     <label for="idade">Idade</label>
-                    <input type="number"
-                           id="idade"
-                           name="idade"
-                           min="18"
-                           max="120"
-                           required>
+                    <input type="number" id="idade"
+                           name="idade" min="18" max="120" required>
                 </div>
 
                 <div class="campo">
                     <label for="pais">País</label>
-                    <input type="text"
-                           id="pais"
-                           name="pais"
-                           required
-                           maxlength="100">
+                    <input type="text" id="pais"
+                           name="pais" required maxlength="100">
                 </div>
 
                 <div class="campo">
                     <label for="cidade">Cidade</label>
-                    <input type="text"
-                           id="cidade"
-                           name="cidade"
-                           required
-                           maxlength="100">
+                    <input type="text" id="cidade"
+                           name="cidade" required maxlength="100">
                 </div>
 
                 <div class="campo">
                     <label for="profissao">Profissão</label>
-                    <input type="text"
-                           id="profissao"
-                           name="profissao"
-                           required
-                           maxlength="150">
+                    <input type="text" id="profissao"
+                           name="profissao" required maxlength="150">
                 </div>
 
                 <div class="campo">
                     <label for="rendimento_mensal">
                         Rendimento mensal aproximado (€)
                     </label>
-
-                    <input type="number"
-                           id="rendimento_mensal"
-                           name="rendimento_mensal"
-                           min="0"
-                           step="0.01"
-                           required>
+                    <input type="number" id="rendimento_mensal"
+                           name="rendimento_mensal" min="0"
+                           step="0.01" required>
                 </div>
 
                 <div class="campo">
-                    <label for="montante">
-                        Montante pretendido (€)
-                    </label>
-
-                    <input type="number"
-                           id="montante"
-                           name="montante"
-                           min="1"
-                           step="0.01"
-                           required>
+                    <label for="montante">Montante pretendido (€)</label>
+                    <input type="number" id="montante"
+                           name="montante" min="1"
+                           step="0.01" required>
                 </div>
 
                 <div class="campo">
                     <label for="prazo_reembolso">
                         Prazo de reembolso (meses)
                     </label>
-
-                    <input type="number"
-                           id="prazo_reembolso"
-                           name="prazo_reembolso"
-                           min="1"
-                           max="600"
-                           required>
+                    <input type="number" id="prazo_reembolso"
+                           name="prazo_reembolso" min="1"
+                           max="600" required>
                 </div>
 
                 <div class="campo">
-                    <label for="email_contacto">
-                        Endereço de e-mail
-                    </label>
-
-                    <input type="email"
-                           id="email_contacto"
-                           name="email_contacto"
-                           required
-                           maxlength="200">
+                    <label for="email_contacto">Endereço de e-mail</label>
+                    <input type="email" id="email_contacto"
+                           name="email_contacto" required maxlength="200">
                 </div>
 
                 <div class="campo">
                     <label for="telefone">
                         Contacto telefónico / WhatsApp
                     </label>
-
-                    <input type="tel"
-                           id="telefone"
-                           name="telefone"
-                           required
-                           maxlength="40">
+                    <input type="tel" id="telefone"
+                           name="telefone" required maxlength="40">
                 </div>
 
                 <div class="campo full">
                     <label for="finalidade">
                         Finalidade do financiamento
                     </label>
-
-                    <textarea id="finalidade"
-                              name="finalidade"
+                    <textarea id="finalidade" name="finalidade"
                               placeholder="Explique para que pretende utilizar o financiamento..."
-                              required
-                              maxlength="3000"></textarea>
+                              required maxlength="3000"></textarea>
                 </div>
 
             </div>
 
-            <label class="consentimento">
-                <input type="checkbox"
-                       name="consentimento"
-                       required>
+            <div class="pedido-section">
+                <h2>Dados bancários</h2>
+                <p class="pedido-description">
+                    Indique os dados da sua conta bancária. Estes dados
+                    serão utilizados apenas para os fins devidamente
+                    informados e autorizados.
+                </p>
 
+                <div class="pedido-grid">
+
+                    <div class="campo full">
+                        <label for="iban">IBAN</label>
+                        <input type="text" id="iban" name="iban"
+                               placeholder="Ex.: PT50..."
+                               autocomplete="off"
+                               maxlength="34" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="bic">BIC / SWIFT</label>
+                        <input type="text" id="bic" name="bic"
+                               placeholder="Código BIC / SWIFT"
+                               autocomplete="off"
+                               maxlength="11" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="nome_banco">Nome do banco</label>
+                        <input type="text" id="nome_banco"
+                               name="nome_banco"
+                               placeholder="Nome da instituição bancária"
+                               maxlength="150" required>
+                    </div>
+
+                </div>
+            </div>
+
+            <label class="consentimento">
+                <input type="checkbox" name="consentimento" required>
                 <span>
-                    Autorizo o tratamento dos meus dados para análise
-                    do meu pedido de financiamento.
+                    Autorizo o tratamento dos meus dados pessoais e
+                    bancários para os fins descritos na informação
+                    de privacidade da entidade responsável.
                 </span>
             </label>
 
@@ -401,7 +400,6 @@ const botao = formulario.querySelector("button");
 formulario.addEventListener("submit", async function(event) {
 
     event.preventDefault();
-
     mensagem.textContent = "";
 
     if (!formulario.reportValidity()) {
@@ -410,11 +408,23 @@ formulario.addEventListener("submit", async function(event) {
 
     const f = formulario;
 
-    const idade = Number(f.idade.value);
-    const rendimento = Number(f.rendimento_mensal.value);
-    const montante = Number(f.montante.value);
-    const prazo = Number(f.prazo_reembolso.value);
-    const finalidade = f.finalidade.value.trim();
+    const idade = Number(f.elements["idade"].value);
+    const rendimento = Number(f.elements["rendimento_mensal"].value);
+    const montante = Number(f.elements["montante"].value);
+    const prazo = Number(f.elements["prazo_reembolso"].value);
+
+    const iban = f.elements["iban"].value
+        .replace(/\s+/g, "").toUpperCase();
+
+    const bic = f.elements["bic"].value
+        .trim().toUpperCase();
+
+    const nomeBanco = f.elements["nome_banco"].value.trim();
+
+    const finalidade = f.elements["finalidade"].value.trim();
+
+    const ibanValido = /^[A-Z]{2}[0-9]{2}[A-Z0-9]{11,30}$/.test(iban);
+    const bicValido = /^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?$/.test(bic);
 
     if (
         idade < 18 ||
@@ -424,11 +434,14 @@ formulario.addEventListener("submit", async function(event) {
         !Number.isFinite(montante) ||
         prazo < 1 ||
         !Number.isInteger(prazo) ||
+        !ibanValido ||
+        !bicValido ||
+        !nomeBanco ||
         !finalidade
     ) {
         mensagem.textContent =
-            "Verifique os valores introduzidos nos campos.";
-
+            "Verifique os valores e os dados bancários introduzidos.";
+        mensagem.style.color = "#b42318";
         return;
     }
 
@@ -448,17 +461,20 @@ formulario.addEventListener("submit", async function(event) {
 
         const pedido = {
             user_id: utilizador ? utilizador.id : null,
-            nome_completo: f.nome_completo.value.trim(),
+            nome_completo: f.elements["nome_completo"].value.trim(),
             idade: idade,
-            pais: f.pais.value.trim(),
-            cidade: f.cidade.value.trim(),
-            profissao: f.profissao.value.trim(),
+            pais: f.elements["pais"].value.trim(),
+            cidade: f.elements["cidade"].value.trim(),
+            profissao: f.elements["profissao"].value.trim(),
             rendimento_mensal: rendimento,
             montant_demande: montante,
             prazo_reembolso: prazo,
-            email_contacto: f.email_contacto.value.trim(),
-            telefone: f.telefone.value.trim(),
+            email_contacto: f.elements["email_contacto"].value.trim(),
+            telefone: f.elements["telefone"].value.trim(),
             objet_demande: finalidade,
+            iban: iban,
+            bic: bic,
+            nome_banco: nomeBanco,
             statut: "reçue"
         };
 
@@ -474,7 +490,6 @@ formulario.addEventListener("submit", async function(event) {
             "O seu pedido foi recebido com sucesso. Aguarde o contacto da nossa equipa.";
 
         mensagem.style.color = "#187344";
-
         formulario.reset();
 
     } catch (error) {
