@@ -224,8 +224,8 @@ document.getElementById("registerForm")
   }
 
   if (data.session) {
-    window.location.href = "cliente-painel.html";
-  } else {
+  window.location.href = nextPage;
+} else {
     message.textContent =
       "Consulte o seu e-mail para confirmar a conta.";
   }
