@@ -3,9 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>BancoWBD | Pedido de financiamento</title>
+
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        .pedido-page {
+            max-width: 850px;
+            margin: 35px auto;
+            padding: 0 18px;
+        }
+
+        .pedido-intro {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .pedido-intro .tag {
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .pedido-intro h1 {
+            color: #10284d;
+            font-size: 34px;
+            margin-bottom: 12px;
+        }
+
+        .pedido-intro p {
+            color: #607089;
+            max-width: 650px;
+            margin: auto;
+        }
+
+        .pedido-card {
+            background: #ffffff;
+            padding: 35px;
+            border-radius: 18px;
+            border: 1px solid #e3e9f1;
+            box-shadow: 0 12px 35px rgba(16, 40, 77, 0.08);
+        }
+
+        .pedido-card h2 {
+            color: #10284d;
+            font-size: 21px;
+            margin-bottom: 8px;
+        }
+
+        .pedido-description {
+            color: #73829a;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .pedido-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .campo {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .campo.full {
+            grid-column: 1 / -1;
+        }
+
+        .campo label {
+            color: #263b59;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .campo input,
+        .campo textarea {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #dce4ef;
+            border-radius: 9px;
+            background: #fbfcfe;
+            color: #17243a;
+            font-family: Arial, sans-serif;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .campo input:focus,
+        .campo textarea:focus {
+            border-color: #2863a4;
+            box-shadow: 0 0 0 3px rgba(40, 99, 164, 0.10);
+            background: #ffffff;
+        }
+
+        .campo textarea {
+            resize: vertical;
+            min-height: 130px;
+        }
+
+        .consentimento {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 25px 0;
+            color: #607089;
+            font-size: 13px;
+        }
+
+        .consentimento input {
+            margin-top: 4px;
+        }
+
+        .pedido-botao {
+            width: 100%;
+            border: none;
+            border-radius: 9px;
+            padding: 15px;
+            background: #17447e;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .pedido-botao:hover {
+            background: #10284d;
+        }
+
+        .pedido-botao:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #mensagem {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .pedido-aviso {
+            margin-top: 22px;
+            padding: 15px;
+            border-radius: 10px;
+            background: #f1f5fb;
+            color: #607089;
+            font-size: 13px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px 15px;
+            color: #73829a;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            .pedido-page {
+                margin: 20px auto;
+                padding: 0 12px;
+            }
+
+            .pedido-intro h1 {
+                font-size: 27px;
+            }
+
+            .pedido-card {
+                padding: 22px 17px;
+            }
+
+            .pedido-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .campo.full {
+                grid-column: auto;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
 <header>
@@ -18,68 +198,182 @@
     </div>
 </header>
 
-<main>
-    <section class="notice">
+<main class="pedido-page">
+
+    <section class="pedido-intro">
+        <span class="tag">BANCO WBD · FINANCIAMENTO</span>
+
         <h1>Pedido de financiamento</h1>
+
         <p>
-            Preencha cuidadosamente os seus dados.
-            O envio deste formulário não representa aprovação
-            nem garante a concessão de financiamento.
+            Preencha cuidadosamente os seus dados para apresentar
+            o seu pedido à nossa equipa.
         </p>
     </section>
 
-    <section class="card">
+    <section class="pedido-card">
+
+        <h2>Informações do requerente</h2>
+
+        <p class="pedido-description">
+            Todos os campos assinalados devem ser preenchidos.
+        </p>
+
         <form id="formulario">
 
-            <label>Nome completo</label>
-            <input type="text" name="nome_completo" required maxlength="150">
+            <div class="pedido-grid">
 
-            <label>Idade</label>
-            <input type="number" name="idade" min="18" max="120" required>
+                <div class="campo full">
+                    <label for="nome_completo">Nome completo</label>
+                    <input type="text"
+                           id="nome_completo"
+                           name="nome_completo"
+                           required
+                           maxlength="150">
+                </div>
 
-            <label>País</label>
-            <input type="text" name="pais" required maxlength="100">
+                <div class="campo">
+                    <label for="idade">Idade</label>
+                    <input type="number"
+                           id="idade"
+                           name="idade"
+                           min="18"
+                           max="120"
+                           required>
+                </div>
 
-            <label>Cidade</label>
-            <input type="text" name="cidade" required maxlength="100">
+                <div class="campo">
+                    <label for="pais">País</label>
+                    <input type="text"
+                           id="pais"
+                           name="pais"
+                           required
+                           maxlength="100">
+                </div>
 
-            <label>Profissão</label>
-            <input type="text" name="profissao" required maxlength="150">
+                <div class="campo">
+                    <label for="cidade">Cidade</label>
+                    <input type="text"
+                           id="cidade"
+                           name="cidade"
+                           required
+                           maxlength="100">
+                </div>
 
-            <label>Rendimento mensal aproximado (€)</label>
-            <input type="number" name="rendimento_mensal"
-                   min="0" step="0.01" required>
+                <div class="campo">
+                    <label for="profissao">Profissão</label>
+                    <input type="text"
+                           id="profissao"
+                           name="profissao"
+                           required
+                           maxlength="150">
+                </div>
 
-            <label>Montante pretendido (€)</label>
-            <input type="number" name="montante"
-                   min="1" step="0.01" required>
+                <div class="campo">
+                    <label for="rendimento_mensal">
+                        Rendimento mensal aproximado (€)
+                    </label>
 
-            <label>Prazo de reembolso (meses)</label>
-            <input type="number" name="prazo_reembolso"
-                   min="1" max="600" required>
+                    <input type="number"
+                           id="rendimento_mensal"
+                           name="rendimento_mensal"
+                           min="0"
+                           step="0.01"
+                           required>
+                </div>
 
-            <label>Endereço de e-mail</label>
-            <input type="email" name="email_contacto" required maxlength="200">
+                <div class="campo">
+                    <label for="montante">
+                        Montante pretendido (€)
+                    </label>
 
-            <label>Contacto telefónico / WhatsApp</label>
-            <input type="tel" name="telefone" required maxlength="40">
+                    <input type="number"
+                           id="montante"
+                           name="montante"
+                           min="1"
+                           step="0.01"
+                           required>
+                </div>
 
-            <label>Finalidade do financiamento</label>
-            <textarea name="finalidade" rows="5"
-                placeholder="Explique para que pretende utilizar o financiamento..."
-                required maxlength="3000"></textarea>
+                <div class="campo">
+                    <label for="prazo_reembolso">
+                        Prazo de reembolso (meses)
+                    </label>
+
+                    <input type="number"
+                           id="prazo_reembolso"
+                           name="prazo_reembolso"
+                           min="1"
+                           max="600"
+                           required>
+                </div>
+
+                <div class="campo">
+                    <label for="email_contacto">
+                        Endereço de e-mail
+                    </label>
+
+                    <input type="email"
+                           id="email_contacto"
+                           name="email_contacto"
+                           required
+                           maxlength="200">
+                </div>
+
+                <div class="campo">
+                    <label for="telefone">
+                        Contacto telefónico / WhatsApp
+                    </label>
+
+                    <input type="tel"
+                           id="telefone"
+                           name="telefone"
+                           required
+                           maxlength="40">
+                </div>
+
+                <div class="campo full">
+                    <label for="finalidade">
+                        Finalidade do financiamento
+                    </label>
+
+                    <textarea id="finalidade"
+                              name="finalidade"
+                              placeholder="Explique para que pretende utilizar o financiamento..."
+                              required
+                              maxlength="3000"></textarea>
+                </div>
+
+            </div>
 
             <label class="consentimento">
-                <input type="checkbox" name="consentimento" required>
-                Autorizo o tratamento dos meus dados para análise
-                do meu pedido de financiamento.
+                <input type="checkbox"
+                       name="consentimento"
+                       required>
+
+                <span>
+                    Autorizo o tratamento dos meus dados para análise
+                    do meu pedido de financiamento.
+                </span>
             </label>
 
-            <button type="submit">Enviar candidatura</button>
+            <button class="pedido-botao" type="submit">
+                Enviar candidatura
+            </button>
 
-            <p id="mensagem" role="status"></p>
+            <p id="mensagem" role="status" aria-live="polite"></p>
+
         </form>
+
+        <div class="pedido-aviso">
+            <strong>Informação importante:</strong>
+            O envio deste formulário não representa aprovação
+            nem garante a concessão de financiamento.
+            Qualquer decisão dependerá da análise do pedido.
+        </div>
+
     </section>
+
 </main>
 
 <footer>
@@ -89,8 +383,11 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-const SUPABASE_URL = "https://mzrxzuwtndegpwcbkwhj.supabase.co";
-const SUPABASE_KEY = "sb_publishable_WXC0WbSEvvnhcrR6-7VUSw_kABFoXYU";
+const SUPABASE_URL =
+    "https://mzrxzuwtndegpwcbkwhj.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_WXC0WbSEvvnhcrR6-7VUSw_kABFoXYU";
 
 const supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
@@ -101,11 +398,15 @@ const formulario = document.getElementById("formulario");
 const mensagem = document.getElementById("mensagem");
 const botao = formulario.querySelector("button");
 
+formulario.addEventListener("submit", async function(event) {
 
     event.preventDefault();
+
     mensagem.textContent = "";
 
-    
+    if (!formulario.reportValidity()) {
+        return;
+    }
 
     const f = formulario;
 
@@ -118,54 +419,81 @@ const botao = formulario.querySelector("button");
     if (
         idade < 18 ||
         rendimento < 0 ||
+        !Number.isFinite(rendimento) ||
         montante <= 0 ||
+        !Number.isFinite(montante) ||
         prazo < 1 ||
+        !Number.isInteger(prazo) ||
         !finalidade
     ) {
         mensagem.textContent =
             "Verifique os valores introduzidos nos campos.";
+
         return;
     }
 
     botao.disabled = true;
     botao.textContent = "A enviar...";
 
-    const pedido = {
-        user_id: null,
-        nome_completo: f.nome_completo.value.trim(),
-        idade: idade,
-        pais: f.pais.value.trim(),
-        cidade: f.cidade.value.trim(),
-        profissao: f.profissao.value.trim(),
-        rendimento_mensal: rendimento,
-        montant_demande: montante,
-        prazo_reembolso: prazo,
-        email_contacto: f.email_contacto.value.trim(),
-        telefone: f.telefone.value.trim(),
-        objet_demande: finalidade,
-        statut: "reçue"
-    };
+    try {
 
-    const { error } = await supabaseClient
-        .from("demandes_financement")
-        .insert([pedido]);
+        const { data: sessaoData, error: erroSessao } =
+            await supabaseClient.auth.getSession();
 
-    botao.disabled = false;
-    botao.textContent = "Enviar candidatura";
+        if (erroSessao) {
+            throw erroSessao;
+        }
 
-    if (error) {
+        const utilizador = sessaoData.session?.user ?? null;
+
+        const pedido = {
+            user_id: utilizador ? utilizador.id : null,
+            nome_completo: f.nome_completo.value.trim(),
+            idade: idade,
+            pais: f.pais.value.trim(),
+            cidade: f.cidade.value.trim(),
+            profissao: f.profissao.value.trim(),
+            rendimento_mensal: rendimento,
+            montant_demande: montante,
+            prazo_reembolso: prazo,
+            email_contacto: f.email_contacto.value.trim(),
+            telefone: f.telefone.value.trim(),
+            objet_demande: finalidade,
+            statut: "reçue"
+        };
+
+        const { error } = await supabaseClient
+            .from("demandes_financement")
+            .insert([pedido]);
+
+        if (error) {
+            throw error;
+        }
+
         mensagem.textContent =
-            "Não foi possível enviar o pedido: " + error.message;
-        return;
+            "O seu pedido foi recebido com sucesso. Aguarde o contacto da nossa equipa.";
+
+        mensagem.style.color = "#187344";
+
+        formulario.reset();
+
+    } catch (error) {
+
+        console.error("Erro ao enviar candidatura:", error);
+
+        mensagem.textContent =
+            "Não foi possível enviar o pedido. Verifique a sua ligação e tente novamente.";
+
+        mensagem.style.color = "#b42318";
+
+    } finally {
+
+        botao.disabled = false;
+        botao.textContent = "Enviar candidatura";
+
     }
 
-    mensagem.textContent =
-        "O seu pedido foi recebido com sucesso. Aguarde o contacto da nossa equipa.";
-
-    formulario.reset();
 });
-
-verificarSessao();
 </script>
 
 </body>
