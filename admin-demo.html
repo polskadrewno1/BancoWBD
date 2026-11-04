@@ -254,7 +254,7 @@ async function verificarAdmin() {
 
   adminEmail.textContent =
     "Administrador autenticado: " + adminUser.email;
-
+document.getElementById("inviteSection").style.display = "block";
   await carregarPedidos();
 }
 
