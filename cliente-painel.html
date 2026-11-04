@@ -317,7 +317,7 @@ async function carregarPedidos() {
 
       note.textContent =
         pedido.fundos_disponibilizados === true
-          ? "A disponibilização dos fundos foi confirmada. A funcionalidade de levantamento ainda não está disponível."
+          ? "Para disponibilizar o montante aprovado na sua conta, deverá concluir o processo de ativação dos fundos. Após a disponibilização efetiva do saldo, poderá aceder à funcionalidade de levantamento."
           : "O montante foi aprovado, mas a sua disponibilização efetiva ainda está pendente.";
 
       approvalBox.appendChild(note);
