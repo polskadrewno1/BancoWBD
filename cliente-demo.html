@@ -298,8 +298,18 @@ document.getElementById("recoveryForm")
     "Se a conta existir, receberá um e-mail com o link de recuperação.";
 });
 
+const invitationType =
+  new URLSearchParams(window.location.hash.substring(1)).get("type") ||
+  new URLSearchParams(window.location.search).get("type");
+
+let passwordFormShown = false;
+
 supabaseClient.auth.onAuthStateChange((event, session) => {
-  if (event === "PASSWORD_RECOVERY") {
+  if (
+    event === "PASSWORD_RECOVERY" ||
+    (invitationType === "invite" && session && !passwordFormShown)
+  ) {
+    passwordFormShown = true;
     showArea(newPasswordArea);
     message.textContent = "Introduza a sua nova palavra-passe.";
   }
