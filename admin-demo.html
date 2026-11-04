@@ -132,7 +132,31 @@ footer {
     Terminar sessão
   </button>
 </section>
+<section class="card" id="inviteSection" style="display:none;">
+  <h2>Criar conta de cliente</h2>
 
+  <label for="clientName">Nome completo</label>
+  <input
+    id="clientName"
+    type="text"
+    placeholder="Nome completo"
+    style="display:block;width:100%;"
+  >
+
+  <label for="clientEmail">Endereço de e-mail</label>
+  <input
+    id="clientEmail"
+    type="email"
+    placeholder="E-mail do cliente"
+    style="display:block;width:100%;"
+  >
+
+  <button id="inviteButton" type="button">
+    Enviar convite
+  </button>
+
+  <p id="inviteMessage" class="message"></p>
+</section>
 <section class="card">
   <h2>Pedidos de financiamento</h2>
   <div id="requestsList"></div>
