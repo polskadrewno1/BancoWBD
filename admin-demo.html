@@ -507,7 +507,48 @@ document.getElementById("logoutButton").addEventListener(
     window.location.href = "cliente-demo.html";
   }
 );
+const inviteButton = document.getElementById("inviteButton");
 
+inviteButton.addEventListener("click", async () => {
+  const name = document.getElementById("clientName").value.trim();
+  const email = document.getElementById("clientEmail").value.trim();
+  const inviteMessage = document.getElementById("inviteMessage");
+
+  if (!adminUser || adminUser.app_metadata?.role !== "admin") {
+    inviteMessage.textContent = "Acesso não autorizado.";
+    return;
+  }
+
+  if (!name || !email) {
+    inviteMessage.textContent = "Preencha o nome e o e-mail.";
+    return;
+  }
+
+  inviteButton.disabled = true;
+  inviteMessage.textContent = "A enviar o convite...";
+
+  const { data, error } = await client.functions.invoke(
+    "admin-create-user",
+    {
+      body: { name, email }
+    }
+  );
+
+  inviteButton.disabled = false;
+
+  if (error || data?.error) {
+    inviteMessage.textContent =
+      "Erro ao enviar o convite: " +
+      (data?.error || error.message);
+    return;
+  }
+
+  inviteMessage.textContent =
+    "Convite enviado com sucesso.";
+
+  document.getElementById("clientName").value = "";
+  document.getElementById("clientEmail").value = "";
+});
 verificarAdmin();
 </script>
 
