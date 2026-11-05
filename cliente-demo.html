@@ -215,8 +215,9 @@ document.getElementById("registerForm")
   message.textContent = "A criar a sua conta...";
 
   const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("registerEmail").value.trim();
-  const password = document.getElementById("registerPassword").value;
+const whatsapp = document.getElementById("whatsapp").value.trim();
+const email = document.getElementById("registerEmail").value.trim();
+const password = document.getElementById("registerPassword").value;
 
   const { data, error } = await supabaseClient.auth.signUp({
     email,
