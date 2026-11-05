@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Área de Cliente | BancoWBD</title>
+<title>Área de Cliente | Demonstração Financeira</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
@@ -25,6 +25,15 @@ header {
 
 header h2 { margin: 0 0 8px; }
 header p { margin: 0; font-size: 13px; }
+
+.demo-label {
+  background: #fff3cd;
+  color: #664d03;
+  padding: 10px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+}
 
 main {
   max-width: 850px;
@@ -54,10 +63,11 @@ button {
   background: #123f70;
   color: white;
   border: 0;
-  padding: 12px 18px;
+  padding: 13px 18px;
   border-radius: 7px;
   cursor: pointer;
-  margin-top: 12px;
+  margin: 8px 5px 0 0;
+  font-weight: bold;
 }
 
 button:disabled {
@@ -91,11 +101,95 @@ button:disabled {
   line-height: 1.6;
 }
 
+.approved-card {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 4px 18px rgba(0,0,0,.08);
+  margin-bottom: 20px;
+}
+
+.approved-card h1 {
+  color: #12365e;
+  margin-top: 0;
+}
+
+.balance-box {
+  background: #102b50;
+  color: white;
+  border-radius: 13px;
+  padding: 25px 20px;
+  margin: 20px 0;
+}
+
+.balance-box small {
+  font-size: 13px;
+  opacity: .85;
+}
+
+.balance-box h2 {
+  color: white;
+  font-size: 32px;
+  margin: 12px 0;
+}
+
+.account-line {
+  padding: 13px 0;
+  border-bottom: 1px solid #e2e8f0;
+  overflow-wrap: anywhere;
+}
+
+.account-line strong {
+  display: block;
+  color: #64748b;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.action-buttons button {
+  flex: 1;
+  min-height: 50px;
+  margin: 0;
+}
+
+.btn-info {
+  background: #e7edf5;
+  color: #12365e;
+}
+
+.hidden { display: none !important; }
+
+.panel {
+  background: white;
+  padding: 22px;
+  border-radius: 12px;
+  margin-top: 18px;
+  box-shadow: 0 3px 12px rgba(0,0,0,.06);
+}
+
+.panel h2 { margin-top: 0; }
+
 footer {
   text-align: center;
   padding: 20px;
   color: #64748b;
   font-size: 12px;
+}
+
+@media(max-width:480px) {
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .balance-box h2 {
+    font-size: 27px;
+  }
 }
 </style>
 </head>
@@ -103,15 +197,18 @@ footer {
 <body>
 
 <header>
-  <h2>BancoWBD</h2>
-  <p>SOLUÇÕES FINANCEIRAS | ÁREA DE CLIENTE</p>
+  <h2>Área de Cliente</h2>
+  <p>ESPAÇO FINANCEIRO — DEMONSTRAÇÃO</p>
 </header>
+
+<div class="demo-label">
+  AMBIENTE DE DEMONSTRAÇÃO — NÃO É UMA INSTITUIÇÃO BANCÁRIA
+</div>
 
 <main>
 
 <section class="card">
   <h1>Bem-vindo à sua área pessoal</h1>
-  <p>A sua sessão foi iniciada com sucesso.</p>
 
   <div class="info">
     <strong>Conta autenticada</strong>
@@ -126,14 +223,101 @@ footer {
   </button>
 </section>
 
-<section class="card">
+<!-- NOVA PÁGINA PARA FINANCIAMENTO APROVADO -->
+
+<section id="approvedDashboard" class="hidden">
+
+  <div class="approved-card">
+
+    <h1>O meu espaço financeiro</h1>
+
+    <p id="welcomeName"></p>
+
+    <div class="account-line">
+      <strong>TITULAR</strong>
+      <span id="clientName"></span>
+    </div>
+
+    <div class="account-line">
+      <strong>IBAN REGISTADO</strong>
+      <span id="clientIban"></span>
+    </div>
+
+    <div class="balance-box">
+      <small>MONTANTE APROVADO</small>
+      <h2 id="approvedAmount"></h2>
+      <span>Estado: Aprovado</span>
+    </div>
+
+    <p class="notice">
+      A aprovação do financiamento não significa que a transferência
+      bancária já tenha sido efetuada.
+    </p>
+
+    <div class="action-buttons">
+
+      <button id="withdrawButton" type="button">
+        RETIRAR
+      </button>
+
+      <button id="informationButton"
+              class="btn-info"
+              type="button">
+        INFORMAÇÕES
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- CONTEÚDO DO BOTÃO RETIRAR -->
+
+  <div id="withdrawPanel" class="panel hidden">
+
+    <h2>Retirar</h2>
+
+    <p>
+      A aprovação do financiamento não confirma a receção dos fundos.
+      Para verificar a existência e a disponibilidade de uma transferência,
+      contacte diretamente a sua instituição bancária através dos
+      respetivos canais oficiais.
+    </p>
+
+    <button type="button" class="backButton">
+      Voltar
+    </button>
+
+  </div>
+
+  <!-- CONTEÚDO DO BOTÃO INFORMAÇÕES -->
+
+  <div id="informationPanel" class="panel hidden">
+
+    <h2>Informações do financiamento</h2>
+
+    <div id="approvedDetails"></div>
+
+    <button type="button" class="backButton">
+      Voltar
+    </button>
+
+  </div>
+
+</section>
+
+<!-- APRESENTAÇÃO DOS OUTROS ESTATUTOS -->
+
+<section id="normalDashboard" class="card">
+
   <h2>Os meus pedidos de financiamento</h2>
+
   <p>Consulte todos os detalhes dos pedidos que enviou.</p>
 
   <div id="requestsMessage">A carregar os seus pedidos...</div>
+
   <div id="requestsList"></div>
 
-    <button
+  <button
     type="button"
     onclick="window.location.href='inscricao.html?source=client'">
     Nova solicitação de financiamento
@@ -142,25 +326,28 @@ footer {
   <button id="refreshButton" type="button">
     Atualizar pedidos
   </button>
+
 </section>
 
 <p class="notice">
-  As informações apresentadas correspondem aos pedidos registados na plataforma.
-  A apresentação de um pedido não representa uma aprovação de financiamento.
+  As informações apresentadas correspondem aos pedidos registados
+  na plataforma. A apresentação de um pedido não representa uma
+  aprovação de financiamento.
 </p>
 
 </main>
 
 <footer>
-  © 2026 BancoWBD — Projeto em desenvolvimento.
+  © 2026 — Projeto de demonstração financeira.
 </footer>
 
 <script>
+
 const SUPABASE_URL =
 "https://mzrxzuwtndegpwcbkwhj.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_WXC0WbSEvvnhcrR6-7VUSw_kABFoXYU";
+"sb_publishable_WXC0wBSEvvnhcrR6-7VUSw_kABFoXYU";
 
 const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
@@ -172,13 +359,33 @@ const statusElement = document.getElementById("status");
 const requestsMessage = document.getElementById("requestsMessage");
 const requestsList = document.getElementById("requestsList");
 
+const approvedDashboard =
+document.getElementById("approvedDashboard");
+
+const normalDashboard =
+document.getElementById("normalDashboard");
+
+const withdrawPanel =
+document.getElementById("withdrawPanel");
+
+const informationPanel =
+document.getElementById("informationPanel");
+
+const approvedDetails =
+document.getElementById("approvedDetails");
+
 let currentUser = null;
 
+let approvedRequest = null;
+
 function adicionarCampo(container, label, value) {
+
   const p = document.createElement("p");
+
   const strong = document.createElement("strong");
 
   strong.textContent = label + ": ";
+
   p.appendChild(strong);
 
   p.appendChild(document.createTextNode(
@@ -191,6 +398,7 @@ function adicionarCampo(container, label, value) {
 }
 
 function formatarEuro(value) {
+
   if (value === null || value === undefined || value === "") {
     return "Não indicado";
   }
@@ -201,10 +409,184 @@ function formatarEuro(value) {
   });
 }
 
+function mostrarPainel(nome) {
+
+  withdrawPanel.classList.add("hidden");
+  informationPanel.classList.add("hidden");
+
+  if (nome === "withdraw") {
+    withdrawPanel.classList.remove("hidden");
+  }
+
+  if (nome === "information") {
+    informationPanel.classList.remove("hidden");
+  }
+}
+
+function voltarInicio() {
+
+  withdrawPanel.classList.add("hidden");
+  informationPanel.classList.add("hidden");
+}
+
+document.getElementById("withdrawButton")
+.addEventListener("click", () => {
+  mostrarPainel("withdraw");
+});
+
+document.getElementById("informationButton")
+.addEventListener("click", () => {
+  mostrarPainel("information");
+});
+
+document.querySelectorAll(".backButton")
+.forEach(button => {
+  button.addEventListener("click", voltarInicio);
+});
+
+function mostrarFinanciamentoAprovado(pedido) {
+
+  approvedRequest = pedido;
+
+  normalDashboard.classList.add("hidden");
+  approvedDashboard.classList.remove("hidden");
+
+  document.getElementById("welcomeName").textContent =
+    "Bem-vindo, " + (pedido.nome_completo || "");
+
+  document.getElementById("clientName").textContent =
+    pedido.nome_completo || "Não indicado";
+
+  document.getElementById("clientIban").textContent =
+    pedido.iban || "Não indicado";
+
+  document.getElementById("approvedAmount").textContent =
+    formatarEuro(pedido.montant_approuve);
+
+  approvedDetails.replaceChildren();
+
+  adicionarCampo(
+    approvedDetails,
+    "Nome completo",
+    pedido.nome_completo
+  );
+
+  adicionarCampo(
+    approvedDetails,
+    "Idade",
+    pedido.idade
+  );
+
+  adicionarCampo(
+    approvedDetails,
+    "País",
+    pedido.pais
+  );
+
+  adicionarCampo(
+    approvedDetails,
+    "Cidade",
+    pedido.cidade
+  );
+
+  adicionarCampo(
+    approvedDetails,
+    "Profissão",
+    pedido.profissao
+  );
+
+  adicionarCampo(
+    approvedDetails,
+    "Rendimento mensal aproximado",
+    formatarEuro(pedido.rendimento_mensal)
+  );
+
+  adicionarCampo(
+    approvedDetails,
+    "Montante solicitado",
+    formatarEuro(pedido.montant_demande)
+  );
+
+  adicionarCampo(
+    approvedDetails,
+    "Montante aprovado",
+    formatarEuro(pedido.montant_approuve)
+  );
+
+  adicionarCampo(
+    approvedDetails,
+    "IBAN",
+    pedido.iban
+  );
+
+  adicionarCampo(
+    approvedDetails,
+    "BIC",
+    pedido.bic
+  );
+
+  adicionarCampo(
+    approvedDetails,
+    "Nome do banco",
+    pedido.nome_banco
+  );
+
+  adicionarCampo(
+    approvedDetails,
+    "Prazo de reembolso",
+    pedido.prazo_reembolso
+      ? pedido.prazo_reembolso + " meses"
+      : "Não indicado"
+  );
+
+  adicionarCampo(
+    approvedDetails,
+    "E-mail de contacto",
+    pedido.email_contacto
+  );
+
+  adicionarCampo(
+    approvedDetails,
+    "Telefone / WhatsApp",
+    pedido.telefone
+  );
+
+  adicionarCampo(
+    approvedDetails,
+    "Finalidade",
+    pedido.objet_demande
+  );
+
+  adicionarCampo(
+    approvedDetails,
+    "Estado",
+    "Aprovado"
+  );
+
+  adicionarCampo(
+    approvedDetails,
+    "Data do pedido",
+    pedido.date_creation
+      ? new Date(pedido.date_creation).toLocaleDateString("pt-PT")
+      : "Não indicada"
+  );
+
+  adicionarCampo(
+    approvedDetails,
+    "Disponibilidade dos fundos",
+    pedido.fundos_disponibilizados === true
+      ? "Confirmada no registo"
+      : "Pendente de confirmação"
+  );
+}
+
 async function carregarPedidos() {
+
   if (!currentUser) return;
 
-  requestsMessage.textContent = "A carregar os seus pedidos...";
+  requestsMessage.textContent =
+    "A carregar os seus pedidos...";
+
   requestsList.replaceChildren();
 
   const { data, error } = await supabaseClient
@@ -225,31 +607,59 @@ async function carregarPedidos() {
       telefone,
       objet_demande,
       statut,
-      date_creation
+      date_creation,
+      iban,
+      bic,
+      nome_banco
     `)
     .eq("user_id", currentUser.id)
     .order("date_creation", { ascending: false });
 
   if (error) {
+
     requestsMessage.textContent =
       "Não foi possível carregar os pedidos. " + error.message;
+
     return;
   }
 
   if (!data || data.length === 0) {
-    requestsMessage.textContent = "Ainda não tem pedidos registados.";
+
+    requestsMessage.textContent =
+      "Ainda não tem pedidos registados.";
+
     return;
   }
+
+  const pedidoAprovado = data.find(pedido =>
+    pedido.statut === "aprovada" &&
+    Number(pedido.montant_approuve) > 0
+  );
+
+  if (pedidoAprovado) {
+
+    mostrarFinanciamentoAprovado(pedidoAprovado);
+
+    return;
+  }
+
+  approvedDashboard.classList.add("hidden");
+  normalDashboard.classList.remove("hidden");
 
   requestsMessage.textContent =
     "Total de pedidos: " + data.length;
 
   data.forEach((pedido, index) => {
+
     const card = document.createElement("div");
+
     card.className = "request";
 
     const title = document.createElement("h3");
-    title.textContent = "Pedido de financiamento " + (index + 1);
+
+    title.textContent =
+      "Pedido de financiamento " + (index + 1);
+
     card.appendChild(title);
 
     adicionarCampo(card, "Nome completo", pedido.nome_completo);
@@ -270,139 +680,61 @@ async function carregarPedidos() {
       formatarEuro(pedido.montant_demande)
     );
 
-    if (
-      pedido.statut === "aprovada" &&
-      Number(pedido.montant_approuve) > 0
-    ) {
-      const approvalBox = document.createElement("div");
-      approvalBox.className = "info";
-      approvalBox.style.marginTop = "18px";
-
-      const approvalTitle = document.createElement("h3");
-      approvalTitle.textContent = "Financiamento aprovado";
-      approvalBox.appendChild(approvalTitle);
-
-      adicionarCampo(
-        approvalBox,
-        "Nome do cliente",
-        pedido.nome_completo
-      );
-
-      adicionarCampo(
-        approvalBox,
-        "Montante aprovado",
-        formatarEuro(pedido.montant_approuve)
-      );
-
-      const fundsStatus = document.createElement("p");
-      fundsStatus.style.fontWeight = "bold";
-
-      if (pedido.fundos_disponibilizados === true) {
-        fundsStatus.textContent =
-          "Disponibilidade dos fundos: Confirmada";
-        fundsStatus.style.color = "#15803d";
-      } else {
-        fundsStatus.textContent =
-          "Disponibilidade dos fundos: Pendente";
-        fundsStatus.style.color = "#b45309";
-      }
-
-      approvalBox.appendChild(fundsStatus);
-
-      const withdrawalButton = document.createElement("button");
-      withdrawalButton.type = "button";
-      withdrawalButton.textContent = "Retirada";
-      withdrawalButton.disabled = true;
-      withdrawalButton.style.opacity = "0.6";
-      withdrawalButton.style.cursor = "not-allowed";
-
-      approvalBox.appendChild(withdrawalButton);
-
-      const note = document.createElement("p");
-      note.className = "notice";
-
-      note.textContent =
-        pedido.fundos_disponibilizados === true
-          ? "Para disponibilizar o montante aprovado na sua conta, deverá concluir o processo de ativação dos fundos. Após a disponibilização efetiva do saldo, poderá aceder à funcionalidade de levantamento."
-          : "O montante foi aprovado, mas a sua disponibilização efetiva ainda está pendente.";
-
-      approvalBox.appendChild(note);
-      card.appendChild(approvalBox);
-    }
+    adicionarCampo(
+      card,
+      "Estado",
+      pedido.statut || "Recebido"
+    );
 
     adicionarCampo(
       card,
-      "Prazo de reembolso",
-      pedido.prazo_reembolso
-        ? pedido.prazo_reembolso + " meses"
-        : "Não indicado"
+      "Data do pedido",
+      pedido.date_creation
+        ? new Date(pedido.date_creation).toLocaleDateString("pt-PT")
+        : "Não indicada"
     );
-
-    adicionarCampo(card, "E-mail de contacto", pedido.email_contacto);
-    adicionarCampo(card, "Telefone / WhatsApp", pedido.telefone);
-    adicionarCampo(card, "Finalidade", pedido.objet_demande);
-
-    const p = document.createElement("p");
-    const strong = document.createElement("strong");
-    strong.textContent = "Estado: ";
-
-    const span = document.createElement("span");
-    span.className = "status";
-
-    const estados = {
-      "reçue": "Recebido",
-      "aprovada": "Aprovado",
-      "recusada": "Recusado",
-      "em análise": "Em análise"
-    };
-
-    span.textContent =
-      estados[pedido.statut] || pedido.statut || "Recebido";
-
-    p.appendChild(strong);
-    p.appendChild(span);
-    card.appendChild(p);
-
-    const date = pedido.date_creation
-      ? new Date(pedido.date_creation).toLocaleDateString("pt-PT")
-      : "Não indicada";
-
-    adicionarCampo(card, "Data do pedido", date);
 
     requestsList.appendChild(card);
   });
 }
 
 async function iniciarPagina() {
-  const { data, error } = await supabaseClient.auth.getSession();
+
+  const { data, error } =
+    await supabaseClient.auth.getSession();
 
   if (error || !data.session) {
+
     statusElement.textContent =
       "A sua sessão terminou. Inicie sessão novamente.";
+
     requestsMessage.textContent = "";
+
     return;
   }
 
   currentUser = data.session.user;
-  userEmail.textContent = currentUser.email || "Não disponível";
+
+  userEmail.textContent =
+    currentUser.email || "Não disponível";
 
   await carregarPedidos();
 }
 
-document.getElementById("refreshButton").addEventListener(
-  "click",
-  carregarPedidos
-);
+document.getElementById("refreshButton")
+.addEventListener("click", carregarPedidos);
 
-document.getElementById("logoutButton").addEventListener(
-  "click",
-  async () => {
-    await supabaseClient.auth.signOut();
-    window.location.href = "cliente-demo.html";
-  }
-);
+document.getElementById("logoutButton")
+.addEventListener("click", async () => {
+
+  await supabaseClient.auth.signOut();
+
+  window.location.href = "cliente-demo.html";
+
+});
 
 iniciarPagina();
+
 </script>
 
 </body>
