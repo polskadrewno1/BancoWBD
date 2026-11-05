@@ -224,7 +224,10 @@ const password = document.getElementById("registerPassword").value;
     password,
     options: {
       emailRedirectTo: signupRedirectUrl,
-      data: { full_name: name }
+      data: {
+  full_name: name,
+  whatsapp: whatsapp
+}
     }
   });
 
