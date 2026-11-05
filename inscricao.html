@@ -459,6 +459,16 @@ formulario.addEventListener("submit", async function(event) {
 
         const utilizador = sessaoData.session?.user ?? null;
 
+const veioDaAreaCliente =
+    new URLSearchParams(window.location.search)
+    .get("source") === "client";
+
+if (veioDaAreaCliente && !utilizador) {
+    throw new Error(
+        "Sessão não encontrada. Inicie sessão novamente na sua área de cliente."
+    );
+}
+
         const pedido = {
             user_id: utilizador ? utilizador.id : null,
             nome_completo: f.elements["nome_completo"].value.trim(),
