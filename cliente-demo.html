@@ -265,10 +265,10 @@ document.getElementById("loginForm")
   button.disabled = false;
 
   if (error) {
-    message.textContent =
-      "Não foi possível iniciar sessão. Verifique os seus dados.";
-    return;
-  }
+  console.error("Erreur Supabase :", error);
+  message.textContent = "Erro de autenticação: " + error.message;
+  return;
+}
 
   const user = data.user;
 
