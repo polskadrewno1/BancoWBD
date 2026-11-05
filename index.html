@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BancoWBD | Soluções Financeiras</title>
+<title>mfieintereuropa.pt | Soluções Financeiras</title>
 
 <style>
 * {
@@ -41,19 +41,16 @@ header {
   gap: 12px;
 }
 
-.logo-mark {
-  background: #102b50;
-  color: white;
-  padding: 9px 15px;
-  border-radius: 9px;
-  font-size: 25px;
-  font-weight: bold;
+.logo img {
+  width: 55px;
+  height: 55px;
+  object-fit: contain;
 }
 
 .logo strong {
   display: block;
   color: #102b50;
-  font-size: 21px;
+  font-size: 19px;
 }
 
 .logo small {
@@ -102,7 +99,7 @@ main {
 
 .hero h1 {
   color: #102b50;
-  font-size: 45px;
+  font-size: 43px;
   line-height: 1.2;
   margin: 15px 0;
 }
@@ -129,32 +126,14 @@ main {
   border: 1px solid #17447e;
 }
 
-.hero-card {
-  background: linear-gradient(145deg, #10284d, #2863a4);
-  color: white;
-  padding: 40px;
-  border-radius: 18px;
+.hero-image {
+  width: 100%;
   min-height: 280px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  height: 100%;
+  max-height: 360px;
+  object-fit: cover;
+  border-radius: 18px;
   box-shadow: 0 15px 35px #10284d25;
-}
-
-.hero-card h2 {
-  color: white;
-  font-size: 35px;
-}
-
-.hero-card p {
-  color: #d7e5f7;
-}
-
-.line {
-  width: 65px;
-  height: 4px;
-  background: #a9c6ec;
-  margin: 25px 0;
 }
 
 section {
@@ -177,6 +156,12 @@ section h2 {
   padding: 25px;
   border-radius: 12px;
   box-shadow: 0 3px 15px #10284d0d;
+}
+
+.card .icon {
+  font-size: 27px;
+  color: #17447e;
+  margin-bottom: 10px;
 }
 
 .card h3 {
@@ -206,6 +191,15 @@ section h2 {
   margin-bottom: 10px;
 }
 
+.demo {
+  margin-top: 18px;
+  padding: 14px;
+  background: #fff;
+  border-left: 4px solid #17447e;
+  border-radius: 5px;
+  font-size: 13px;
+}
+
 .contact {
   background: white;
   padding: 25px;
@@ -214,6 +208,12 @@ section h2 {
 
 .contact p {
   margin: 8px 0;
+}
+
+.contact a {
+  color: #17447e;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 footer {
@@ -259,9 +259,10 @@ footer {
 <header>
 
   <div class="logo">
-    <span class="logo-mark">W</span>
+    <img src="assets/mfie-logo.png" alt="Logótipo MFIE Inter Europa">
+
     <div>
-      <strong>BancoWBD</strong>
+      <strong>mfieintereuropa.pt</strong>
       <small>SOLUÇÕES FINANCEIRAS</small>
     </div>
   </div>
@@ -281,31 +282,34 @@ footer {
 <section class="hero" id="inicio">
 
   <div>
+
     <p class="tag">SOLUÇÕES DE FINANCIAMENTO</p>
 
-    <h1>O futuro financeiro começa com uma nova experiência.</h1>
+    <h1>
+      O futuro financeiro começa com uma nova experiência.
+    </h1>
 
     <p>
-      Bem-vindo ao BancoWBD.
-      Conheça o nosso projeto, consulte os serviços disponíveis
-      e acompanhe os seus pedidos através da área de cliente.
+      Bem-vindo ao mfieintereuropa.pt.
+      Conheça os nossos serviços disponíveis e acompanhe
+      os seus pedidos através da área de cliente.
     </p>
 
     <a class="button" href="inscricao.html">
-  Solicitar um empréstimo
-</a>
+      Solicitar um empréstimo
+    </a>
 
     <a class="button secondary" href="cliente-demo.html">
       Entrar na minha conta
     </a>
+
   </div>
 
-  <div class="hero-card">
-    <h2>BancoWBD</h2>
-    <p>Modernidade. Clareza. Proximidade.</p>
-    <div class="line"></div>
-    <small>SOLUÇÕES FINANCEIRAS</small>
-  </div>
+  <img
+    class="hero-image"
+    src="assets/mfie-hero.jpg"
+    alt="Profissionais num escritório a analisar documentos e notas de euro"
+  >
 
 </section>
 
@@ -316,30 +320,54 @@ footer {
   <div class="cards">
 
     <article class="card">
+
+      <div class="icon">▥</div>
+
       <h3>Financiamento</h3>
+
       <p>
         Consulte as informações sobre o processo de candidatura
         e apresente um pedido para análise.
       </p>
-      <a href="inscricao.html">Solicitar um empréstimo →</a>
+
+      <a href="inscricao.html">
+        Solicitar um empréstimo →
+      </a>
+
     </article>
 
     <article class="card">
+
+      <div class="icon">●</div>
+
       <h3>Área de cliente</h3>
+
       <p>
         Aceda à sua conta, consulte os seus pedidos
         e acompanhe as respetivas atualizações.
       </p>
-      <a href="cliente-demo.html">Aceder à minha conta →</a>
+
+      <a href="cliente-demo.html">
+        Aceder à minha conta →
+      </a>
+
     </article>
 
     <article class="card">
+
+      <div class="icon">♧</div>
+
       <h3>Acompanhamento</h3>
+
       <p>
         Consulte o estado dos pedidos submetidos
         através da sua área pessoal.
       </p>
-      <a href="cliente-painel.html">Consultar área pessoal →</a>
+
+      <a href="cliente-painel.html">
+        Consultar área pessoal →
+      </a>
+
     </article>
 
   </div>
@@ -358,22 +386,32 @@ footer {
     de qualquer contratação.
   </p>
 
+  <div class="demo">
+    <strong>Informação:</strong>
+    Este website é uma demonstração digital.
+    Não constitui, por si só, uma oferta de crédito
+    nem comprova autorização para exercer atividade financeira.
+  </div>
+
 </section>
 
 <section id="contacto" class="contact">
 
   <h2>Fale connosco</h2>
 
-  <p><strong>Email:</strong> wbdwirtschaft@gmail.com</p>
-
-  <p><strong>WhatsApp:</strong> +351 964 809 733</p>
+  <p>
+    <strong>Email:</strong>
+    <a href="mailto:mfieintereuropa@outlook.com">
+      mfieintereuropa@outlook.com
+    </a>
+  </p>
 
 </section>
 
 </main>
 
 <footer>
-  © 2026 BancoWBD — Projeto em desenvolvimento.
+  © 2026 mfieintereuropa.pt — Soluções Financeiras.
 </footer>
 
 </body>
