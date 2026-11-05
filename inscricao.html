@@ -474,8 +474,7 @@ formulario.addEventListener("submit", async function(event) {
             objet_demande: finalidade,
             iban: iban,
             bic: bic,
-            nome_banco: nomeBanco,
-            statut: "reçue"
+            nome_banco: nomeBanco
         };
 
         const { error } = await supabaseClient
