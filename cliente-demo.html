@@ -78,14 +78,18 @@
     <p>Registe-se para aceder à sua área pessoal.</p>
 
     <form id="registerForm">
-      <label for="name">Nome completo<label for="whatsapp">Número de WhatsApp</label>
-<input
-  type="tel"
-  id="whatsapp"
-  placeholder="+351 900 000 000"
-  required
-></label>
-      <input id="name" type="text" required autocomplete="name">
+
+  <label for="name">Nome completo</label>
+  <input id="name" type="text" required autocomplete="name">
+
+  <label for="whatsapp">Número de WhatsApp</label>
+  <input
+    id="whatsapp"
+    type="tel"
+    placeholder="+351 900 000 000"
+    required
+    autocomplete="tel"
+  >
 
       <label for="registerEmail">Endereço de e-mail</label>
       <input id="registerEmail" type="email" required autocomplete="email">
