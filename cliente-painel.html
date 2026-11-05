@@ -449,14 +449,17 @@ function mostrarFinanciamentoAprovado(pedido) {
   normalDashboard.classList.add("hidden");
   approvedDashboard.classList.remove("hidden");
 
-  document.getElementById("welcomeName").textContent =
-    "Bem-vindo, " + (pedido.nome_completo || "");
+  document.getElementById("headerTitle").textContent =
+  "MFIE-INTEREUROPA";
 
-  document.getElementById("clientName").textContent =
-    pedido.nome_completo || "Não indicado";
+document.getElementById("headerSubtitle").textContent =
+  "ÁREA DE CLIENTE — DEMONSTRAÇÃO";
 
-  document.getElementById("clientIban").textContent =
-    pedido.iban || "Não indicado";
+document.getElementById("clientBank").textContent =
+  pedido.nome_banco || "Não indicado";
+
+document.getElementById("clientIban").textContent =
+  pedido.iban || "Não indicado";
 
   document.getElementById("approvedAmount").textContent =
     formatarEuro(pedido.montant_approuve);
