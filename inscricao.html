@@ -506,7 +506,7 @@ if (veioDaAreaCliente && !utilizador) {
         console.error("Erro ao enviar candidatura:", error);
 
         mensagem.textContent =
-            "Não foi possível enviar o pedido. Verifique a sua ligação e tente novamente.";
+    "Erro: " + (error.message || "Erro desconhecido");
 
         mensagem.style.color = "#b42318";
 
