@@ -611,7 +611,10 @@ inviteButton.addEventListener("click", async () => {
 
   document.getElementById("clientName").value = "";
   document.getElementById("clientEmail").value = "";
-});
+}); document.getElementById("refreshClientsButton").addEventListener(
+  "click",
+  carregarClientes
+);
 verificarAdmin();
 </script>
 
