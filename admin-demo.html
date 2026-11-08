@@ -272,7 +272,55 @@ document.getElementById("inviteSection").style.display = "block";document.getEle
 await carregarClientes();
   await carregarPedidos();
 }
+async function carregarClientes() {
+  const clientsMessage = document.getElementById("clientsMessage");
+  const clientsList = document.getElementById("clientsList");
 
+  if (!adminUser || adminUser.app_metadata?.role !== "admin") {
+    clientsMessage.textContent = "Acesso não autorizado.";
+    return;
+  }
+
+  clientsMessage.textContent = "A carregar clientes...";
+  clientsList.replaceChildren();
+
+  const { data, error } = await client.functions.invoke(
+    "admin-list-users",
+    { body: {} }
+  );
+
+  if (error || data?.error || !data?.success) {
+    clientsMessage.textContent =
+      "Erro ao carregar clientes: " +
+      (data?.error || error?.message || "Erro desconhecido.");
+    return;
+  }
+
+  const clients = Array.isArray(data.clients) ? data.clients : [];
+
+  clientsMessage.textContent =
+    "Total de clientes registados: " + clients.length;
+
+  if (clients.length === 0) {
+    clientsList.textContent = "Ainda não existem clientes registados.";
+    return;
+  }
+
+  clients.forEach((clientData, index) => {
+    const card = document.createElement("article");
+    card.className = "request";
+
+    const title = document.createElement("h3");
+    title.textContent = "Cliente " + (index + 1);
+    card.appendChild(title);
+
+    adicionarCampo(card, "Nome completo", clientData.nome);
+    adicionarCampo(card, "Endereço de e-mail", clientData.email);
+    adicionarCampo(card, "WhatsApp", clientData.whatsapp);
+
+    clientsList.appendChild(card);
+  });
+}
 async function carregarPedidos() {
   if (!adminUser || adminUser.app_metadata?.role !== "admin") {
     message.textContent = "Acesso não autorizado.";
