@@ -15,12 +15,15 @@
   border-radius: 16px;
   box-shadow: 0 8px 30px #10284d18;
 }
+
 .login-box h1 { color: #10284d; }
+
 .login-box label {
   display: block;
   margin-top: 16px;
   font-weight: bold;
 }
+
 .login-box input {
   width: 100%;
   padding: 13px;
@@ -30,26 +33,51 @@
   font-size: 16px;
   box-sizing: border-box;
 }
+
 .login-box button {
   width: 100%;
   border: 0;
   cursor: pointer;
   margin-top: 20px;
 }
+
 #message {
   margin-top: 18px;
   line-height: 1.5;
 }
+
 .separator {
   border: 0;
   border-top: 1px solid #ddd;
   margin: 28px 0;
 }
+
 .text-link {
   display: inline-block;
   margin-top: 16px;
 }
-.hidden { display: none; }
+
+.hidden {
+  display: none !important;
+}
+
+.choice-button {
+  width: 100%;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  background: #10284d;
+  color: white;
+}
+
+.back-button {
+  background: #e8edf4;
+  color: #10284d;
+  padding: 13px;
+  border-radius: 8px;
+  font-weight: bold;
+}
 </style>
 </head>
 
@@ -73,23 +101,39 @@
 
   <p class="tag">ÁREA DE CLIENTE</p>
 
-  <section id="normalArea">
+  <!-- ESCOLHA INICIAL -->
+  <section id="choiceArea">
+    <h1>Área de cliente</h1>
+    <p>Escolha uma das opções para continuar.</p>
+
+    <button class="choice-button" id="showRegister" type="button">
+      CRIAR UMA CONTA
+    </button>
+
+    <button class="choice-button" id="showLogin" type="button">
+      INICIAR SESSÃO
+    </button>
+  </section>
+
+  <!-- FORMULÁRIO DE INSCRIÇÃO -->
+  <section id="registerArea" class="hidden">
+
     <h1>Criar uma conta</h1>
     <p>Registe-se para aceder à sua área pessoal.</p>
 
     <form id="registerForm">
 
-  <label for="name">Nome completo</label>
-  <input id="name" type="text" required autocomplete="name">
+      <label for="name">Nome completo</label>
+      <input id="name" type="text" required autocomplete="name">
 
-  <label for="whatsapp">Número de WhatsApp</label>
-  <input
-    id="whatsapp"
-    type="tel"
-    placeholder="+351 900 000 000"
-    required
-    autocomplete="tel"
-  >
+      <label for="whatsapp">Número de WhatsApp</label>
+      <input
+        id="whatsapp"
+        type="tel"
+        placeholder="+351 900 000 000"
+        required
+        autocomplete="tel"
+      >
 
       <label for="registerEmail">Endereço de e-mail</label>
       <input id="registerEmail" type="email" required autocomplete="email">
@@ -101,14 +145,23 @@
       <button class="button" id="registerButton" type="submit">
         Criar conta
       </button>
+
     </form>
 
-    <hr class="separator">
+    <button class="back-button" id="backFromRegister" type="button">
+      Voltar
+    </button>
+
+  </section>
+
+  <!-- FORMULÁRIO DE CONNEXION -->
+  <section id="loginArea" class="hidden">
 
     <h1>Iniciar sessão</h1>
     <p>Já tem uma conta? Entre na sua área pessoal.</p>
 
     <form id="loginForm">
+
       <label for="email">Endereço de e-mail</label>
       <input id="email" type="email" required autocomplete="username">
 
@@ -119,31 +172,49 @@
       <button class="button" id="loginButton" type="submit">
         Entrar
       </button>
+
     </form>
 
     <a href="#" class="text-link" id="forgotLink">
       Esqueceu-se da palavra-passe?
     </a>
+
+    <button class="back-button" id="backFromLogin" type="button">
+      Voltar
+    </button>
+
   </section>
 
+  <!-- RECUPERAÇÃO DE PALAVRA-PASSE -->
   <section id="recoveryArea" class="hidden">
+
     <h1>Recuperar palavra-passe</h1>
     <p>Introduza o seu endereço de e-mail para receber um link de recuperação.</p>
 
     <form id="recoveryForm">
+
       <label for="recoveryEmail">Endereço de e-mail</label>
       <input id="recoveryEmail" type="email" required>
 
       <button class="button" id="recoveryButton" type="submit">
         Enviar link de recuperação
       </button>
+
     </form>
+
+    <button class="back-button" id="backFromRecovery" type="button">
+      Voltar
+    </button>
+
   </section>
 
+  <!-- NOVA PALAVRA-PASSE -->
   <section id="newPasswordArea" class="hidden">
+
     <h1>Criar nova palavra-passe</h1>
 
     <form id="newPasswordForm">
+
       <label for="newPassword">Nova palavra-passe</label>
       <input id="newPassword" type="password"
              minlength="8" required autocomplete="new-password">
@@ -155,7 +226,9 @@
       <button class="button" type="submit">
         Guardar nova palavra-passe
       </button>
+
     </form>
+
   </section>
 
   <p id="message" role="status" aria-live="polite"></p>
@@ -163,7 +236,7 @@
 </div>
 </main>
 
-<footer>© 2026 mfieintereuropa — Cadastre-se agora e você poderá enviar sua solicitação de empréstimo após acessar sua conta. </footer>
+<footer>© 2026 mfieintereuropa — Cadastre-se agora e você poderá enviar sua solicitação de empréstimo após acessar sua conta.</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -180,13 +253,17 @@ const supabaseClient = supabase.createClient(
 );
 
 const message = document.getElementById("message");
-const normalArea = document.getElementById("normalArea");
+
+const choiceArea = document.getElementById("choiceArea");
+const registerArea = document.getElementById("registerArea");
+const loginArea = document.getElementById("loginArea");
 const recoveryArea = document.getElementById("recoveryArea");
 const newPasswordArea = document.getElementById("newPasswordArea");
 
 const recoveryUrl =
-"https://polskadrewno1.github.io/BancoWBD/cliente-demo.html"; 
-  const requestedRedirect =
+"https://polskadrewno1.github.io/BancoWBD/cliente-demo.html";
+
+const requestedRedirect =
   new URLSearchParams(window.location.search).get("redirect");
 
 const nextPage =
@@ -199,13 +276,48 @@ const signupRedirectUrl =
     ? "https://polskadrewno1.github.io/BancoWBD/cliente-demo.html?redirect=inscricao.html"
     : recoveryUrl;
 
+// MOSTRAR APENAS UMA SECÇÃO DE CADA VEZ
 function showArea(area) {
-  normalArea.classList.add("hidden");
-  recoveryArea.classList.add("hidden");
-  newPasswordArea.classList.add("hidden");
+  [
+    choiceArea,
+    registerArea,
+    loginArea,
+    recoveryArea,
+    newPasswordArea
+  ].forEach(section => section.classList.add("hidden"));
+
   area.classList.remove("hidden");
+  message.textContent = "";
 }
 
+// BOTÕES DE ESCOLHA
+document.getElementById("showRegister")
+.addEventListener("click", function() {
+  showArea(registerArea);
+});
+
+document.getElementById("showLogin")
+.addEventListener("click", function() {
+  showArea(loginArea);
+});
+
+// BOTÕES VOLTAR
+document.getElementById("backFromRegister")
+.addEventListener("click", function() {
+  showArea(choiceArea);
+});
+
+document.getElementById("backFromLogin")
+.addEventListener("click", function() {
+  showArea(choiceArea);
+});
+
+document.getElementById("backFromRecovery")
+.addEventListener("click", function() {
+  showArea(loginArea);
+});
+
+// INSCRIÇÃO
 document.getElementById("registerForm")
 .addEventListener("submit", async function(event) {
   event.preventDefault();
@@ -215,9 +327,9 @@ document.getElementById("registerForm")
   message.textContent = "A criar a sua conta...";
 
   const name = document.getElementById("name").value.trim();
-const whatsapp = document.getElementById("whatsapp").value.trim();
-const email = document.getElementById("registerEmail").value.trim();
-const password = document.getElementById("registerPassword").value;
+  const whatsapp = document.getElementById("whatsapp").value.trim();
+  const email = document.getElementById("registerEmail").value.trim();
+  const password = document.getElementById("registerPassword").value;
 
   const { data, error } = await supabaseClient.auth.signUp({
     email,
@@ -225,9 +337,9 @@ const password = document.getElementById("registerPassword").value;
     options: {
       emailRedirectTo: signupRedirectUrl,
       data: {
-  full_name: name,
-  whatsapp: whatsapp
-}
+        full_name: name,
+        whatsapp: whatsapp
+      }
     }
   });
 
@@ -240,12 +352,13 @@ const password = document.getElementById("registerPassword").value;
 
   if (data.session) {
     window.location.href = nextPage;
-} else {
+  } else {
     message.textContent =
       "Consulte o seu e-mail para confirmar a conta.";
   }
 });
 
+// CONNEXION
 document.getElementById("loginForm")
 .addEventListener("submit", async function(event) {
   event.preventDefault();
@@ -265,25 +378,25 @@ document.getElementById("loginForm")
   button.disabled = false;
 
   if (error) {
-  console.error("Erreur Supabase :", error);
-  message.textContent = "Erro de autenticação: " + error.message;
-  return;
-}
+    console.error("Erreur Supabase :", error);
+    message.textContent = "Erro de autenticação: " + error.message;
+    return;
+  }
 
   const user = data.user;
 
   if (user?.app_metadata?.role === "admin") {
     window.location.href = "admin-demo.html";
   } else {
-  window.location.href = nextPage;
-}
+    window.location.href = nextPage;
+  }
 });
 
+// RECUPERAÇÃO DE PALAVRA-PASSE
 document.getElementById("forgotLink")
 .addEventListener("click", function(event) {
   event.preventDefault();
   showArea(recoveryArea);
-  message.textContent = "";
 });
 
 document.getElementById("recoveryForm")
@@ -308,10 +421,11 @@ document.getElementById("recoveryForm")
     return;
   }
 
-        message.textContent =
+  message.textContent =
     "Se a conta existir, receberá um e-mail com o link de recuperação.";
 });
 
+// CONVITE E RECUPERAÇÃO
 const invitationType =
   new URLSearchParams(window.location.hash.substring(1)).get("type") ||
   new URLSearchParams(window.location.search).get("type");
@@ -329,6 +443,7 @@ supabaseClient.auth.onAuthStateChange((event, session) => {
   }
 });
 
+// GUARDAR NOVA PALAVRA-PASSE
 document.getElementById("newPasswordForm")
 .addEventListener("submit", async function(event) {
   event.preventDefault();
@@ -359,8 +474,10 @@ document.getElementById("newPasswordForm")
 
   message.textContent =
     "Palavra-passe alterada com sucesso. Pode iniciar sessão.";
-  showArea(normalArea);
+
+  showArea(loginArea);
 });
 </script>
+
 </body>
 </html>
