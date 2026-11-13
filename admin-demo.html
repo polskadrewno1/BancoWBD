@@ -60,6 +60,22 @@ button:disabled {
   cursor: not-allowed;
 }
 
+.menu-button {
+  display: block;
+  width: 100%;
+  padding: 18px;
+  margin: 12px 0;
+  text-align: left;
+  font-size: 16px;
+  font-weight: bold;
+  background: #123f70;
+}
+
+.back-button {
+  background: #64748b;
+  margin-bottom: 15px;
+}
+
 .request {
   border: 1px solid #dbe3ec;
   border-radius: 9px;
@@ -124,15 +140,38 @@ footer {
   <p id="adminEmail">A verificar a sessão...</p>
   <p id="message" class="message">A carregar...</p>
 
-  <button id="refreshButton" type="button">
-    Atualizar pedidos
-  </button>
+  <div id="adminMenu" style="display:none;">
+
+    <h2>Menu de administração</h2>
+
+    <button class="menu-button" type="button"
+      onclick="mostrarSecao('inviteSection')">
+      1 — Criar conta de cliente
+    </button>
+
+    <button class="menu-button" type="button"
+      onclick="abrirClientes()">
+      2 — Clientes registados
+    </button>
+
+    <button class="menu-button" type="button"
+      onclick="abrirPedidos()">
+      3 — Pedidos de financiamento
+    </button>
+
+  </div>
 
   <button id="logoutButton" type="button">
     Terminar sessão
   </button>
 </section>
+
 <section class="card" id="inviteSection" style="display:none;">
+
+  <button class="back-button" type="button" onclick="voltarMenu()">
+    ← Voltar ao menu
+  </button>
+
   <h2>Criar conta de cliente</h2>
 
   <label for="clientName">Nome completo</label>
@@ -157,7 +196,13 @@ footer {
 
   <p id="inviteMessage" class="message"></p>
 </section>
- <section class="card" id="clientsSection" style="display:none;">
+
+<section class="card" id="clientsSection" style="display:none;">
+
+  <button class="back-button" type="button" onclick="voltarMenu()">
+    ← Voltar ao menu
+  </button>
+
   <h2>Clientes registados</h2>
   <p>Lista de todos os clientes que criaram uma conta.</p>
 
@@ -171,8 +216,19 @@ footer {
 
   <div id="clientsList"></div>
 </section>
-<section class="card">
+
+<section class="card" id="requestsSection" style="display:none;">
+
+  <button class="back-button" type="button" onclick="voltarMenu()">
+    ← Voltar ao menu
+  </button>
+
   <h2>Pedidos de financiamento</h2>
+
+  <button id="refreshButton" type="button">
+    Atualizar pedidos
+  </button>
+
   <div id="requestsList"></div>
 </section>
 
@@ -210,6 +266,37 @@ const estados = {
   "recusada": "Recusado",
   "Recusado": "Recusado"
 };
+
+/* ORGANIZAÇÃO DOS TRÊS BOTÕES */
+
+function mostrarSecao(id) {
+  document.getElementById("inviteSection").style.display = "none";
+  document.getElementById("clientsSection").style.display = "none";
+  document.getElementById("requestsSection").style.display = "none";
+  document.getElementById("adminMenu").style.display = "none";
+
+  document.getElementById(id).style.display = "block";
+}
+
+function voltarMenu() {
+  document.getElementById("inviteSection").style.display = "none";
+  document.getElementById("clientsSection").style.display = "none";
+  document.getElementById("requestsSection").style.display = "none";
+
+  document.getElementById("adminMenu").style.display = "block";
+}
+
+async function abrirClientes() {
+  mostrarSecao("clientsSection");
+  await carregarClientes();
+}
+
+async function abrirPedidos() {
+  mostrarSecao("requestsSection");
+  await carregarPedidos();
+}
+
+/* FUNÇÕES ORIGINAIS */
 
 function adicionarCampo(container, label, value) {
   const p = document.createElement("p");
@@ -268,10 +355,12 @@ async function verificarAdmin() {
 
   adminEmail.textContent =
     "Administrador autenticado: " + adminUser.email;
-document.getElementById("inviteSection").style.display = "block";document.getElementById("clientsSection").style.display = "block";
-await carregarClientes();
-  await carregarPedidos();
+
+  message.textContent = "Sessão de administrador ativa.";
+
+  document.getElementById("adminMenu").style.display = "block";
 }
+
 async function carregarClientes() {
   const clientsMessage = document.getElementById("clientsMessage");
   const clientsList = document.getElementById("clientsList");
@@ -321,6 +410,7 @@ async function carregarClientes() {
     clientsList.appendChild(card);
   });
 }
+
 async function carregarPedidos() {
   if (!adminUser || adminUser.app_metadata?.role !== "admin") {
     message.textContent = "Acesso não autorizado.";
@@ -570,6 +660,7 @@ document.getElementById("logoutButton").addEventListener(
     window.location.href = "cliente-demo.html";
   }
 );
+
 const inviteButton = document.getElementById("inviteButton");
 
 inviteButton.addEventListener("click", async () => {
@@ -611,12 +702,17 @@ inviteButton.addEventListener("click", async () => {
 
   document.getElementById("clientName").value = "";
   document.getElementById("clientEmail").value = "";
-}); document.getElementById("refreshClientsButton").addEventListener(
+});
+
+document.getElementById("refreshClientsButton").addEventListener(
   "click",
   carregarClientes
 );
+
 verificarAdmin();
 </script>
 
-\n<script src="assets/i18n.js?v=20261113d"></script>\n</body>
+<script src="assets/i18n.js?v=20261113d"></script>
+
+</body>
 </html>
