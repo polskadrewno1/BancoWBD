@@ -736,6 +736,8 @@
   };
   for (const [language, entries] of Object.entries(extraFormTranslations)) Object.assign(translations[language], entries);
   const key = "intereuropa_language";
+  const originalTextNodes = new WeakMap();
+  const originalAttributes = new WeakMap();
   const getLang = () => {
     const urlLang = new URLSearchParams(window.location.search).get("lang");
     return (urlLang && languages[urlLang] ? urlLang : localStorage.getItem(key)) || "pt";
@@ -765,10 +767,17 @@
       const node = walker.currentNode;
       if (node.parentElement && !node.parentElement.closest("script,style,select,option")) nodes.push(node);
     }
-    nodes.forEach(node => { node.nodeValue = translateText(node.nodeValue, dict); });
+    nodes.forEach(node => {
+      if (!originalTextNodes.has(node)) originalTextNodes.set(node, node.nodeValue);
+      node.nodeValue = translateText(originalTextNodes.get(node), dict);
+    });
     document.querySelectorAll("input,textarea,button,a,img").forEach(el => {
       ["placeholder","title","alt"].forEach(attr => {
-        if (el.hasAttribute(attr)) el.setAttribute(attr, translateText(el.getAttribute(attr), dict));
+        if (!el.hasAttribute(attr)) return;
+        let originals = originalAttributes.get(el);
+        if (!originals) { originals = {}; originalAttributes.set(el, originals); }
+        if (!(attr in originals)) originals[attr] = el.getAttribute(attr);
+        el.setAttribute(attr, translateText(originals[attr], dict));
       });
     });
     const selector = document.getElementById("intereuropa-language");
@@ -788,11 +797,7 @@
       option.value = code; option.textContent = info[0]; select.appendChild(option);
     });
     select.addEventListener("change", () => {
-      const chosen = select.value;
-      localStorage.setItem(key, chosen);
-      const url = new URL(window.location.href);
-      url.searchParams.set("lang", chosen);
-      window.location.assign(url.toString());
+      applyLanguage(select.value);
     });
     wrap.appendChild(select); header.appendChild(wrap);
     const style = document.createElement("style");
