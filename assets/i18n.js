@@ -700,14 +700,54 @@
   }
 };
   for (const [language, entries] of Object.entries(applicationPageTranslations)) Object.assign(translations[language], entries);
+  const extraFormTranslations = {
+    de: {
+      "O seu pedido foi recebido com sucesso. Aguarde o contacto da nossa equipa.": "Ihr Antrag wurde erfolgreich übermittelt. Bitte warten Sie auf die Kontaktaufnahme unseres Teams.",
+      "© 2026 INTEREUROPA. Todos os direitos reservados.": "© 2026 INTEREUROPA. Alle Rechte vorbehalten."
+    },
+    pl: {
+      "O seu pedido foi recebido com sucesso. Aguarde o contacto da nossa equipa.": "Twoje zgłoszenie zostało pomyślnie wysłane. Poczekaj na kontakt naszego zespołu.",
+      "© 2026 INTEREUROPA. Todos os direitos reservados.": "© 2026 INTEREUROPA. Wszelkie prawa zastrzeżone."
+    },
+    es: {
+      "O seu pedido foi recebido com sucesso. Aguarde o contacto da nossa equipa.": "Su solicitud se ha enviado correctamente. Espere a que nuestro equipo se ponga en contacto con usted.",
+      "© 2026 INTEREUROPA. Todos os direitos reservados.": "© 2026 INTEREUROPA. Todos los derechos reservados."
+    },
+    it: {
+      "O seu pedido foi recebido com sucesso. Aguarde o contacto da nossa equipa.": "La tua richiesta è stata inviata correttamente. Attendi che il nostro team ti contatti.",
+      "© 2026 INTEREUROPA. Todos os direitos reservados.": "© 2026 INTEREUROPA. Tutti i diritti riservati."
+    },
+    el: {
+      "O seu pedido foi recebido com sucesso. Aguarde o contacto da nossa equipa.": "Το αίτημά σας υποβλήθηκε με επιτυχία. Περιμένετε να επικοινωνήσει μαζί σας η ομάδα μας.",
+      "© 2026 INTEREUROPA. Todos os direitos reservados.": "© 2026 INTEREUROPA. Με την επιφύλαξη παντός δικαιώματος."
+    },
+    sk: {
+      "O seu pedido foi recebido com sucesso. Aguarde o contacto da nossa equipa.": "Vaša žiadosť bola úspešne odoslaná. Počkajte, kým vás bude kontaktovať náš tím.",
+      "© 2026 INTEREUROPA. Todos os direitos reservados.": "© 2026 INTEREUROPA. Všetky práva vyhradené."
+    },
+    hr: {
+      "O seu pedido foi recebido com sucesso. Aguarde o contacto da nossa equipa.": "Vaš je zahtjev uspješno zaprimljen. Pričekajte da vas kontaktira naš tim.",
+      "© 2026 INTEREUROPA. Todos os direitos reservados.": "© 2026 INTEREUROPA. Sva prava pridržana."
+    },
+    fr: {
+      "O seu pedido foi recebido com sucesso. Aguarde o contacto da nossa equipa.": "Votre demande a bien été reçue. Veuillez attendre que notre équipe vous contacte.",
+      "© 2026 INTEREUROPA. Todos os direitos reservados.": "© 2026 INTEREUROPA. Tous droits réservés."
+    }
+  };
+  for (const [language, entries] of Object.entries(extraFormTranslations)) Object.assign(translations[language], entries);
   const key = "intereuropa_language";
   const getLang = () => localStorage.getItem(key) || "pt";
   function translateText(value, dict) {
     const trimmed = value.trim();
     if (!trimmed) return value;
-    if (dict[trimmed]) return value.replace(trimmed, dict[trimmed]);
+    const normalized = trimmed.replace(/\\s+/g, " ");
+    const leading = value.match(/^\\s*/)[0];
+    const trailing = value.match(/\\s*$/)[0];
+    if (dict[normalized]) return leading + dict[normalized] + trailing;
     for (const source of Object.keys(dict)) {
-      if (trimmed.startsWith(source) && source.endsWith(":")) return value.replace(source, dict[source]);
+      if (normalized.startsWith(source) && source.endsWith(":")) {
+        return leading + dict[source] + normalized.slice(source.length) + trailing;
+      }
     }
     return value;
   }
