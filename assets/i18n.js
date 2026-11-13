@@ -736,7 +736,10 @@
   };
   for (const [language, entries] of Object.entries(extraFormTranslations)) Object.assign(translations[language], entries);
   const key = "intereuropa_language";
-  const getLang = () => localStorage.getItem(key) || "pt";
+  const getLang = () => {
+    const urlLang = new URLSearchParams(window.location.search).get("lang");
+    return (urlLang && languages[urlLang] ? urlLang : localStorage.getItem(key)) || "pt";
+  };
   function translateText(value, dict) {
     const trimmed = value.trim();
     if (!trimmed) return value;
@@ -784,7 +787,13 @@
       const option = document.createElement("option");
       option.value = code; option.textContent = info[0]; select.appendChild(option);
     });
-    select.addEventListener("change", () => { localStorage.setItem(key, select.value); location.reload(); });
+    select.addEventListener("change", () => {
+      const chosen = select.value;
+      localStorage.setItem(key, chosen);
+      const url = new URL(window.location.href);
+      url.searchParams.set("lang", chosen);
+      window.location.assign(url.toString());
+    });
     wrap.appendChild(select); header.appendChild(wrap);
     const style = document.createElement("style");
     style.textContent = ".intereuropa-language-wrap{display:inline-flex;align-items:center;margin:8px 12px}.intereuropa-language-wrap select{padding:8px 10px;border:1px solid #b9c4d3;border-radius:8px;background:#fff;color:#14243a;font:inherit;max-width:145px}";
