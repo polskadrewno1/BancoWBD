@@ -748,9 +748,9 @@
   function translateText(value, dict) {
     const trimmed = value.trim();
     if (!trimmed) return value;
-    const normalized = trimmed.replace(/\\s+/g, " ");
-    const leading = value.match(/^\\s*/)[0];
-    const trailing = value.match(/\\s*$/)[0];
+    const normalized = trimmed.replace(/\s+/g, " ");
+    const leading = value.match(/^\s*/)[0];
+    const trailing = value.match(/\s*$/)[0];
     if (dict[normalized]) return leading + dict[normalized] + trailing;
     for (const source of Object.keys(dict)) {
       if (normalized.startsWith(source) && source.endsWith(":")) {
