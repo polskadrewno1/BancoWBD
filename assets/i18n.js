@@ -329,6 +329,17 @@
   }
 };
   for (const [language, entries] of Object.entries(pageTranslations)) Object.assign(translations[language], entries);
+  const imageAltTranslations = {
+    de: {"Profissionais num escritório a analisar documentos e notas de euro":"Bürofachkräfte bei der Prüfung von Dokumenten und Euro-Banknoten"},
+    pl: {"Profissionais num escritório a analisar documentos e notas de euro":"Pracownicy biura analizujący dokumenty i banknoty euro"},
+    es: {"Profissionais num escritório a analisar documentos e notas de euro":"Profesionales en una oficina analizando documentos y billetes de euro"},
+    it: {"Profissionais num escritório a analisar documentos e notas de euro":"Professionisti in un ufficio che esaminano documenti e banconote in euro"},
+    el: {"Profissionais num escritório a analisar documentos e notas de euro":"Επαγγελματίες σε γραφείο που εξετάζουν έγγραφα και χαρτονομίσματα ευρώ"},
+    sk: {"Profissionais num escritório a analisar documentos e notas de euro":"Pracovníci v kancelárii, ktorí analyzujú dokumenty a eurobankovky"},
+    hr: {"Profissionais num escritório a analisar documentos e notas de euro":"Stručnjaci u uredu koji pregledavaju dokumente i novčanice eura"},
+    fr: {"Profissionais num escritório a analisar documentos e notas de euro":"Des professionnels dans un bureau examinant des documents et des billets en euros"}
+  };
+  for (const [language, entries] of Object.entries(imageAltTranslations)) Object.assign(translations[language], entries);
   const key = "intereuropa_language";
   const getLang = () => localStorage.getItem(key) || "pt";
   function translateText(value, dict) {
