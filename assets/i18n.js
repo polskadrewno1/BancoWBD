@@ -739,9 +739,12 @@
   const originalTextNodes = new WeakMap();
   const originalAttributes = new WeakMap();
   const getLang = () => {
+    const savedLang = localStorage.getItem(key);
+    if (savedLang && languages[savedLang]) return savedLang;
     const urlLang = new URLSearchParams(window.location.search).get("lang");
-    return (urlLang && languages[urlLang] ? urlLang : localStorage.getItem(key)) || "pt";
+    return (urlLang && languages[urlLang]) ? urlLang : "pt";
   };
+  let activeLang = "pt";
   function translateText(value, dict) {
     const trimmed = value.trim();
     if (!trimmed) return value;
@@ -758,6 +761,7 @@
   }
   function applyLanguage(lang) {
     if (!languages[lang]) lang = "pt";
+    activeLang = lang;
     localStorage.setItem(key, lang);
     document.documentElement.lang = languages[lang][1];
     const dict = translations[lang] || {};
@@ -809,9 +813,11 @@
     applyLanguage(getLang());
     const observer = new MutationObserver(() => {
       clearTimeout(window.__intereuropaI18nTimer);
-      window.__intereuropaI18nTimer = setTimeout(() => applyLanguage(getLang()), 80);
+      window.__intereuropaI18nTimer = setTimeout(() => applyLanguage(activeLang), 120);
     });
-    observer.observe(document.body, {childList:true,subtree:true,characterData:true});
+    // Only observe added/removed elements. Observing characterData caused
+    // the translator to observe its own text changes and repeatedly restart.
+    observer.observe(document.body, {childList:true,subtree:true});
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
 })();
