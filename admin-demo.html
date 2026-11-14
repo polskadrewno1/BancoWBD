@@ -700,6 +700,22 @@ inviteButton.addEventListener("click", async () => {
   inviteMessage.textContent =
     "Convite enviado com sucesso.";
 
+  if (typeof data?.temporary_password === "string" && data.temporary_password) {
+    const passwordLine = document.createElement("p");
+    const passwordLabel = document.createElement("strong");
+    passwordLabel.textContent = "Palavra-passe provisória: ";
+    passwordLine.appendChild(passwordLabel);
+    passwordLine.appendChild(
+      document.createTextNode(data.temporary_password)
+    );
+    inviteMessage.appendChild(passwordLine);
+  } else {
+    const passwordWarning = document.createElement("p");
+    passwordWarning.textContent =
+      "A conta foi criada, mas a palavra-passe provisória não foi devolvida. Contacte a administração antes de partilhar o acesso.";
+    inviteMessage.appendChild(passwordWarning);
+  }
+
   document.getElementById("clientName").value = "";
   document.getElementById("clientEmail").value = "";
 });
