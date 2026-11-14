@@ -1324,32 +1324,39 @@
   }
   function installSelector() {
     const header = document.querySelector("header");
-    if (!header || document.getElementById("intereuropa-language")) return;
-    const wrap = document.createElement("label");
-    wrap.className = "intereuropa-language-wrap";
-    wrap.setAttribute("aria-label", "Language / Idioma");
-    const select = document.createElement("select");
-    select.id = "intereuropa-language";
-    select.setAttribute("aria-label", "Selecionar idioma");
-    Object.entries(languages).forEach(([code, info]) => {
-      const option = document.createElement("option");
-      option.value = code; option.textContent = info[0]; select.appendChild(option);
-    });
-    select.addEventListener("change", () => {
-      applyLanguage(select.value);
-    });
-    const globe = document.createElement("img");
-    globe.src = "assets/intereuropa-language-globe.svg";
-    globe.alt = "Globe des neuf langues disponibles";
-    globe.width = 42;
-    globe.height = 42;
-    globe.loading = "eager";
-    wrap.appendChild(globe);
-    wrap.appendChild(select); header.appendChild(wrap);
-    const style = document.createElement("style");
-    style.textContent = `.intereuropa-language-wrap{display:inline-flex;align-items:center;gap:9px;margin:8px 12px;padding:10px 14px;border:1px solid #d7e5f5;border-radius:14px;background-color:#071a35;background-image:linear-gradient(135deg,rgba(5,20,43,.62),rgba(10,44,83,.52)),url("intereuropa-language-wallpaper.svg");background-size:cover;background-position:center;background-repeat:no-repeat;box-shadow:0 5px 18px rgba(4,20,43,.38),inset 0 1px 0 rgba(255,255,255,.35)}.intereuropa-language-wrap img{display:block;width:42px;height:42px;object-fit:contain;border-radius:50%;flex:0 0 42px;filter:drop-shadow(0 1px 3px rgba(0,0,0,.35))}.intereuropa-language-wrap select{padding:8px 10px;border:0;border-left:1px solid rgba(218,231,248,.42);border-radius:0;background:transparent;color:#fff;font:inherit;font-weight:600;max-width:145px;min-width:112px;outline-offset:3px;color-scheme:dark}.intereuropa-language-wrap select option{background:#102b4e;color:#fff}@media(max-width:750px){.intereuropa-language-wrap{margin:6px 0;padding:5px 8px}.intereuropa-language-wrap img{width:36px;height:36px;flex-basis:36px}.intereuropa-language-wrap select{max-width:135px;min-width:105px}}`;
-
-    document.head.appendChild(style);
+    if (!header) return;
+    let select = document.getElementById("intereuropa-language");
+    if (!select) {
+      const wrap = document.createElement("label");
+      wrap.className = "intereuropa-language-wrap";
+      wrap.setAttribute("aria-label", "Language / Idioma");
+      select = document.createElement("select");
+      select.id = "intereuropa-language";
+      select.setAttribute("aria-label", "Selecionar idioma");
+      Object.entries(languages).forEach(([code, info]) => {
+        const option = document.createElement("option");
+        option.value = code; option.textContent = info[0]; select.appendChild(option);
+      });
+      const globe = document.createElement("img");
+      globe.src = "assets/intereuropa-language-globe.svg";
+      globe.alt = "Globe des neuf langues disponíveis";
+      globe.width = 42;
+      globe.height = 42;
+      globe.loading = "eager";
+      wrap.appendChild(globe);
+      wrap.appendChild(select);
+      header.appendChild(wrap);
+    }
+    if (!select.dataset.languageHandler) {
+      select.addEventListener("change", () => applyLanguage(select.value));
+      select.dataset.languageHandler = "true";
+    }
+    if (!document.getElementById("intereuropa-language-style")) {
+      const style = document.createElement("style");
+      style.id = "intereuropa-language-style";
+      style.textContent = `.intereuropa-language-wrap{display:inline-flex;align-items:center;gap:9px;margin:8px 12px;padding:10px 14px;border:1px solid #d7e5f5;border-radius:14px;background-color:#071a35;background-image:linear-gradient(135deg,rgba(5,20,43,.62),rgba(10,44,83,.52)),url("assets/intereuropa-language-wallpaper.svg");background-size:cover;background-position:center;background-repeat:no-repeat;box-shadow:0 5px 18px rgba(4,20,43,.38),inset 0 1px 0 rgba(255,255,255,.35)}.intereuropa-language-wrap img{display:block;width:42px;height:42px;object-fit:contain;border-radius:50%;flex:0 0 42px;filter:drop-shadow(0 1px 3px rgba(0,0,0,.35))}.intereuropa-language-wrap select{padding:8px 10px;border:0;border-left:1px solid rgba(218,231,248,.42);border-radius:0;background:transparent;color:#fff;font:inherit;font-weight:600;max-width:145px;min-width:112px;outline-offset:3px;color-scheme:dark}.intereuropa-language-wrap select option{background:#102b4e;color:#fff}@media(max-width:750px){.intereuropa-language-wrap{margin:6px 0;padding:5px 8px}.intereuropa-language-wrap img{width:36px;height:36px;flex-basis:36px}.intereuropa-language-wrap select{max-width:135px;min-width:105px}}`;
+      document.head.appendChild(style);
+    }
   }
   function start() {
     installSelector();
