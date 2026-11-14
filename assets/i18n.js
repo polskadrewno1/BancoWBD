@@ -1304,6 +1304,12 @@
       if (!originalTextNodes.has(node)) originalTextNodes.set(node, node.nodeValue);
       node.nodeValue = translateText(originalTextNodes.get(node), dict);
     });
+    // Garantir a tradução do título da lista de pedidos na área do cliente.
+    const requestsHeading = document.querySelector("#normalDashboard > h2");
+    if (requestsHeading) {
+      const headingText = "Os meus pedidos de financiamento";
+      requestsHeading.textContent = dict[headingText] || headingText;
+    }
     document.querySelectorAll("input,textarea,button,a,img").forEach(el => {
       ["placeholder","title","alt"].forEach(attr => {
         if (!el.hasAttribute(attr)) return;
