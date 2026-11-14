@@ -1252,6 +1252,8 @@
   Object.assign(adminTranslations.fr, {"Rendimento mensal":"Revenu mensuel","Alterar montante aprovado (€)":"Modifier le montant approuvé (€)","Alterar montante aprovado (€):":"Modifier le montant approuvé (€) :","Confirmar disponibilização efetiva dos fundos":"Confirmer la mise à disposition effective des fonds","Alterar estado:":"Modifier le statut :","Recebido":"Reçu","Em análise":"En cours d’analyse","Aprovado":"Approuvé","Recusado":"Refusé","Guardar estado":"Enregistrer le statut","meses":"mois"});
   for (const [language, entries] of Object.entries(adminTranslations)) Object.assign(translations[language], entries);
   // Tradução dos valores dinâmicos de estado guardados na base de dados.
+  // Portuguese is the source language and has no base dictionary; initialize it before extending it.
+  translations.pt = translations.pt || {};
   Object.assign(translations.pt, {"reçue":"Recebido","em análise":"Em análise","aprovada":"Aprovado","recusada":"Recusado","Recebido":"Recebido"});
   Object.assign(translations.de, {"reçue":"Eingegangen","em análise":"In Prüfung","aprovada":"Genehmigt","recusada":"Abgelehnt","Recebido":"Eingegangen"});
   Object.assign(translations.pl, {"reçue":"Otrzymano","em análise":"W trakcie analizy","aprovada":"Zatwierdzono","recusada":"Odrzucono","Recebido":"Otrzymano"});
