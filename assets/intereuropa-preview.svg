@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b1d39"/><stop offset="1" stop-color="#17477f"/></linearGradient>
+ <radialGradient id="glow"><stop stop-color="#4c91d0" stop-opacity=".38"/><stop offset="1" stop-color="#4c91d0" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="1200" height="630" fill="url(#bg)"/>
+<circle cx="285" cy="315" r="260" fill="url(#glow)"/>
+<circle cx="285" cy="315" r="180" fill="#fff" fill-opacity=".08" stroke="#d7e8fa" stroke-opacity=".45" stroke-width="3"/>
+<g transform="translate(125 155) scale(2.5)"><circle cx="64" cy="64" r="55" fill="#2479b8"/><g clip-path="url(#clip)"></g><path d="M19 39h90M11 64h106M19 89h90" stroke="#fff" stroke-opacity=".3" stroke-width="2"/><path d="M34 15l18 20-7 24 16 22-10 28M86 14L72 38l14 20-8 28 15 22" fill="none" stroke="#d7e8fa" stroke-opacity=".25" stroke-width="2"/><circle cx="64" cy="64" r="55" fill="none" stroke="#fff" stroke-width="3"/></g>
+<text x="535" y="292" font-family="Arial,sans-serif" font-size="76" font-weight="700" letter-spacing="1" fill="#fff">INTEREUROPA.PT</text>
+<rect x="540" y="330" width="110" height="6" rx="3" fill="#76b7f0"/>
+<text x="540" y="390" font-family="Arial,sans-serif" font-size="30" letter-spacing="5" fill="#dbe9f7">SOLUÇÕES FINANCEIRAS</text>
+</svg>
