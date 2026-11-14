@@ -1252,17 +1252,15 @@
   Object.assign(adminTranslations.fr, {"Rendimento mensal":"Revenu mensuel","Alterar montante aprovado (€)":"Modifier le montant approuvé (€)","Alterar montante aprovado (€):":"Modifier le montant approuvé (€) :","Confirmar disponibilização efetiva dos fundos":"Confirmer la mise à disposition effective des fonds","Alterar estado:":"Modifier le statut :","Recebido":"Reçu","Em análise":"En cours d’analyse","Aprovado":"Approuvé","Recusado":"Refusé","Guardar estado":"Enregistrer le statut","meses":"mois"});
   for (const [language, entries] of Object.entries(adminTranslations)) Object.assign(translations[language], entries);
   // Tradução dos valores dinâmicos de estado guardados na base de dados.
-  Object.assign(translations, {
-    pt: {"reçue":"Recebido","em análise":"Em análise","aprovada":"Aprovado","recusada":"Recusado","Recebido":"Recebido"},
-    de: {"reçue":"Eingegangen","em análise":"In Prüfung","aprovada":"Genehmigt","recusada":"Abgelehnt","Recebido":"Eingegangen"},
-    pl: {"reçue":"Otrzymano","em análise":"W trakcie analizy","aprovada":"Zatwierdzono","recusada":"Odrzucono","Recebido":"Otrzymano"},
-    es: {"reçue":"Recibido","em análise":"En análisis","aprovada":"Aprobado","recusada":"Rechazado","Recebido":"Recibido"},
-    it: {"reçue":"Ricevuto","em análise":"In esame","aprovada":"Approvato","recusada":"Rifiutato","Recebido":"Ricevuto"},
-    el: {"reçue":"Παραλήφθηκε","em análise":"Υπό εξέταση","aprovada":"Εγκρίθηκε","recusada":"Απορρίφθηκε","Recebido":"Παραλήφθηκε"},
-    sk: {"reçue":"Prijaté","em análise":"V posudzovaní","aprovada":"Schválené","recusada":"Zamietnuté","Recebido":"Prijaté"},
-    hr: {"reçue":"Zaprimljeno","em análise":"U obradi","aprovada":"Odobreno","recusada":"Odbijeno","Recebido":"Zaprimljeno"},
-    fr: {"reçue":"Reçu","em análise":"En cours d’analyse","aprovada":"Approuvé","recusada":"Refusé","Recebido":"Reçu"}
-  });
+  Object.assign(translations.pt, {"reçue":"Recebido","em análise":"Em análise","aprovada":"Aprovado","recusada":"Recusado","Recebido":"Recebido"});
+  Object.assign(translations.de, {"reçue":"Eingegangen","em análise":"In Prüfung","aprovada":"Genehmigt","recusada":"Abgelehnt","Recebido":"Eingegangen"});
+  Object.assign(translations.pl, {"reçue":"Otrzymano","em análise":"W trakcie analizy","aprovada":"Zatwierdzono","recusada":"Odrzucono","Recebido":"Otrzymano"});
+  Object.assign(translations.es, {"reçue":"Recibido","em análise":"En análisis","aprovada":"Aprobado","recusada":"Rechazado","Recebido":"Recibido"});
+  Object.assign(translations.it, {"reçue":"Ricevuto","em análise":"In esame","aprovada":"Approvato","recusada":"Rifiutato","Recebido":"Ricevuto"});
+  Object.assign(translations.el, {"reçue":"Παραλήφθηκε","em análise":"Υπό εξέταση","aprovada":"Εγκρίθηκε","recusada":"Απορρίφθηκε","Recebido":"Παραλήφθηκε"});
+  Object.assign(translations.sk, {"reçue":"Prijaté","em análise":"V posudzovaní","aprovada":"Schválené","recusada":"Zamietnuté","Recebido":"Prijaté"});
+  Object.assign(translations.hr, {"reçue":"Zaprimljeno","em análise":"U obradi","aprovada":"Odobreno","recusada":"Odbijeno","Recebido":"Zaprimljeno"});
+  Object.assign(translations.fr, {"reçue":"Reçu","em análise":"En cours d’analyse","aprovada":"Approuvé","recusada":"Refusé","Recebido":"Reçu"});
 
   const key = "intereuropa_language";
   const originalTextNodes = new WeakMap();
