@@ -1338,9 +1338,16 @@
     select.addEventListener("change", () => {
       applyLanguage(select.value);
     });
+    const globe = document.createElement("img");
+    globe.src = "assets/intereuropa-language-globe.svg";
+    globe.alt = "Globe des neuf langues disponibles";
+    globe.width = 42;
+    globe.height = 42;
+    globe.loading = "eager";
+    wrap.appendChild(globe);
     wrap.appendChild(select); header.appendChild(wrap);
     const style = document.createElement("style");
-    style.textContent = ".intereuropa-language-wrap{display:inline-flex;align-items:center;margin:8px 12px}.intereuropa-language-wrap select{padding:8px 10px;border:1px solid #b9c4d3;border-radius:8px;background:#fff;color:#14243a;font:inherit;max-width:145px}";
+    style.textContent = ".intereuropa-language-wrap{display:inline-flex;align-items:center;gap:9px;margin:8px 12px;padding:5px 9px;border:1px solid #b9c4d3;border-radius:10px;background:#fff;box-shadow:0 2px 8px #10284d12}.intereuropa-language-wrap img{display:block;width:42px;height:42px;object-fit:contain;border-radius:50%;flex:0 0 42px}.intereuropa-language-wrap select{padding:8px 10px;border:0;border-left:1px solid #d5deea;border-radius:0;background:#fff;color:#14243a;font:inherit;max-width:145px;min-width:112px;outline-offset:2px}@media(max-width:750px){.intereuropa-language-wrap{margin:6px 0}.intereuropa-language-wrap img{width:36px;height:36px;flex-basis:36px}.intereuropa-language-wrap select{max-width:135px;min-width:105px}}";
     document.head.appendChild(style);
   }
   function start() {
