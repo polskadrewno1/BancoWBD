@@ -1405,7 +1405,12 @@
     const requestsHeading = document.querySelector("#normalDashboard > h2");
     if (requestsHeading) {
       const headingText = "Os meus pedidos de financiamento";
-      requestsHeading.textContent = dict[headingText] || headingText;
+      const translatedHeading = dict[headingText] || headingText;
+      // Evita recriar o nó em cada passagem: isso disparava o MutationObserver
+      // continuamente e fazia a página piscar/parecer um vídeo.
+      if (requestsHeading.textContent !== translatedHeading) {
+        requestsHeading.textContent = translatedHeading;
+      }
     }
     document.querySelectorAll("input,textarea,button,a,img").forEach(el => {
       ["placeholder","title","alt"].forEach(attr => {
