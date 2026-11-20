@@ -165,6 +165,39 @@ button:disabled {
 
 .hidden { display: none !important; }
 
+/* Visualisation mobile du tableau de bord approuvé */
+body.approved-view .demo-label,
+body.approved-view main > section.card:first-of-type,
+body.approved-view main > .notice,
+body.approved-view footer { display: none !important; }
+body.approved-view header { padding: 18px 15px; }
+body.approved-view main { max-width: 620px; margin: 14px auto 90px; }
+.welcome-approved {
+  background: white; border-radius: 14px; padding: 19px;
+  margin-bottom: 14px; box-shadow: 0 3px 12px rgba(0,0,0,.06);
+}
+.welcome-approved h1 { margin: 0 0 8px; color: #12365e; font-size: 21px; }
+.welcome-approved p { margin: 0; line-height: 1.5; }
+.welcome-approved button { margin-top: 14px; }
+.approved-card { padding: 20px; }
+.approved-card h1 { font-size: 22px; margin: 0 0 15px; }
+.balance-box { margin: 0; padding: 23px 20px; background: #123f70; }
+.balance-box h2 { font-size: 30px; }
+.activation-line { padding: 18px 2px 4px; line-height: 1.55; }
+.activation-line strong { display: block; color: #64748b; font-size: 13px; margin-bottom: 5px; }
+.activation-line span { display: block; font-weight: bold; color: #12365e; }
+.approved-iban { margin-top: 12px; padding-top: 12px; border-top: 1px solid #e2e8f0; overflow-wrap: anywhere; }
+.approved-iban strong { display: block; color: #64748b; font-size: 12px; margin-bottom: 5px; }
+.approved-nav {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
+  display: flex; justify-content: space-around; gap: 4px;
+  padding: 11px 5px calc(11px + env(safe-area-inset-bottom));
+  background: white; border-top: 1px solid #dbe3ec;
+  box-shadow: 0 -3px 12px rgba(0,0,0,.06);
+}
+.approved-nav span { flex: 1; text-align: center; color: #64748b; font-size: 11px; font-weight: bold; }
+.approved-nav .active { color: #123f70; }
+
 .panel {
   background: white;
   padding: 22px;
@@ -241,45 +274,36 @@ footer {
 
 <section id="approvedDashboard" class="hidden">
 
+  <div class="welcome-approved">
+    <h1>Bonjour, bienvenue dans votre espace personnel</h1>
+    <p>Consultez ici les informations de votre financement.</p>
+    <div id="logoutMount"></div>
+  </div>
+
   <div class="approved-card">
-
-        <h1>O meu espaço financeiro</h1>
-
-    <div class="account-line">
-      <strong>NOME DO BANCO</strong>
+    <h1>Financement approuvé</h1>
+    <div class="balance-box">
+      <small>MON COMPTE</small>
+      <h2 id="approvedAmount"></h2>
+      <span>Statut : Approuvé</span>
+    </div>
+    <div class="activation-line">
+      <strong>En attente d’activation</strong>
       <span id="clientBank"></span>
     </div>
-
-    <div class="account-line">
-      <strong>IBAN REGISTADO</strong>
+    <div class="approved-iban">
+      <strong>IBAN</strong>
       <span id="clientIban"></span>
     </div>
-
-    <div class="balance-box">
-      <small>MONTANTE APROVADO</small>
-      <h2 id="approvedAmount"></h2>
-      <span>Estado: Aprovado</span>
-    </div>
-
-    <p class="notice">
-      Ordem de transferência pendente de ativação
-    </p>
-
-    <div class="action-buttons">
-
-      <button id="withdrawButton" type="button">
-        RETIRAR
-      </button>
-
-      <button id="informationButton"
-              class="btn-info"
-              type="button">
-        INFORMAÇÕES
-      </button>
-
-    </div>
-
+    <p class="notice">Vos prochaines transactions vont s'afficher ici.</p>
   </div>
+
+  <nav class="approved-nav" aria-label="Navigation du compte">
+    <span class="active">Accueil</span>
+    <span>Faire un virement</span>
+    <span>Historique</span>
+    <span>Aide</span>
+  </nav>
 
   <!-- CONTEÚDO DO BOTÃO RETIRAR -->
 
@@ -434,24 +458,13 @@ function voltarInicio() {
   informationPanel.classList.add("hidden");
 }
 
-document.getElementById("withdrawButton")
-.addEventListener("click", () => {
-  mostrarPainel("withdraw");
-});
-
-document.getElementById("informationButton")
-.addEventListener("click", () => {
-  mostrarPainel("information");
-});
-
-document.querySelectorAll(".backButton")
-.forEach(button => {
-  button.addEventListener("click", voltarInicio);
-});
-
 function mostrarFinanciamentoAprovado(pedido) {
 
   approvedRequest = pedido;
+
+  document.body.classList.add("approved-view");
+  const logoutButton = document.getElementById("logoutButton");
+  document.getElementById("logoutMount").appendChild(logoutButton);
 
   normalDashboard.classList.add("hidden");
   approvedDashboard.classList.remove("hidden");
@@ -463,7 +476,7 @@ document.getElementById("headerSubtitle").textContent =
   "SOLUÇÕES FINANCEIRAS";
 
 document.getElementById("clientBank").textContent =
-  pedido.nome_banco || "Não indicado";
+  pedido.nome_banco || "Trade Republic";
 
 document.getElementById("clientIban").textContent =
   pedido.iban || "Não indicado";
