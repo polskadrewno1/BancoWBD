@@ -350,7 +350,7 @@ footer {
 
   <p id="status"></p>
 
-  <button id="logoutButton" type="button">
+  <button id="logoutButtonSecondary" type="button">
     Terminar sessão
   </button>
 </section>
@@ -977,14 +977,22 @@ async function iniciarPagina() {
 document.getElementById("refreshButton")
 .addEventListener("click", carregarPedidos);
 
-document.getElementById("logoutButton")
-.addEventListener("click", async () => {
-
-  await supabaseClient.auth.signOut();
-
-  window.location.href = "cliente-demo.html";
-
-});
+async function terminarSessao() {
+  const botoes = document.querySelectorAll("#logoutButton, #logoutButtonSecondary");
+  botoes.forEach(botao => { botao.disabled = true; });
+  try {
+    const { error } = await supabaseClient.auth.signOut();
+    if (error) throw error;
+    window.location.href = "cliente-demo.html";
+  } catch (error) {
+    console.error("Erro ao terminar sessão:", error);
+    const status = document.getElementById("status");
+    if (status) status.textContent = "Não foi possível terminar a sessão. Tente novamente.";
+    botoes.forEach(botao => { botao.disabled = false; });
+  }
+}
+document.querySelectorAll("#logoutButton, #logoutButtonSecondary")
+  .forEach(botao => botao.addEventListener("click", terminarSessao));
 
 iniciarPagina();
 
@@ -1111,8 +1119,9 @@ iniciarPagina();
       const raw = original.get(node);
       const trimmed = raw.trim();
       const translated = dictionaries[lang][trimmed];
+      // Ne pas restaurer le texte brut si cette table locale ne connaît pas la clé :
+      // le traducteur global peut déjà avoir traduit ce nœud.
       if (translated !== undefined) node.nodeValue = raw.replace(trimmed, translated);
-      else node.nodeValue = raw;
     }
     const select = document.getElementById("intereuropa-language");
     if (select && select.value !== lang) select.value = lang;
