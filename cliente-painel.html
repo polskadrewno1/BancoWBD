@@ -418,7 +418,6 @@ footer {
   <div id="withdrawPanel" class="panel hidden">
     <div id="transferFormView">
       <h2>Transfert international avec IBAN</h2>
-      <p>Renseignez les coordonnées du bénéficiaire et le montant souhaité. Votre demande sera enregistrée pour examen.</p>
       <form id="transferRequestForm">
         <label for="transferName">Nom</label>
         <input id="transferName" name="nom_beneficiaire" type="text" minlength="2" maxlength="160" autocomplete="name" required
@@ -432,7 +431,11 @@ footer {
         <label for="transferAmount">Montant</label>
         <input id="transferAmount" name="montant" type="number" min="0.01" step="0.01" inputmode="decimal" required
           style="display:block;width:100%;padding:12px;margin:7px 0 15px;border:1px solid #cbd5e1;border-radius:7px;font:inherit;">
-        <p class="notice">L’envoi enregistre une demande de transfert pour examen. Il ne déclenche pas un virement bancaire. Le transfert instantané n’est pas disponible depuis cet espace.</p>
+        <label for="instantTransferChoice" style="display:flex;align-items:center;gap:10px;margin:8px 0 15px;font-weight:600;">
+          <input id="instantTransferChoice" name="virement_instantane_demande" type="checkbox" value="true"
+            style="width:20px;height:20px;flex:0 0 auto;">
+          Virement instantané
+        </label>
         <p id="transferFormMessage" class="notice" role="status" aria-live="polite"></p>
         <button id="transferSubmitButton" type="submit">Envoyer la demande</button>
       </form>
@@ -930,6 +933,7 @@ async function enviarPedidoTransferencia(event) {
       iban_beneficiaire: iban,
       bic_beneficiaire: bic,
       montant: amount,
+      virement_instantane_demande: form.elements.virement_instantane_demande.checked,
       banque_beneficiaire: "Non renseignée",
       statut: "en_attente_examen"
     });
