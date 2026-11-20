@@ -872,6 +872,14 @@ iniciarPagina();
     fr: {"Bonjour,":"Bonjour,","Bienvenue dans votre espace personnel":"Bienvenue dans votre espace personnel","Financement approuvé":"Financement approuvé","Montant approuvé":"Montant approuvé","Statut :":"Statut :","Approuvé":"Approuvé","Mon compte":"Mon compte","En attente d’activation":"En attente d’activation","Mes transactions":"Mes transactions","Voir tout":"Voir tout","Vos prochaines transactions":"Vos prochaines transactions","vont s'afficher ici.":"vont s'afficher ici.","Accueil":"Accueil","Faire un virement":"Faire un virement","Historique":"Historique","Aide":"Aide"}
   };
   const original = new WeakMap();
+  // Capture les textes français avant que le traducteur global ne les modifie.
+  const initialWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  while (initialWalker.nextNode()) {
+    const node = initialWalker.currentNode;
+    if (node.parentElement && !node.parentElement.closest("script,style,select,option")) {
+      original.set(node, node.nodeValue);
+    }
+  }
   function apply(lang) {
     if (!dictionaries[lang]) lang = "pt";
     try { localStorage.setItem("intereuropa_language", lang); } catch(e) {}
