@@ -856,5 +856,48 @@ iniciarPagina();
 
 </script>
 
-\n<script src="assets/i18n.js?v=20261120b"></script>\n</body>
+\n<script src="assets/i18n.js?v=20261120b"></script>
+<script>
+/* Traduction autonome du tableau de bord approuvé : garde la langue choisie après actualisation. */
+(function () {
+  const dictionaries = {
+    pt: {"Bonjour,":"Olá,","Bienvenue dans votre espace personnel":"Bem-vindo à sua área pessoal","Financement approuvé":"Financiamento aprovado","Montant approuvé":"Montante aprovado","Statut :":"Estado:","Approuvé":"Aprovado","Mon compte":"A minha conta","En attente d’activation":"A aguardar ativação","Mes transactions":"As minhas transações","Voir tout":"Ver tudo","Vos prochaines transactions":"As suas próximas transações","vont s'afficher ici.":"serão apresentadas aqui.","Accueil":"Início","Faire un virement":"Fazer uma transferência","Historique":"Histórico","Aide":"Ajuda"},
+    de: {"Bonjour,":"Guten Tag,","Bienvenue dans votre espace personnel":"Willkommen in Ihrem persönlichen Bereich","Financement approuvé":"Finanzierung genehmigt","Montant approuvé":"Genehmigter Betrag","Statut :":"Status:","Approuvé":"Genehmigt","Mon compte":"Mein Konto","En attente d’activation":"Wartet auf Aktivierung","Mes transactions":"Meine Transaktionen","Voir tout":"Alle anzeigen","Vos prochaines transactions":"Ihre nächsten Transaktionen","vont s'afficher ici.":"werden hier angezeigt.","Accueil":"Startseite","Faire un virement":"Überweisung tätigen","Historique":"Verlauf","Aide":"Hilfe"},
+    pl: {"Bonjour,":"Dzień dobry,","Bienvenue dans votre espace personnel":"Witamy w Twojej strefie klienta","Financement approuvé":"Finansowanie zatwierdzone","Montant approuvé":"Zatwierdzona kwota","Statut :":"Status:","Approuvé":"Zatwierdzono","Mon compte":"Moje konto","En attente d’activation":"Oczekuje na aktywację","Mes transactions":"Moje transakcje","Voir tout":"Zobacz wszystko","Vos prochaines transactions":"Twoje następne transakcje","vont s'afficher ici.":"będą wyświetlane tutaj.","Accueil":"Strona główna","Faire un virement":"Wykonaj przelew","Historique":"Historia","Aide":"Pomoc"},
+    es: {"Bonjour,":"¡Hola!","Bienvenue dans votre espace personnel":"Bienvenido a su espacio personal","Financement approuvé":"Financiación aprobada","Montant approuvé":"Importe aprobado","Statut :":"Estado:","Approuvé":"Aprobado","Mon compte":"Mi cuenta","En attente d’activation":"Pendiente de activación","Mes transactions":"Mis transacciones","Voir tout":"Ver todo","Vos prochaines transactions":"Sus próximas transacciones","vont s'afficher ici.":"se mostrarán aquí.","Accueil":"Inicio","Faire un virement":"Hacer una transferencia","Historique":"Historial","Aide":"Ayuda"},
+    it: {"Bonjour,":"Buongiorno,","Bienvenue dans votre espace personnel":"Benvenuto nella tua area personale","Financement approuvé":"Finanziamento approvato","Montant approuvé":"Importo approvato","Statut :":"Stato:","Approuvé":"Approvato","Mon compte":"Il mio conto","En attente d’activation":"In attesa di attivazione","Mes transactions":"Le mie transazioni","Voir tout":"Vedi tutto","Vos prochaines transactions":"Le tue prossime transazioni","vont s'afficher ici.":"saranno visualizzate qui.","Accueil":"Home","Faire un virement":"Effettua un bonifico","Historique":"Cronologia","Aide":"Aiuto"},
+    el: {"Bonjour,":"Γεια σας,","Bienvenue dans votre espace personnel":"Καλώς ήρθατε στον προσωπικό σας χώρο","Financement approuvé":"Η χρηματοδότηση εγκρίθηκε","Montant approuvé":"Εγκεκριμένο ποσό","Statut :":"Κατάσταση:","Approuvé":"Εγκρίθηκε","Mon compte":"Ο λογαριασμός μου","En attente d’activation":"Σε αναμονή ενεργοποίησης","Mes transactions":"Οι συναλλαγές μου","Voir tout":"Προβολή όλων","Vos prochaines transactions":"Οι επόμενες συναλλαγές σας","vont s'afficher ici.":"θα εμφανίζονται εδώ.","Accueil":"Αρχική","Faire un virement":"Πραγματοποίηση μεταφοράς","Historique":"Ιστορικό","Aide":"Βοήθεια"},
+    sk: {"Bonjour,":"Dobrý deň,","Bienvenue dans votre espace personnel":"Vitajte vo svojom osobnom priestore","Financement approuvé":"Financovanie schválené","Montant approuvé":"Schválená suma","Statut :":"Stav:","Approuvé":"Schválené","Mon compte":"Môj účet","En attente d’activation":"Čaká na aktiváciu","Mes transactions":"Moje transakcie","Voir tout":"Zobraziť všetko","Vos prochaines transactions":"Vaše ďalšie transakcie","vont s'afficher ici.":"sa zobrazia tu.","Accueil":"Domov","Faire un virement":"Uskutočniť prevod","Historique":"História","Aide":"Pomoc"},
+    hr: {"Bonjour,":"Pozdrav,","Bienvenue dans votre espace personnel":"Dobro došli u svoj osobni prostor","Financement approuvé":"Financiranje odobreno","Montant approuvé":"Odobreni iznos","Statut :":"Status:","Approuvé":"Odobreno","Mon compte":"Moj račun","En attente d’activation":"Čeka aktivaciju","Mes transactions":"Moje transakcije","Voir tout":"Pogledaj sve","Vos prochaines transactions":"Vaše sljedeće transakcije","vont s'afficher ici.":"prikazat će se ovdje.","Accueil":"Početna","Faire un virement":"Izvrši prijenos","Historique":"Povijest","Aide":"Pomoć"},
+    fr: {"Bonjour,":"Bonjour,","Bienvenue dans votre espace personnel":"Bienvenue dans votre espace personnel","Financement approuvé":"Financement approuvé","Montant approuvé":"Montant approuvé","Statut :":"Statut :","Approuvé":"Approuvé","Mon compte":"Mon compte","En attente d’activation":"En attente d’activation","Mes transactions":"Mes transactions","Voir tout":"Voir tout","Vos prochaines transactions":"Vos prochaines transactions","vont s'afficher ici.":"vont s'afficher ici.","Accueil":"Accueil","Faire un virement":"Faire un virement","Historique":"Historique","Aide":"Aide"}
+  };
+  const original = new WeakMap();
+  function apply(lang) {
+    if (!dictionaries[lang]) lang = "pt";
+    try { localStorage.setItem("intereuropa_language", lang); } catch(e) {}
+    document.documentElement.lang = ({pt:"pt-PT",de:"de",pl:"pl",es:"es",it:"it",el:"el",sk:"sk",hr:"hr",fr:"fr"})[lang];
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    while (walker.nextNode()) {
+      const node = walker.currentNode;
+      if (!node.parentElement || node.parentElement.closest("script,style,select,option")) continue;
+      if (!original.has(node)) original.set(node, node.nodeValue);
+      const raw = original.get(node);
+      const trimmed = raw.trim();
+      const translated = dictionaries[lang][trimmed];
+      if (translated !== undefined) node.nodeValue = raw.replace(trimmed, translated);
+      else node.nodeValue = raw;
+    }
+    const select = document.getElementById("intereuropa-language");
+    if (select && select.value !== lang) select.value = lang;
+  }
+  function schedule(lang) { window.setTimeout(() => apply(lang), 30); }
+  const select = document.getElementById("intereuropa-language");
+  if (select) select.addEventListener("change", () => schedule(select.value));
+  document.addEventListener("DOMContentLoaded", () => {
+    let saved = "pt";
+    try { saved = localStorage.getItem("intereuropa_language") || "pt"; } catch(e) {}
+    schedule(saved);
+  });
+})();
+</script>\n</body>
 </html>
