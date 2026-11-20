@@ -397,8 +397,8 @@ footer {
   </section>
 
   <nav class="approved-nav" aria-label="Navigation du compte">
-    <a href="#" class="active" aria-current="page"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M4 18 20 5l16 13h-5v17H9V18Z" fill="currentColor"/></svg>Accueil</a>
-    <a href="#" aria-label="Faire un virement"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M5 13h27l-6-6M35 27H8l6 6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M32 13 26 19M8 27l6-6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>Faire un virement</a>
+    <a href="#" class="active" aria-current="page" onclick="voltarInicio(); return false;"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M4 18 20 5l16 13h-5v17H9V18Z" fill="currentColor"/></svg>Accueil</a>
+    <a href="#" aria-label="Faire un virement" onclick="mostrarPainel('withdraw'); return false;"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M5 13h27l-6-6M35 27H8l6 6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M32 13 26 19M8 27l6-6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>Faire un virement</a>
     <a href="#" aria-label="Historique" onclick="mostrarPainel('history'); return false;"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="21" r="15" fill="none" stroke="currentColor" stroke-width="3"/><path d="M20 11v10l7 5M5 8v8h8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>Historique</a>
     <a href="#" aria-label="Aide" onclick="mostrarPainel('help'); return false;"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="15" fill="none" stroke="currentColor" stroke-width="3"/><path d="M15 15a5 5 0 1 1 8 4c-3 2-3 3-3 6M20 30v1" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>Aide</a>
   </nav>
@@ -416,8 +416,8 @@ footer {
       Il ne s’agit pas de plusieurs étapes successives de validation, mais bien de l’activation du transfert. Après l’activation effective du virement et son exécution par l’établissement bancaire, les fonds seront disponibles sur votre compte bancaire et vous pourrez procéder à leur retrait.
     </p>
 
-    <button type="button" class="backButton">
-      Voltar
+    <button type="button" class="backButton" onclick="voltarInicio()">
+      Retour
     </button>
 
   </div>
