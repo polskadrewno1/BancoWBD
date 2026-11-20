@@ -184,7 +184,7 @@ body.approved-view header {
 .approved-header-actions { display:flex; align-items:center; gap:8px; }
 .approved-header-actions .intereuropa-language-wrap { display:flex; align-items:center; }
 .approved-header-actions .intereuropa-language-wrap img { width:28px; height:28px; }
-.approved-header-actions select { max-width:68px; border:0; color:#12366e; background:#fff; font-size:11px; }
+.approved-header-actions select { max-width:112px; min-width:88px; border:0; color:#12366e; background:#fff; font-size:10px; }
 .approved-header-actions #logoutButton {
   width:42px; height:42px; padding:0; margin:0; border-radius:50%;
   font-size:0; background:#1260bd; position:relative;
@@ -201,7 +201,7 @@ body.approved-view main { max-width:600px; margin:0 auto; padding:0 15px 100px; 
 .approved-welcome-banner {
   min-height:205px; margin:0 -15px 15px; padding:28px 24px;
   display:flex; align-items:center; color:white;
-  background:linear-gradient(90deg,rgba(0,54,139,.92),rgba(0,80,170,.15)),url("assets/mfie-hero.jpg") center/cover no-repeat;
+  background:linear-gradient(115deg,#06459d 0%,#0877dc 58%,#3e9be8 100%);
   border-radius:0 0 24px 24px; overflow:hidden;
 }
 .approved-welcome-banner h1 { color:white; font-size:34px; line-height:1.05; margin:0; max-width:310px; }
@@ -314,9 +314,9 @@ footer {
     <label class="intereuropa-language-wrap" aria-label="Language / Idioma">
       <img src="assets/intereuropa-language-globe.svg" alt="Langues disponibles" width="28" height="28">
       <select id="intereuropa-language" aria-label="Selecionar idioma">
-        <option value="pt">PT</option><option value="de">DE</option><option value="pl">PL</option>
-        <option value="es">ES</option><option value="it">IT</option><option value="el">EL</option>
-        <option value="sk">SK</option><option value="hr">HR</option><option value="fr">FR</option>
+        <option value="pt">Português</option><option value="de">Deutsch</option><option value="pl">Polski</option>
+        <option value="es">Español</option><option value="it">Italiano</option><option value="el">Ελληνικά</option>
+        <option value="sk">Slovenčina</option><option value="hr">Hrvatski</option><option value="fr">Français</option>
       </select>
     </label>
     <button id="logoutButton" type="button" aria-label="Terminar sessão" title="Terminar sessão">Sair</button>
@@ -856,5 +856,5 @@ iniciarPagina();
 
 </script>
 
-\n<script src="assets/i18n.js?v=20261114g"></script>\n</body>
+\n<script src="assets/i18n.js?v=20261120b"></script>\n</body>
 </html>
