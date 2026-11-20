@@ -1356,15 +1356,17 @@
   const originalTextNodes = new WeakMap();
   const originalAttributes = new WeakMap();
   const getLang = () => {
+    // Um idioma indicado explicitamente no URL tem prioridade para permitir
+    // testes e ligações partilhadas, mesmo que exista uma preferência guardada.
+    const urlLang = new URLSearchParams(window.location.search).get("lang");
+    if (urlLang && languages[urlLang]) return urlLang;
     let savedLang = "";
     try { savedLang = localStorage.getItem(key) || ""; } catch (e) {}
     if (!savedLang) {
       const match = document.cookie.match(/(?:^|; )intereuropa_language=([^;]+)/);
       if (match) savedLang = decodeURIComponent(match[1]);
     }
-    if (savedLang && languages[savedLang]) return savedLang;
-    const urlLang = new URLSearchParams(window.location.search).get("lang");
-    return (urlLang && languages[urlLang]) ? urlLang : "pt";
+    return (savedLang && languages[savedLang]) ? savedLang : "pt";
   };
   let activeLang = "pt";
   function translateText(value, dict) {
@@ -1448,7 +1450,7 @@
     if (!document.getElementById("intereuropa-language-style")) {
       const style = document.createElement("style");
       style.id = "intereuropa-language-style";
-      style.textContent = `.intereuropa-language-wrap{display:inline-flex!important;align-items:center!important;gap:11px!important;margin:10px 12px!important;padding:12px 17px!important;border:2px solid #d7e8ff!important;border-radius:16px!important;background-color:#08264b!important;background-image:linear-gradient(120deg,rgba(4,24,52,.18),rgba(15,73,132,.12)),url("/BancoWBD/assets/intereuropa-language-wallpaper.svg")!important;background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important;box-shadow:0 7px 22px rgba(4,20,43,.42),0 0 0 3px rgba(48,111,177,.16),inset 0 1px 0 rgba(255,255,255,.55)!important;position:relative!important}.intereuropa-language-wrap img{display:block!important;width:44px!important;height:44px!important;object-fit:contain!important;border-radius:50%!important;flex:0 0 44px!important;filter:drop-shadow(0 2px 4px rgba(0,0,0,.55))!important}.intereuropa-language-wrap select{padding:9px 12px!important;border:1px solid rgba(235,245,255,.78)!important;border-radius:9px!important;background:rgba(3,20,43,.78)!important;color:#fff!important;font:inherit!important;font-weight:700!important;max-width:150px!important;min-width:118px!important;outline-offset:3px!important;color-scheme:dark!important;text-shadow:0 1px 2px rgba(0,0,0,.55)!important}.intereuropa-language-wrap select option{background:#102b4e!important;color:#fff!important}@media(max-width:750px){.intereuropa-language-wrap{margin:7px 0;padding:8px 10px;gap:8px}.intereuropa-language-wrap img{width:38px;height:38px;flex-basis:38px}.intereuropa-language-wrap select{max-width:140px;min-width:110px;padding:8px 9px}}`;
+      style.textContent = `.intereuropa-language-wrap{display:inline-flex!important;align-items:center!important;gap:11px!important;margin:10px 12px!important;padding:12px 17px!important;border:2px solid #d7e8ff!important;border-radius:16px!important;background-color:#08264b!important;background-image:linear-gradient(120deg,rgba(4,24,52,.18),rgba(15,73,132,.12)),url("${window.location.pathname.startsWith("/BancoWBD/") ? "/BancoWBD" : ""}/assets/intereuropa-language-wallpaper.svg")!important;background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important;box-shadow:0 7px 22px rgba(4,20,43,.42),0 0 0 3px rgba(48,111,177,.16),inset 0 1px 0 rgba(255,255,255,.55)!important;position:relative!important}.intereuropa-language-wrap img{display:block!important;width:44px!important;height:44px!important;object-fit:contain!important;border-radius:50%!important;flex:0 0 44px!important;filter:drop-shadow(0 2px 4px rgba(0,0,0,.55))!important}.intereuropa-language-wrap select{padding:9px 12px!important;border:1px solid rgba(235,245,255,.78)!important;border-radius:9px!important;background:rgba(3,20,43,.78)!important;color:#fff!important;font:inherit!important;font-weight:700!important;max-width:150px!important;min-width:118px!important;outline-offset:3px!important;color-scheme:dark!important;text-shadow:0 1px 2px rgba(0,0,0,.55)!important}.intereuropa-language-wrap select option{background:#102b4e!important;color:#fff!important}@media(max-width:750px){.intereuropa-language-wrap{margin:7px 0;padding:8px 10px;gap:8px}.intereuropa-language-wrap img{width:38px;height:38px;flex-basis:38px}.intereuropa-language-wrap select{max-width:140px;min-width:110px;padding:8px 9px}}`;
       document.head.appendChild(style);
     }
   }
