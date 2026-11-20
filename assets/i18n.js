@@ -5,6 +5,7 @@
     sk: ["Slovenčina", "sk-SK"], hr: ["Hrvatski", "hr-HR"], fr: ["Français", "fr-FR"]
   };
   const translations = {
+    pt: {},
     de: {
       "Início":"Startseite","Serviços":"Dienstleistungen","Financiamento":"Finanzierung","Área de cliente":"Kundenbereich","Contacto":"Kontakt",
       "SOLUÇÕES DE FINANCIAMENTO":"FINANZIERUNGSLÖSUNGEN","O futuro financeiro começa com uma nova experiência.":"Die finanzielle Zukunft beginnt mit einer neuen Erfahrung.",
