@@ -400,7 +400,7 @@ footer {
     <a href="#" class="active" aria-current="page"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M4 18 20 5l16 13h-5v17H9V18Z" fill="currentColor"/></svg>Accueil</a>
     <a href="#" aria-label="Faire un virement"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M5 13h27l-6-6M35 27H8l6 6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M32 13 26 19M8 27l6-6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>Faire un virement</a>
     <a href="#" aria-label="Historique" onclick="mostrarPainel('history'); return false;"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="21" r="15" fill="none" stroke="currentColor" stroke-width="3"/><path d="M20 11v10l7 5M5 8v8h8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>Historique</a>
-    <a href="#" aria-label="Aide"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="15" fill="none" stroke="currentColor" stroke-width="3"/><path d="M15 15a5 5 0 1 1 8 4c-3 2-3 3-3 6M20 30v1" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>Aide</a>
+    <a href="#" aria-label="Aide" onclick="mostrarPainel('help'); return false;"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="15" fill="none" stroke="currentColor" stroke-width="3"/><path d="M15 15a5 5 0 1 1 8 4c-3 2-3 3-3 6M20 30v1" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>Aide</a>
   </nav>
 
   <!-- CONTEÚDO DO BOTÃO RETIRAR -->
@@ -425,6 +425,22 @@ footer {
   <div id="historyPanel" class="panel hidden">
     <h2>Historique</h2>
     <p>Vos prochains transferts s’afficheront ici.</p>
+    <button type="button" class="backButton" onclick="voltarInicio()">Retour</button>
+  </div>
+
+  <div id="helpPanel" class="panel hidden">
+    <h2>Assistance INTEREUROPA</h2>
+    <p>Vous avez besoin d'aide concernant votre compte ou votre financement ?</p>
+    <p>Notre service d'assistance est à votre disposition pour vous accompagner et répondre à vos questions.</p>
+    <p>Pour toute demande d'information concernant :</p>
+    <ul>
+      <li>Votre espace personnel ;</li>
+      <li>Le statut de votre financement ;</li>
+      <li>L'activation de votre transfert ;</li>
+      <li>Le suivi de vos demandes.</li>
+    </ul>
+    <p>Veuillez contacter le service d'assistance INTEREUROPA à l'adresse suivante :</p>
+    <p>📧 <a href="mailto:contacto@intereuropa.pt?subject=Demande%20d%E2%80%99assistance%20INTEREUROPA">contacto@intereuropa.pt</a></p>
     <button type="button" class="backButton" onclick="voltarInicio()">Retour</button>
   </div>
 
@@ -510,6 +526,9 @@ document.getElementById("informationPanel");
 const historyPanel =
 document.getElementById("historyPanel");
 
+const helpPanel =
+document.getElementById("helpPanel");
+
 const approvedDetails =
 document.getElementById("approvedDetails");
 
@@ -553,6 +572,7 @@ function mostrarPainel(nome) {
   withdrawPanel.classList.add("hidden");
   informationPanel.classList.add("hidden");
   historyPanel.classList.add("hidden");
+  helpPanel.classList.add("hidden");
 
   if (nome === "history") {
     historyPanel.classList.remove("hidden");
@@ -565,6 +585,18 @@ function mostrarPainel(nome) {
   if (nome === "information") {
     informationPanel.classList.remove("hidden");
   }
+
+  if (nome === "help") {
+    helpPanel.classList.remove("hidden");
+  }
+
+  const activePanel = nome === "history" ? historyPanel :
+    nome === "withdraw" ? withdrawPanel :
+    nome === "information" ? informationPanel :
+    nome === "help" ? helpPanel : null;
+  if (activePanel) {
+    window.setTimeout(() => activePanel.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+  }
 }
 
 function voltarInicio() {
@@ -572,6 +604,8 @@ function voltarInicio() {
   withdrawPanel.classList.add("hidden");
   informationPanel.classList.add("hidden");
   historyPanel.classList.add("hidden");
+  helpPanel.classList.add("hidden");
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function mostrarFinanciamentoAprovado(pedido) {
