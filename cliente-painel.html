@@ -416,20 +416,34 @@ footer {
   <!-- CONTEÚDO DO BOTÃO RETIRAR -->
 
   <div id="withdrawPanel" class="panel hidden">
+    <div id="transferFormView">
+      <h2>Demande de transfert</h2>
+      <p>Remplissez les informations du bénéficiaire pour soumettre une demande de transfert à INTEREUROPA.</p>
+      <form id="transferRequestForm">
+        <label for="transferName">Nom</label>
+        <input id="transferName" name="nom_beneficiaire" type="text" minlength="2" maxlength="160" autocomplete="name" required
+          style="display:block;width:100%;padding:12px;margin:7px 0 15px;border:1px solid #cbd5e1;border-radius:7px;font:inherit;">
+        <label for="transferIban">IBAN</label>
+        <input id="transferIban" name="iban_beneficiaire" type="text" minlength="15" maxlength="40" autocomplete="off" required
+          style="display:block;width:100%;padding:12px;margin:7px 0 15px;border:1px solid #cbd5e1;border-radius:7px;font:inherit;text-transform:uppercase;">
+        <label for="transferAmount">Montant</label>
+        <input id="transferAmount" name="montant" type="number" min="0.01" step="0.01" inputmode="decimal" required
+          style="display:block;width:100%;padding:12px;margin:7px 0 15px;border:1px solid #cbd5e1;border-radius:7px;font:inherit;">
+        <label for="transferBank">Bank</label>
+        <input id="transferBank" name="banque_beneficiaire" type="text" minlength="2" maxlength="160" autocomplete="organization" required
+          style="display:block;width:100%;padding:12px;margin:7px 0 15px;border:1px solid #cbd5e1;border-radius:7px;font:inherit;">
+        <p class="notice">Ce formulaire enregistre une demande pour examen. Son envoi ne réalise pas un virement bancaire.</p>
+        <p id="transferFormMessage" class="notice" role="status" aria-live="polite"></p>
+        <button id="transferSubmitButton" type="submit">Envoyer la demande</button>
+      </form>
+    </div>
 
-    <h2>Activation du transfert</h2>
-
-    <p>
-      Le transfert est actuellement en attente d’activation. Le client bénéficiaire est invité à contacter INTEREUROPA afin de finaliser le mécanisme d’activation du virement.
-    </p>
-    <p>
-      Il ne s’agit pas de plusieurs étapes successives de validation, mais bien de l’activation du transfert. Après l’activation effective du virement et son exécution par l’établissement bancaire, les fonds seront disponibles sur votre compte bancaire et vous pourrez procéder à leur retrait.
-    </p>
-
-    <button type="button" class="backButton" onclick="voltarInicio()">
-      Retour
-    </button>
-
+    <div id="transferResultView" class="hidden" role="status" aria-live="polite">
+      <h2>Transfert en attente d’examen</h2>
+      <p>Votre demande de transfert a bien été reçue. Elle est actuellement en attente d’examen par INTEREUROPA.</p>
+      <p>L’envoi de cette demande ne déclenche pas automatiquement un virement bancaire. Toute activation et toute exécution éventuelles seront confirmées séparément par l’établissement bancaire.</p>
+      <button type="button" class="backButton" onclick="voltarInicio()">Retour</button>
+    </div>
   </div>
 
   <div id="historyPanel" class="panel hidden">
@@ -872,6 +886,65 @@ async function carregarPedidos() {
   });
 }
 
+async function enviarPedidoTransferencia(event) {
+  event.preventDefault();
+  const form = document.getElementById("transferRequestForm");
+  const message = document.getElementById("transferFormMessage");
+  const submitButton = document.getElementById("transferSubmitButton");
+  const lang = (document.getElementById("intereuropa-language")?.value || "pt");
+  const errors = {
+    pt: "Não foi possível enviar o pedido. Verifique os dados e tente novamente.",
+    de: "Der Antrag konnte nicht gesendet werden. Bitte prüfen Sie die Angaben und versuchen Sie es erneut.",
+    pl: "Nie udało się wysłać wniosku. Sprawdź dane i spróbuj ponownie.",
+    es: "No se pudo enviar la solicitud. Compruebe los datos e inténtelo de nuevo.",
+    it: "Impossibile inviare la richiesta. Controlla i dati e riprova.",
+    el: "Δεν ήταν δυνατή η αποστολή του αιτήματος. Ελέγξτε τα στοιχεία και δοκιμάστε ξανά.",
+    sk: "Žiadosť sa nepodarilo odoslať. Skontrolujte údaje a skúste znova.",
+    hr: "Zahtjev nije moguće poslati. Provjerite podatke i pokušajte ponovno.",
+    fr: "La demande n’a pas pu être envoyée. Vérifiez les informations et réessayez."
+  };
+  if (!currentUser) {
+    message.textContent = errors[lang] || errors.fr;
+    return;
+  }
+
+  const name = form.elements.nom_beneficiaire.value.trim();
+  const iban = form.elements.iban_beneficiaire.value.trim().toUpperCase();
+  const amount = Number(String(form.elements.montant.value).trim().replace(",", "."));
+  const bank = form.elements.banque_beneficiaire.value.trim();
+
+  if (name.length < 2 || iban.replace(/\s/g, "").length < 15 ||
+      !Number.isFinite(amount) || amount <= 0 || bank.length < 2) {
+    message.textContent = errors[lang] || errors.fr;
+    return;
+  }
+
+  submitButton.disabled = true;
+  message.textContent = "";
+  const { error } = await supabaseClient
+    .from("demandes_virement")
+    .insert({
+      user_id: currentUser.id,
+      nom_beneficiaire: name,
+      iban_beneficiaire: iban,
+      montant: amount,
+      banque_beneficiaire: bank,
+      statut: "en_attente_examen"
+    });
+
+  if (error) {
+    message.textContent = errors[lang] || errors.fr;
+    submitButton.disabled = false;
+    return;
+  }
+
+  document.getElementById("transferFormView").classList.add("hidden");
+  document.getElementById("transferResultView").classList.remove("hidden");
+}
+
+document.getElementById("transferRequestForm")
+  .addEventListener("submit", enviarPedidoTransferencia);
+
 async function iniciarPagina() {
 
   const { data, error } =
@@ -916,15 +989,15 @@ iniciarPagina();
 /* Traduction autonome du tableau de bord approuvé : garde la langue choisie après actualisation. */
 (function () {
   const dictionaries = {
-    pt: {"Bonjour,":"Olá,","Bienvenue dans votre espace personnel":"Bem-vindo à sua área pessoal","Financement approuvé":"Financiamento aprovado","Montant approuvé":"Montante aprovado","Statut :":"Estado:","Approuvé":"Aprovado","Mon compte":"A minha conta","En attente d’activation":"A aguardar ativação","Mes transactions":"As minhas transações","Voir tout":"Ver tudo","Vos prochaines transactions":"As suas próximas transações","vont s'afficher ici.":"serão apresentadas aqui.","Accueil":"Início","Faire un virement":"Fazer uma transferência","Historique":"Histórico","Aide":"Ajuda"},
-    de: {"Bonjour,":"Guten Tag,","Bienvenue dans votre espace personnel":"Willkommen in Ihrem persönlichen Bereich","Financement approuvé":"Finanzierung genehmigt","Montant approuvé":"Genehmigter Betrag","Statut :":"Status:","Approuvé":"Genehmigt","Mon compte":"Mein Konto","En attente d’activation":"Wartet auf Aktivierung","Mes transactions":"Meine Transaktionen","Voir tout":"Alle anzeigen","Vos prochaines transactions":"Ihre nächsten Transaktionen","vont s'afficher ici.":"werden hier angezeigt.","Accueil":"Startseite","Faire un virement":"Überweisung tätigen","Historique":"Verlauf","Aide":"Hilfe"},
-    pl: {"Bonjour,":"Dzień dobry,","Bienvenue dans votre espace personnel":"Witamy w Twojej strefie klienta","Financement approuvé":"Finansowanie zatwierdzone","Montant approuvé":"Zatwierdzona kwota","Statut :":"Status:","Approuvé":"Zatwierdzono","Mon compte":"Moje konto","En attente d’activation":"Oczekuje na aktywację","Mes transactions":"Moje transakcje","Voir tout":"Zobacz wszystko","Vos prochaines transactions":"Twoje następne transakcje","vont s'afficher ici.":"będą wyświetlane tutaj.","Accueil":"Strona główna","Faire un virement":"Wykonaj przelew","Historique":"Historia","Aide":"Pomoc"},
-    es: {"Bonjour,":"¡Hola!","Bienvenue dans votre espace personnel":"Bienvenido a su espacio personal","Financement approuvé":"Financiación aprobada","Montant approuvé":"Importe aprobado","Statut :":"Estado:","Approuvé":"Aprobado","Mon compte":"Mi cuenta","En attente d’activation":"Pendiente de activación","Mes transactions":"Mis transacciones","Voir tout":"Ver todo","Vos prochaines transactions":"Sus próximas transacciones","vont s'afficher ici.":"se mostrarán aquí.","Accueil":"Inicio","Faire un virement":"Hacer una transferencia","Historique":"Historial","Aide":"Ayuda"},
-    it: {"Bonjour,":"Buongiorno,","Bienvenue dans votre espace personnel":"Benvenuto nella tua area personale","Financement approuvé":"Finanziamento approvato","Montant approuvé":"Importo approvato","Statut :":"Stato:","Approuvé":"Approvato","Mon compte":"Il mio conto","En attente d’activation":"In attesa di attivazione","Mes transactions":"Le mie transazioni","Voir tout":"Vedi tutto","Vos prochaines transactions":"Le tue prossime transazioni","vont s'afficher ici.":"saranno visualizzate qui.","Accueil":"Home","Faire un virement":"Effettua un bonifico","Historique":"Cronologia","Aide":"Aiuto"},
-    el: {"Bonjour,":"Γεια σας,","Bienvenue dans votre espace personnel":"Καλώς ήρθατε στον προσωπικό σας χώρο","Financement approuvé":"Η χρηματοδότηση εγκρίθηκε","Montant approuvé":"Εγκεκριμένο ποσό","Statut :":"Κατάσταση:","Approuvé":"Εγκρίθηκε","Mon compte":"Ο λογαριασμός μου","En attente d’activation":"Σε αναμονή ενεργοποίησης","Mes transactions":"Οι συναλλαγές μου","Voir tout":"Προβολή όλων","Vos prochaines transactions":"Οι επόμενες συναλλαγές σας","vont s'afficher ici.":"θα εμφανίζονται εδώ.","Accueil":"Αρχική","Faire un virement":"Πραγματοποίηση μεταφοράς","Historique":"Ιστορικό","Aide":"Βοήθεια"},
-    sk: {"Bonjour,":"Dobrý deň,","Bienvenue dans votre espace personnel":"Vitajte vo svojom osobnom priestore","Financement approuvé":"Financovanie schválené","Montant approuvé":"Schválená suma","Statut :":"Stav:","Approuvé":"Schválené","Mon compte":"Môj účet","En attente d’activation":"Čaká na aktiváciu","Mes transactions":"Moje transakcie","Voir tout":"Zobraziť všetko","Vos prochaines transactions":"Vaše ďalšie transakcie","vont s'afficher ici.":"sa zobrazia tu.","Accueil":"Domov","Faire un virement":"Uskutočniť prevod","Historique":"História","Aide":"Pomoc"},
-    hr: {"Bonjour,":"Pozdrav,","Bienvenue dans votre espace personnel":"Dobro došli u svoj osobni prostor","Financement approuvé":"Financiranje odobreno","Montant approuvé":"Odobreni iznos","Statut :":"Status:","Approuvé":"Odobreno","Mon compte":"Moj račun","En attente d’activation":"Čeka aktivaciju","Mes transactions":"Moje transakcije","Voir tout":"Pogledaj sve","Vos prochaines transactions":"Vaše sljedeće transakcije","vont s'afficher ici.":"prikazat će se ovdje.","Accueil":"Početna","Faire un virement":"Izvrši prijenos","Historique":"Povijest","Aide":"Pomoć"},
-    fr: {"Bonjour,":"Bonjour,","Bienvenue dans votre espace personnel":"Bienvenue dans votre espace personnel","Financement approuvé":"Financement approuvé","Montant approuvé":"Montant approuvé","Statut :":"Statut :","Approuvé":"Approuvé","Mon compte":"Mon compte","En attente d’activation":"En attente d’activation","Mes transactions":"Mes transactions","Voir tout":"Voir tout","Vos prochaines transactions":"Vos prochaines transactions","vont s'afficher ici.":"vont s'afficher ici.","Accueil":"Accueil","Faire un virement":"Faire un virement","Historique":"Historique","Aide":"Aide"}
+    pt: {"Bonjour,":"Olá,","Bienvenue dans votre espace personnel":"Bem-vindo à sua área pessoal","Financement approuvé":"Financiamento aprovado","Montant approuvé":"Montante aprovado","Statut :":"Estado:","Approuvé":"Aprovado","Mon compte":"A minha conta","En attente d’activation":"A aguardar ativação","Mes transactions":"As minhas transações","Voir tout":"Ver tudo","Vos prochaines transactions":"As suas próximas transações","vont s'afficher ici.":"serão apresentadas aqui.","Accueil":"Início","Faire un virement":"Fazer uma transferência","Historique":"Histórico","Aide":"Ajuda","Demande de transfert":"Pedido de transferência","Remplissez les informations du bénéficiaire pour soumettre une demande de transfert à INTEREUROPA.":"Preencha os dados do beneficiário para enviar um pedido de transferência à INTEREUROPA.","Nom":"Nome","Montant":"Montante","Ce formulaire enregistre une demande pour examen. Son envoi ne réalise pas un virement bancaire.":"Este formulário regista um pedido para análise. O seu envio não realiza uma transferência bancária.","Envoyer la demande":"Enviar pedido","Transfert en attente d’examen":"Transferência pendente de análise","Votre demande de transfert a bien été reçue. Elle est actuellement en attente d’examen par INTEREUROPA.":"O seu pedido de transferência foi recebido e aguarda análise pela INTEREUROPA.","L’envoi de cette demande ne déclenche pas automatiquement un virement bancaire. Toute activation et toute exécution éventuelles seront confirmées séparément par l’établissement bancaire.":"O envio deste pedido não inicia automaticamente uma transferência bancária. Qualquer ativação e execução serão confirmadas separadamente pela instituição bancária.","Retour":"Voltar"},
+    de: {"Bonjour,":"Guten Tag,","Bienvenue dans votre espace personnel":"Willkommen in Ihrem persönlichen Bereich","Financement approuvé":"Finanzierung genehmigt","Montant approuvé":"Genehmigter Betrag","Statut :":"Status:","Approuvé":"Genehmigt","Mon compte":"Mein Konto","En attente d’activation":"Wartet auf Aktivierung","Mes transactions":"Meine Transaktionen","Voir tout":"Alle anzeigen","Vos prochaines transactions":"Ihre nächsten Transaktionen","vont s'afficher ici.":"werden hier angezeigt.","Accueil":"Startseite","Faire un virement":"Überweisung tätigen","Historique":"Verlauf","Aide":"Hilfe","Demande de transfert":"Überweisungsantrag","Remplissez les informations du bénéficiaire pour soumettre une demande de transfert à INTEREUROPA.":"Geben Sie die Angaben zum Empfänger ein, um einen Überweisungsantrag bei INTEREUROPA einzureichen.","Nom":"Name","Montant":"Betrag","Ce formulaire enregistre une demande pour examen. Son envoi ne réalise pas un virement bancaire.":"Dieses Formular erfasst einen Antrag zur Prüfung. Das Absenden führt keine Banküberweisung aus.","Envoyer la demande":"Antrag senden","Transfert en attente d’examen":"Überweisung wird geprüft","Votre demande de transfert a bien été reçue. Elle est actuellement en attente d’examen par INTEREUROPA.":"Ihr Überweisungsantrag ist eingegangen und wird derzeit von INTEREUROPA geprüft.","L’envoi de cette demande ne déclenche pas automatiquement un virement bancaire. Toute activation et toute exécution éventuelles seront confirmées séparément par l’établissement bancaire.":"Das Absenden löst keine automatische Banküberweisung aus. Eine etwaige Freigabe und Ausführung wird separat vom Bankinstitut bestätigt.","Retour":"Zurück"},
+    pl: {"Bonjour,":"Dzień dobry,","Bienvenue dans votre espace personnel":"Witamy w Twojej strefie klienta","Financement approuvé":"Finansowanie zatwierdzone","Montant approuvé":"Zatwierdzona kwota","Statut :":"Status:","Approuvé":"Zatwierdzono","Mon compte":"Moje konto","En attente d’activation":"Oczekuje na aktywację","Mes transactions":"Moje transakcje","Voir tout":"Zobacz wszystko","Vos prochaines transactions":"Twoje następne transakcje","vont s'afficher ici.":"będą wyświetlane tutaj.","Accueil":"Strona główna","Faire un virement":"Wykonaj przelew","Historique":"Historia","Aide":"Pomoc","Demande de transfert":"Wniosek o przelew","Remplissez les informations du bénéficiaire pour soumettre une demande de transfert à INTEREUROPA.":"Wpisz dane odbiorcy, aby przesłać wniosek o przelew do INTEREUROPA.","Nom":"Imię i nazwisko","Montant":"Kwota","Ce formulaire enregistre une demande pour examen. Son envoi ne réalise pas un virement bancaire.":"Formularz zapisuje wniosek do rozpatrzenia. Wysłanie go nie wykonuje przelewu bankowego.","Envoyer la demande":"Wyślij wniosek","Transfert en attente d’examen":"Przelew oczekuje na rozpatrzenie","Votre demande de transfert a bien été reçue. Elle est actuellement en attente d’examen par INTEREUROPA.":"Wniosek o przelew został otrzymany i oczekuje na rozpatrzenie przez INTEREUROPA.","L’envoi de cette demande ne déclenche pas automatiquement un virement bancaire. Toute activation et toute exécution éventuelles seront confirmées séparément par l’établissement bancaire.":"Wysłanie wniosku nie powoduje automatycznego przelewu bankowego. Ewentualne zatwierdzenie i wykonanie potwierdzi osobno bank.","Retour":"Powrót"},
+    es: {"Bonjour,":"¡Hola!","Bienvenue dans votre espace personnel":"Bienvenido a su espacio personal","Financement approuvé":"Financiación aprobada","Montant approuvé":"Importe aprobado","Statut :":"Estado:","Approuvé":"Aprobado","Mon compte":"Mi cuenta","En attente d’activation":"Pendiente de activación","Mes transactions":"Mis transacciones","Voir tout":"Ver todo","Vos prochaines transactions":"Sus próximas transacciones","vont s'afficher ici.":"se mostrarán aquí.","Accueil":"Inicio","Faire un virement":"Hacer una transferencia","Historique":"Historial","Aide":"Ayuda","Demande de transfert":"Solicitud de transferencia","Remplissez les informations du bénéficiaire pour soumettre une demande de transfert à INTEREUROPA.":"Complete los datos del beneficiario para enviar una solicitud de transferencia a INTEREUROPA.","Nom":"Nombre","Montant":"Importe","Ce formulaire enregistre une demande pour examen. Son envoi ne réalise pas un virement bancaire.":"Este formulario registra una solicitud para su revisión. Enviarlo no ejecuta una transferencia bancaria.","Envoyer la demande":"Enviar solicitud","Transfert en attente d’examen":"Transferencia pendiente de revisión","Votre demande de transfert a bien été reçue. Elle est actuellement en attente d’examen par INTEREUROPA.":"Su solicitud de transferencia se ha recibido y está pendiente de revisión por INTEREUROPA.","L’envoi de cette demande ne déclenche pas automatiquement un virement bancaire. Toute activation et toute exécution éventuelles seront confirmées séparément par l’établissement bancaire.":"El envío no inicia automáticamente una transferencia bancaria. Cualquier autorización y ejecución será confirmada por separado por la entidad bancaria.","Retour":"Volver"},
+    it: {"Bonjour,":"Buongiorno,","Bienvenue dans votre espace personnel":"Benvenuto nella tua area personale","Financement approuvé":"Finanziamento approvato","Montant approuvé":"Importo approvato","Statut :":"Stato:","Approuvé":"Approvato","Mon compte":"Il mio conto","En attente d’activation":"In attesa di attivazione","Mes transactions":"Le mie transazioni","Voir tout":"Vedi tutto","Vos prochaines transactions":"Le tue prossime transazioni","vont s'afficher ici.":"saranno visualizzate qui.","Accueil":"Home","Faire un virement":"Effettua un bonifico","Historique":"Cronologia","Aide":"Aiuto","Demande de transfert":"Richiesta di bonifico","Remplissez les informations du bénéficiaire pour soumettre une demande de transfert à INTEREUROPA.":"Inserisci i dati del beneficiario per inviare una richiesta di bonifico a INTEREUROPA.","Nom":"Nome","Montant":"Importo","Ce formulaire enregistre une demande pour examen. Son envoi ne réalise pas un virement bancaire.":"Questo modulo registra una richiesta da esaminare. L'invio non esegue un bonifico bancario.","Envoyer la demande":"Invia richiesta","Transfert en attente d’examen":"Bonifico in attesa di verifica","Votre demande de transfert a bien été reçue. Elle est actuellement en attente d’examen par INTEREUROPA.":"La richiesta di bonifico è stata ricevuta ed è in attesa di verifica da parte di INTEREUROPA.","L’envoi de cette demande ne déclenche pas automatiquement un virement bancaire. Toute activation et toute exécution éventuelles seront confirmées séparément par l’établissement bancaire.":"L'invio non avvia automaticamente un bonifico. L'eventuale autorizzazione e l'esecuzione saranno confermate separatamente dalla banca.","Retour":"Indietro"},
+    el: {"Bonjour,":"Γεια σας,","Bienvenue dans votre espace personnel":"Καλώς ήρθατε στον προσωπικό σας χώρο","Financement approuvé":"Η χρηματοδότηση εγκρίθηκε","Montant approuvé":"Εγκεκριμένο ποσό","Statut :":"Κατάσταση:","Approuvé":"Εγκρίθηκε","Mon compte":"Ο λογαριασμός μου","En attente d’activation":"Σε αναμονή ενεργοποίησης","Mes transactions":"Οι συναλλαγές μου","Voir tout":"Προβολή όλων","Vos prochaines transactions":"Οι επόμενες συναλλαγές σας","vont s'afficher ici.":"θα εμφανίζονται εδώ.","Accueil":"Αρχική","Faire un virement":"Πραγματοποίηση μεταφοράς","Historique":"Ιστορικό","Aide":"Βοήθεια","Demande de transfert":"Αίτημα μεταφοράς","Remplissez les informations du bénéficiaire pour soumettre une demande de transfert à INTEREUROPA.":"Συμπληρώστε τα στοιχεία του δικαιούχου για να υποβάλετε αίτημα μεταφοράς στην INTEREUROPA.","Nom":"Όνομα","Montant":"Ποσό","Ce formulaire enregistre une demande pour examen. Son envoi ne réalise pas un virement bancaire.":"Η φόρμα καταγράφει αίτημα προς εξέταση. Η αποστολή της δεν εκτελεί τραπεζική μεταφορά.","Envoyer la demande":"Υποβολή αιτήματος","Transfert en attente d’examen":"Μεταφορά σε αναμονή ελέγχου","Votre demande de transfert a bien été reçue. Elle est actuellement en attente d’examen par INTEREUROPA.":"Το αίτημα μεταφοράς παραλήφθηκε και αναμένει έλεγχο από την INTEREUROPA.","L’envoi de cette demande ne déclenche pas automatiquement un virement bancaire. Toute activation et toute exécution éventuelles seront confirmées séparément par l’établissement bancaire.":"Η υποβολή δεν ξεκινά αυτόματα τραπεζική μεταφορά. Τυχόν έγκριση και εκτέλεση θα επιβεβαιωθούν ξεχωριστά από την τράπεζα.","Retour":"Επιστροφή"},
+    sk: {"Bonjour,":"Dobrý deň,","Bienvenue dans votre espace personnel":"Vitajte vo svojom osobnom priestore","Financement approuvé":"Financovanie schválené","Montant approuvé":"Schválená suma","Statut :":"Stav:","Approuvé":"Schválené","Mon compte":"Môj účet","En attente d’activation":"Čaká na aktiváciu","Mes transactions":"Moje transakcie","Voir tout":"Zobraziť všetko","Vos prochaines transactions":"Vaše ďalšie transakcie","vont s'afficher ici.":"sa zobrazia tu.","Accueil":"Domov","Faire un virement":"Uskutočniť prevod","Historique":"História","Aide":"Pomoc","Demande de transfert":"Žiadosť o prevod","Remplissez les informations du bénéficiaire pour soumettre une demande de transfert à INTEREUROPA.":"Vyplňte údaje príjemcu a odošlite žiadosť o prevod spoločnosti INTEREUROPA.","Nom":"Meno","Montant":"Suma","Ce formulaire enregistre une demande pour examen. Son envoi ne réalise pas un virement bancaire.":"Tento formulár zaznamená žiadosť na posúdenie. Jeho odoslanie nevykoná bankový prevod.","Envoyer la demande":"Odoslať žiadosť","Transfert en attente d’examen":"Prevod čaká na posúdenie","Votre demande de transfert a bien été reçue. Elle est actuellement en attente d’examen par INTEREUROPA.":"Vaša žiadosť o prevod bola prijatá a čaká na posúdenie spoločnosťou INTEREUROPA.","L’envoi de cette demande ne déclenche pas automatiquement un virement bancaire. Toute activation et toute exécution éventuelles seront confirmées séparément par l’établissement bancaire.":"Odoslanie žiadosti automaticky nespustí bankový prevod. Prípadné schválenie a vykonanie samostatne potvrdí banka.","Retour":"Späť"},
+    hr: {"Bonjour,":"Pozdrav,","Bienvenue dans votre espace personnel":"Dobro došli u svoj osobni prostor","Financement approuvé":"Financiranje odobreno","Montant approuvé":"Odobreni iznos","Statut :":"Status:","Approuvé":"Odobreno","Mon compte":"Moj račun","En attente d’activation":"Čeka aktivaciju","Mes transactions":"Moje transakcije","Voir tout":"Pogledaj sve","Vos prochaines transactions":"Vaše sljedeće transakcije","vont s'afficher ici.":"prikazat će se ovdje.","Accueil":"Početna","Faire un virement":"Izvrši prijenos","Historique":"Povijest","Aide":"Pomoć","Demande de transfert":"Zahtjev za prijenos","Remplissez les informations du bénéficiaire pour soumettre une demande de transfert à INTEREUROPA.":"Unesite podatke primatelja kako biste poslali zahtjev za prijenos INTEREUROPA-i.","Nom":"Ime","Montant":"Iznos","Ce formulaire enregistre une demande pour examen. Son envoi ne réalise pas un virement bancaire.":"Ovaj obrazac bilježi zahtjev za pregled. Slanje obrasca ne izvršava bankovni prijenos.","Envoyer la demande":"Pošalji zahtjev","Transfert en attente d’examen":"Prijenos čeka pregled","Votre demande de transfert a bien été reçue. Elle est actuellement en attente d’examen par INTEREUROPA.":"Vaš zahtjev za prijenos je zaprimljen i čeka pregled INTEREUROPA-e.","L’envoi de cette demande ne déclenche pas automatiquement un virement bancaire. Toute activation et toute exécution éventuelles seront confirmées séparément par l’établissement bancaire.":"Slanje zahtjeva ne pokreće automatski bankovni prijenos. Svako odobrenje i izvršenje banka će zasebno potvrditi.","Retour":"Natrag"},
+    fr: {"Bonjour,":"Bonjour,","Bienvenue dans votre espace personnel":"Bienvenue dans votre espace personnel","Financement approuvé":"Financement approuvé","Montant approuvé":"Montant approuvé","Statut :":"Statut :","Approuvé":"Approuvé","Mon compte":"Mon compte","En attente d’activation":"En attente d’activation","Mes transactions":"Mes transactions","Voir tout":"Voir tout","Vos prochaines transactions":"Vos prochaines transactions","vont s'afficher ici.":"vont s'afficher ici.","Accueil":"Accueil","Faire un virement":"Faire un virement","Historique":"Historique","Aide":"Aide","Demande de transfert":"Demande de transfert","Remplissez les informations du bénéficiaire pour soumettre une demande de transfert à INTEREUROPA.":"Remplissez les informations du bénéficiaire pour soumettre une demande de transfert à INTEREUROPA.","Nom":"Nom","Montant":"Montant","Ce formulaire enregistre une demande pour examen. Son envoi ne réalise pas un virement bancaire.":"Ce formulaire enregistre une demande pour examen. Son envoi ne réalise pas un virement bancaire.","Envoyer la demande":"Envoyer la demande","Transfert en attente d’examen":"Transfert en attente d’examen","Votre demande de transfert a bien été reçue. Elle est actuellement en attente d’examen par INTEREUROPA.":"Votre demande de transfert a bien été reçue. Elle est actuellement en attente d’examen par INTEREUROPA.","L’envoi de cette demande ne déclenche pas automatiquement un virement bancaire. Toute activation et toute exécution éventuelles seront confirmées séparément par l’établissement bancaire.":"L’envoi de cette demande ne déclenche pas automatiquement un virement bancaire. Toute activation et toute exécution éventuelles seront confirmées séparément par l’établissement bancaire.","Retour":"Retour"}
   };
   const original = new WeakMap();
   // Capture les textes français avant que le traducteur global ne les modifie.
