@@ -165,6 +165,16 @@ button:disabled {
 
 .hidden { display: none !important; }
 
+/* Cada secção da navegação ocupa a área principal sozinha. */
+#approvedDashboard.panel-mode > :not(.panel-active) {
+  display: none !important;
+}
+#approvedDashboard.panel-mode > .panel-active {
+  display: block !important;
+  margin: 18px 0 100px;
+  min-height: 55vh;
+}
+
 /* Tableau de bord approuvé — reproduction de la maquette mobile */
 body.approved-view { background:#f4f7fc; color:#12366e; }
 body.approved-view .demo-label,
@@ -452,7 +462,7 @@ footer {
 
     <div id="approvedDetails"></div>
 
-    <button type="button" class="backButton">
+    <button type="button" class="backButton" onclick="voltarInicio()">
       Voltar
     </button>
 
@@ -569,42 +579,35 @@ function formatarEuro(value) {
 
 function mostrarPainel(nome) {
 
-  withdrawPanel.classList.add("hidden");
-  informationPanel.classList.add("hidden");
-  historyPanel.classList.add("hidden");
-  helpPanel.classList.add("hidden");
-
-  if (nome === "history") {
-    historyPanel.classList.remove("hidden");
-  }
-
-  if (nome === "withdraw") {
-    withdrawPanel.classList.remove("hidden");
-  }
-
-  if (nome === "information") {
-    informationPanel.classList.remove("hidden");
-  }
-
-  if (nome === "help") {
-    helpPanel.classList.remove("hidden");
-  }
+  const panels = [withdrawPanel, informationPanel, historyPanel, helpPanel];
+  panels.forEach(panel => {
+    panel.classList.add("hidden");
+    panel.classList.remove("panel-active");
+  });
 
   const activePanel = nome === "history" ? historyPanel :
     nome === "withdraw" ? withdrawPanel :
     nome === "information" ? informationPanel :
     nome === "help" ? helpPanel : null;
-  if (activePanel) {
-    window.setTimeout(() => activePanel.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
-  }
+
+  if (!activePanel) return;
+
+  approvedDashboard.classList.add("panel-mode");
+  activePanel.classList.remove("hidden");
+  activePanel.classList.add("panel-active");
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function voltarInicio() {
 
-  withdrawPanel.classList.add("hidden");
-  informationPanel.classList.add("hidden");
-  historyPanel.classList.add("hidden");
-  helpPanel.classList.add("hidden");
+  approvedDashboard.classList.remove("panel-mode");
+
+  [withdrawPanel, informationPanel, historyPanel, helpPanel].forEach(panel => {
+    panel.classList.add("hidden");
+    panel.classList.remove("panel-active");
+  });
+
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
