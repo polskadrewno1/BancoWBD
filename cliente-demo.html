@@ -371,7 +371,7 @@ document.getElementById("registerForm")
     window.location.href = nextPage;
   } else {
     const idiomaAtual = new URLSearchParams(window.location.search).get("lang") || "pt";
-    window.location.href = "email-verificacao.html?lang=" + encodeURIComponent(idiomaAtual);
+    window.location.href = "email-verificacao.html?reason=signup&lang=" + encodeURIComponent(idiomaAtual);
   }
 });
 
