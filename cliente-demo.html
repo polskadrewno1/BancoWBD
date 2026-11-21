@@ -438,8 +438,8 @@ document.getElementById("recoveryForm")
     return;
   }
 
-  message.textContent =
-    "Se a conta existir, receberá um e-mail com o link de recuperação.";
+  const idiomaAtual = new URLSearchParams(window.location.search).get("lang") || "pt";
+  window.location.href = "email-verificacao.html?lang=" + encodeURIComponent(idiomaAtual);
 });
 
 
