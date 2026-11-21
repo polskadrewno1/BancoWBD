@@ -286,9 +286,7 @@ const nextPage =
     : "cliente-painel.html";
 
 const signupRedirectUrl =
-  requestedRedirect === "inscricao.html"
-    ? "https://polskadrewno1.github.io/BancoWBD/cliente-demo.html?redirect=inscricao.html"
-    : recoveryUrl;
+  "https://polskadrewno1.github.io/BancoWBD/cliente-demo.html?auth=confirmed";
 
 // MOSTRAR APENAS UMA SECÇÃO DE CADA VEZ
 function showArea(area) {
@@ -372,8 +370,8 @@ document.getElementById("registerForm")
   if (data.session) {
     window.location.href = nextPage;
   } else {
-    message.textContent =
-      "Consulte o seu e-mail para confirmar a conta.";
+    const idiomaAtual = new URLSearchParams(window.location.search).get("lang") || "pt";
+    window.location.href = "email-verificacao.html?lang=" + encodeURIComponent(idiomaAtual);
   }
 });
 
@@ -444,6 +442,21 @@ document.getElementById("recoveryForm")
     "Se a conta existir, receberá um e-mail com o link de recuperação.";
 });
 
+
+// CONFIRMAÇÃO DO E-MAIL: só avançar quando a sessão autenticada existir.
+(async function handleEmailConfirmation() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("auth") !== "confirmed") return;
+
+  const { data, error } = await supabaseClient.auth.getSession();
+  if (error || !data.session) {
+    message.textContent = "A confirmação foi recebida, mas a sessão ainda não está disponível. Inicie sessão para continuar.";
+    showArea(loginArea);
+    return;
+  }
+  window.location.replace("cliente-painel.html");
+})();
+
 // CONVITE E RECUPERAÇÃO
 const invitationType =
   new URLSearchParams(window.location.hash.substring(1)).get("type") ||
@@ -491,10 +504,21 @@ document.getElementById("newPasswordForm")
     return;
   }
 
-  message.textContent =
-    "Palavra-passe alterada com sucesso. Pode iniciar sessão.";
+  const { data: sessionData, error: sessionError } =
+    await supabaseClient.auth.getSession();
 
-  showArea(loginArea);
+  if (sessionError) {
+    message.textContent = "A palavra-passe foi alterada, mas não foi possível confirmar a sessão. Inicie sessão novamente.";
+    return;
+  }
+
+  if (sessionData.session) {
+    window.location.href = "cliente-painel.html";
+  } else {
+    message.textContent =
+      "Palavra-passe alterada com sucesso. Pode iniciar sessão.";
+    showArea(loginArea);
+  }
 });
 </script>
 
