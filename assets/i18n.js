@@ -1514,21 +1514,16 @@
       node.nodeValue = translateText(originalTextNodes.get(node), dict);
     });
 
-    // Tradução explícita do aviso no formulário de financiamento.
-    // Mantém o título em negrito e traduz apenas o texto do aviso.
+    // Tradução direta do texto do aviso, independentemente do processamento geral dos nós.
     const fundingNoticeSource = "Qualquer decisão depende de uma análise individual e das condições comunicadas antes de qualquer contrato. Em caso de aprovação, o financiamento poderá ser disponibilizado o mais rapidamente possível.";
     const fundingNotice = document.querySelector(".pedido-aviso");
     if (fundingNotice && dict[fundingNoticeSource]) {
-      const noticeWalker = document.createTreeWalker(fundingNotice, NodeFilter.SHOW_TEXT);
-      while (noticeWalker.nextNode()) {
-        const noticeNode = noticeWalker.currentNode;
-        const original = originalTextNodes.get(noticeNode) || noticeNode.nodeValue;
-        if (original.includes(fundingNoticeSource)) {
-          const leading = original.match(/^\\s*/)[0];
-          const trailing = original.match(/\\s*$/)[0];
-          noticeNode.nodeValue = leading + dict[fundingNoticeSource] + trailing;
-          break;
-        }
+      const noticeTextNode = Array.from(fundingNotice.childNodes).find(node => node.nodeType === Node.TEXT_NODE && (originalTextNodes.get(node) || node.nodeValue).includes(fundingNoticeSource));
+      if (noticeTextNode) {
+        const original = originalTextNodes.get(noticeTextNode) || noticeTextNode.nodeValue;
+        const leading = (original.match(/^\s*/) || [""])[0];
+        const trailing = (original.match(/\s*$/) || [""])[0];
+        noticeTextNode.nodeValue = leading + dict[fundingNoticeSource] + trailing;
       }
     }
     // Garantir a tradução do título da lista de pedidos na área do cliente.
