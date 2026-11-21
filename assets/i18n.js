@@ -1513,6 +1513,24 @@
       if (!originalTextNodes.has(node)) originalTextNodes.set(node, node.nodeValue);
       node.nodeValue = translateText(originalTextNodes.get(node), dict);
     });
+
+    // Tradução explícita do aviso no formulário de financiamento.
+    // Mantém o título em negrito e traduz apenas o texto do aviso.
+    const fundingNoticeSource = "Qualquer decisão depende de uma análise individual e das condições comunicadas antes de qualquer contrato. Em caso de aprovação, o financiamento poderá ser disponibilizado o mais rapidamente possível.";
+    const fundingNotice = document.querySelector(".pedido-aviso");
+    if (fundingNotice && dict[fundingNoticeSource]) {
+      const noticeWalker = document.createTreeWalker(fundingNotice, NodeFilter.SHOW_TEXT);
+      while (noticeWalker.nextNode()) {
+        const noticeNode = noticeWalker.currentNode;
+        const original = originalTextNodes.get(noticeNode) || noticeNode.nodeValue;
+        if (original.includes(fundingNoticeSource)) {
+          const leading = original.match(/^\\s*/)[0];
+          const trailing = original.match(/\\s*$/)[0];
+          noticeNode.nodeValue = leading + dict[fundingNoticeSource] + trailing;
+          break;
+        }
+      }
+    }
     // Garantir a tradução do título da lista de pedidos na área do cliente.
     const requestsHeading = document.querySelector("#normalDashboard > h2");
     if (requestsHeading) {
