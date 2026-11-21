@@ -362,8 +362,6 @@ document.getElementById("registerForm")
 
   button.disabled = false;
 
-  const currentLang = new URLSearchParams(window.location.search).get("lang") ||
-    localStorage.getItem("intereuropa_language") || "pt";
   const duplicateMessages = {
     pt: "Já tem uma conta! Este endereço de e-mail já está associado a uma conta INTEREUROPA. Inicie sessão com o seu endereço de e-mail e a sua palavra-passe.",
     de: "Sie haben bereits ein Konto! Diese E-Mail-Adresse ist bereits mit einem INTEREUROPA-Konto verknüpft. Bitte melden Sie sich mit Ihrer E-Mail-Adresse und Ihrem Passwort an.",
@@ -376,6 +374,23 @@ document.getElementById("registerForm")
     fr: "Vous avez déjà un compte ! Cette adresse e-mail est déjà associée à un compte INTEREUROPA. Veuillez vous connecter avec votre adresse e-mail et votre mot de passe."
   };
 
+  // A língua selecionada no seletor é prioritária: o parâmetro ?lang da URL
+  // pode estar desatualizado depois de o utilizador mudar de idioma.
+  const languageSelector = document.getElementById("intereuropa-language");
+  const showDuplicateEmailMessage = () => {
+    const selectedLang = languageSelector?.value ||
+      localStorage.getItem("intereuropa_language") || "pt";
+    message.textContent = duplicateMessages[selectedLang] || duplicateMessages.pt;
+    message.dataset.notice = "duplicate-email";
+    message.style.color = "#17447e";
+  };
+  if (languageSelector && !languageSelector.dataset.duplicateMessageHandler) {
+    languageSelector.addEventListener("change", () => {
+      if (message.dataset.notice === "duplicate-email") showDuplicateEmailMessage();
+    });
+    languageSelector.dataset.duplicateMessageHandler = "true";
+  }
+
   if (error) {
     const duplicateEmail =
       error.code === "user_already_exists" ||
@@ -383,8 +398,7 @@ document.getElementById("registerForm")
       /already registered|already exists|user already/i.test(error.message || "");
     if (duplicateEmail) {
       showArea(loginArea);
-      message.textContent = duplicateMessages[currentLang] || duplicateMessages.pt;
-      message.style.color = "#17447e";
+      showDuplicateEmailMessage();
       return;
     }
     message.textContent = "Erro Supabase: " + error.message;
@@ -396,8 +410,7 @@ document.getElementById("registerForm")
   if (data.user && Array.isArray(data.user.identities) &&
       data.user.identities.length === 0) {
     showArea(loginArea);
-    message.textContent = duplicateMessages[currentLang] || duplicateMessages.pt;
-    message.style.color = "#17447e";
+    showDuplicateEmailMessage();
     return;
   }
 
