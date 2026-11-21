@@ -362,8 +362,42 @@ document.getElementById("registerForm")
 
   button.disabled = false;
 
+  const currentLang = new URLSearchParams(window.location.search).get("lang") ||
+    localStorage.getItem("intereuropa_language") || "pt";
+  const duplicateMessages = {
+    pt: "Já tem uma conta! Este endereço de e-mail já está associado a uma conta INTEREUROPA. Inicie sessão com o seu endereço de e-mail e a sua palavra-passe.",
+    de: "Sie haben bereits ein Konto! Diese E-Mail-Adresse ist bereits mit einem INTEREUROPA-Konto verknüpft. Bitte melden Sie sich mit Ihrer E-Mail-Adresse und Ihrem Passwort an.",
+    pl: "Masz już konto! Ten adres e-mail jest już powiązany z kontem INTEREUROPA. Zaloguj się, używając swojego adresu e-mail i hasła.",
+    es: "¡Ya tiene una cuenta! Esta dirección de correo electrónico ya está asociada a una cuenta INTEREUROPA. Inicie sesión con su correo electrónico y contraseña.",
+    it: "Hai già un account! Questo indirizzo e-mail è già associato a un account INTEREUROPA. Accedi con il tuo indirizzo e-mail e la tua password.",
+    el: "Έχετε ήδη λογαριασμό! Αυτή η διεύθυνση email είναι ήδη συνδεδεμένη με λογαριασμό INTEREUROPA. Συνδεθείτε με τη διεύθυνση email και τον κωδικό πρόσβασής σας.",
+    sk: "Účet už máte vytvorený! Táto e-mailová adresa je už prepojená s účtom INTEREUROPA. Prihláste sa pomocou svojej e-mailovej adresy a hesla.",
+    hr: "Već imate račun! Ova adresa e-pošte već je povezana s INTEREUROPA računom. Prijavite se svojom adresom e-pošte i lozinkom.",
+    fr: "Vous avez déjà un compte ! Cette adresse e-mail est déjà associée à un compte INTEREUROPA. Veuillez vous connecter avec votre adresse e-mail et votre mot de passe."
+  };
+
   if (error) {
+    const duplicateEmail =
+      error.code === "user_already_exists" ||
+      error.code === "email_exists" ||
+      /already registered|already exists|user already/i.test(error.message || "");
+    if (duplicateEmail) {
+      showArea(loginArea);
+      message.textContent = duplicateMessages[currentLang] || duplicateMessages.pt;
+      message.style.color = "#17447e";
+      return;
+    }
     message.textContent = "Erro Supabase: " + error.message;
+    return;
+  }
+
+  // Supabase pode devolver uma identidade vazia quando o e-mail já existe,
+  // em vez de expor diretamente a existência da conta.
+  if (data.user && Array.isArray(data.user.identities) &&
+      data.user.identities.length === 0) {
+    showArea(loginArea);
+    message.textContent = duplicateMessages[currentLang] || duplicateMessages.pt;
+    message.style.color = "#17447e";
     return;
   }
 
