@@ -100,7 +100,9 @@
       "Atualizar pedidos":"Obnoviť žiadosti","Pedido de financiamento":"Žiadosť o financovanie","Enviar candidatura":"Odoslať žiadosť",
       "Informações do requerente":"Informácie o žiadateľovi","Dados bancários":"Bankové údaje","País":"Krajina","Cidade":"Mesto",
       "Profissão":"Povolanie","Montante pretendido (€)":"Požadovaná suma (€)","Prazo de reembolso (meses)":"Doba splácania (mesiace)",
-      "Finalidade do financiamento":"Účel financovania","IBAN":"IBAN","BIC / SWIFT":"BIC / SWIFT","Nome do banco":"Názov banky"
+      "Finalidade do financiamento":"Účel financovania","IBAN":"IBAN","BIC / SWIFT":"BIC / SWIFT","Nome do banco":"Názov banky",
+      "Informação importante:":"Dôležitá informácia:",
+      "Qualquer decisão depende de uma análise individual e das condições comunicadas antes de qualquer contrato. Em caso de aprovação, o financiamento poderá ser disponibilizado o mais rapidamente possível.":"Každé rozhodnutie závisí od individuálneho posúdenia a podmienok oznámených pred uzatvorením zmluvy. V prípade schválenia môže byť financovanie poskytnuté v čo najkratšom čase."
     },
     hr: {
       "Início":"Početna","Serviços":"Usluge","Financiamento":"Financiranje","Área de cliente":"Korisničko područje","Contacto":"Kontakt",
