@@ -304,6 +304,11 @@ function showArea(area) {
   message.textContent = "";
 }
 
+// ABRIR DIRETAMENTE O FORMULÁRIO PEDIDO A PARTIR DA PÁGINA INICIAL
+const initialMode = new URLSearchParams(window.location.search).get("mode");
+if (initialMode === "register") showArea(registerArea);
+if (initialMode === "login") showArea(loginArea);
+
 // BOTÕES DE ESCOLHA
 document.getElementById("showRegister")
 .addEventListener("click", function() {
