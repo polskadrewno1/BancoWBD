@@ -495,11 +495,12 @@ if (veioDaAreaCliente && !utilizador) {
             throw error;
         }
 
-        mensagem.textContent =
-            "O seu pedido foi recebido com sucesso. Aguarde o contacto da nossa equipa.";
-
-        mensagem.style.color = "#187344";
-        formulario.reset();
+        const idiomaAtual =
+            new URLSearchParams(window.location.search).get("lang") ||
+            localStorage.getItem("intereuropa-language") ||
+            "pt";
+        window.location.href =
+            "pedido-confirmado.html?lang=" + encodeURIComponent(idiomaAtual);
 
     } catch (error) {
 
