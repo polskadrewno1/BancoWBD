@@ -1497,6 +1497,13 @@
     const leading = value.match(/^\s*/)[0];
     const trailing = value.match(/\s*$/)[0];
     if (dict[normalized]) return leading + dict[normalized] + trailing;
+    // A TAEG paragraph may be split by the <strong>3%</strong> element.
+    // Translate the Portuguese explanatory sentence even when the text node
+    // also contains punctuation or spacing around that sentence.
+    const taeSource = "A TAEG representa o custo total anual do crédito, incluindo os encargos obrigatórios aplicáveis. O valor definitivo e todas as condições serão apresentados antes da celebração de qualquer contrato.";
+    if (dict[taeSource] && normalized.includes(taeSource)) {
+      return leading + normalized.replace(taeSource, dict[taeSource]) + trailing;
+    }
     for (const source of Object.keys(dict)) {
       if (normalized.startsWith(source) && source.endsWith(":")) {
         return leading + dict[source] + normalized.slice(source.length) + trailing;
