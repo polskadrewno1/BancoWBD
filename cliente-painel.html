@@ -1172,6 +1172,22 @@ iniciarPagina();
       // le traducteur global peut déjà avoir traduit ce nœud.
       if (translated !== undefined) node.nodeValue = raw.replace(trimmed, translated);
     }
+    // Appliquer aussi les traductions directement aux éléments du résultat :
+    // cet écran est révélé après l'envoi du formulaire et peut être réécrit par i18n.js.
+    const resultTexts = transferResultTranslations[lang];
+    const resultView = document.getElementById("transferResultView");
+    if (resultTexts && resultView) {
+      const title = resultView.querySelector("h2");
+      const paragraphs = resultView.querySelectorAll("p");
+      const keys = [
+        "Échec de l’activation du virement",
+        "Votre transfert est actuellement en attente d’activation. Le client bénéficiaire est invité à contacter INTEREUROPA afin de finaliser le mécanisme d’activation du virement.",
+        "Après l’activation effective du virement et son exécution par l’établissement bancaire, les fonds seront disponibles sur votre compte bancaire et votre virement sera exécuté avec succès.."
+      ];
+      if (title) title.textContent = resultTexts[keys[0]];
+      if (paragraphs[0]) paragraphs[0].textContent = resultTexts[keys[1]];
+      if (paragraphs[1]) paragraphs[1].textContent = resultTexts[keys[2]];
+    }
     const select = document.getElementById("intereuropa-language");
     if (select && select.value !== lang) select.value = lang;
   }
