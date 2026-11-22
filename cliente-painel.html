@@ -1014,6 +1014,55 @@ iniciarPagina();
     hr: {"Bonjour,":"Pozdrav,","Bienvenue dans votre espace personnel":"Dobro došli u svoj osobni prostor","Financement approuvé":"Financiranje odobreno","Montant approuvé":"Odobreni iznos","Statut :":"Status:","Approuvé":"Odobreno","Mon compte":"Moj račun","En attente d’activation":"Čeka aktivaciju","Mes transactions":"Moje transakcije","Voir tout":"Pogledaj sve","Vos prochaines transactions":"Vaše sljedeće transakcije","vont s'afficher ici.":"prikazat će se ovdje.","Accueil":"Početna","Faire un virement":"Izvrši prijenos","Historique":"Povijest","Aide":"Pomoć","Demande de transfert":"Zahtjev za prijenos","Remplissez les informations du bénéficiaire pour soumettre une demande de transfert à INTEREUROPA.":"Unesite podatke primatelja kako biste poslali zahtjev za prijenos INTEREUROPA-i.","Nom":"Ime","Montant":"Iznos","Ce formulaire enregistre une demande pour examen. Son envoi ne réalise pas un virement bancaire.":"Ovaj obrazac bilježi zahtjev za pregled. Slanje obrasca ne izvršava bankovni prijenos.","Envoyer la demande":"Pošalji zahtjev","Transfert en attente d’examen":"Prijenos čeka pregled","Votre demande de transfert a bien été reçue. Elle est actuellement en attente d’examen par INTEREUROPA.":"Vaš zahtjev za prijenos je zaprimljen i čeka pregled INTEREUROPA-e.","L’envoi de cette demande ne déclenche pas automatiquement un virement bancaire. Toute activation et toute exécution éventuelles seront confirmées séparément par l’établissement bancaire.":"Slanje zahtjeva ne pokreće automatski bankovni prijenos. Svako odobrenje i izvršenje banka će zasebno potvrditi.","Retour":"Natrag"},
     fr: {"Bonjour,":"Bonjour,","Bienvenue dans votre espace personnel":"Bienvenue dans votre espace personnel","Financement approuvé":"Financement approuvé","Montant approuvé":"Montant approuvé","Statut :":"Statut :","Approuvé":"Approuvé","Mon compte":"Mon compte","En attente d’activation":"En attente d’activation","Mes transactions":"Mes transactions","Voir tout":"Voir tout","Vos prochaines transactions":"Vos prochaines transactions","vont s'afficher ici.":"vont s'afficher ici.","Accueil":"Accueil","Faire un virement":"Faire un virement","Historique":"Historique","Aide":"Aide","Demande de transfert":"Demande de transfert","Remplissez les informations du bénéficiaire pour soumettre une demande de transfert à INTEREUROPA.":"Remplissez les informations du bénéficiaire pour soumettre une demande de transfert à INTEREUROPA.","Nom":"Nom","Montant":"Montant","Ce formulaire enregistre une demande pour examen. Son envoi ne réalise pas un virement bancaire.":"Ce formulaire enregistre une demande pour examen. Son envoi ne réalise pas un virement bancaire.","Envoyer la demande":"Envoyer la demande","Transfert en attente d’examen":"Transfert en attente d’examen","Votre demande de transfert a bien été reçue. Elle est actuellement en attente d’examen par INTEREUROPA.":"Votre demande de transfert a bien été reçue. Elle est actuellement en attente d’examen par INTEREUROPA.","L’envoi de cette demande ne déclenche pas automatiquement un virement bancaire. Toute activation et toute exécution éventuelles seront confirmées séparément par l’établissement bancaire.":"L’envoi de cette demande ne déclenche pas automatiquement un virement bancaire. Toute activation et toute exécution éventuelles seront confirmées séparément par l’établissement bancaire.","Retour":"Retour"}
   };
+  // Traductions complètes de l’écran de résultat du transfert dans les neuf langues.
+  const transferResultTranslations = {
+    pt: {
+      "Échec de l’activation du virement":"Não foi possível ativar a transferência",
+      "Votre transfert est actuellement en attente d’activation. Le client bénéficiaire est invité à contacter INTEREUROPA afin de finaliser le mécanisme d’activation du virement.":"A sua transferência aguarda atualmente ativação. O cliente beneficiário deverá contactar a INTEREUROPA para obter informações sobre as etapas necessárias à ativação da transferência.",
+      "Après l’activation effective du virement et son exécution par l’établissement bancaire, les fonds seront disponibles sur votre compte bancaire et votre virement sera exécuté avec succès..":"Após a ativação efetiva da transferência e a sua execução pela instituição bancária, os fundos ficarão disponíveis na sua conta bancária."
+    },
+    de: {
+      "Échec de l’activation du virement":"Überweisung konnte nicht aktiviert werden",
+      "Votre transfert est actuellement en attente d’activation. Le client bénéficiaire est invité à contacter INTEREUROPA afin de finaliser le mécanisme d’activation du virement.":"Ihre Überweisung wartet derzeit auf die Aktivierung. Der Zahlungsempfänger wird gebeten, INTEREUROPA zu kontaktieren, um die erforderlichen Schritte zur Aktivierung der Überweisung zu klären.",
+      "Après l’activation effective du virement et son exécution par l’établissement bancaire, les fonds seront disponibles sur votre compte bancaire et votre virement sera exécuté avec succès..":"Nach der tatsächlichen Aktivierung und Ausführung der Überweisung durch das Bankinstitut werden die Geldmittel auf Ihrem Bankkonto verfügbar sein."
+    },
+    pl: {
+      "Échec de l’activation du virement":"Nie udało się aktywować przelewu",
+      "Votre transfert est actuellement en attente d’activation. Le client bénéficiaire est invité à contacter INTEREUROPA afin de finaliser le mécanisme d’activation du virement.":"Przelew oczekuje obecnie na aktywację. Odbiorca środków powinien skontaktować się z INTEREUROPA, aby uzyskać informacje o krokach niezbędnych do aktywacji przelewu.",
+      "Après l’activation effective du virement et son exécution par l’établissement bancaire, les fonds seront disponibles sur votre compte bancaire et votre virement sera exécuté avec succès..":"Po faktycznej aktywacji przelewu i jego realizacji przez bank środki będą dostępne na Twoim rachunku bankowym."
+    },
+    es: {
+      "Échec de l’activation du virement":"No se pudo activar la transferencia",
+      "Votre transfert est actuellement en attente d’activation. Le client bénéficiaire est invité à contacter INTEREUROPA afin de finaliser le mécanisme d’activation du virement.":"Su transferencia está actualmente pendiente de activación. Se solicita al beneficiario que se ponga en contacto con INTEREUROPA para conocer los pasos necesarios para completar la activación de la transferencia.",
+      "Après l’activation effective du virement et son exécution par l’établissement bancaire, les fonds seront disponibles sur votre compte bancaire et votre virement sera exécuté avec succès..":"Una vez que la entidad bancaria haya activado y ejecutado efectivamente la transferencia, los fondos estarán disponibles en su cuenta bancaria."
+    },
+    it: {
+      "Échec de l’activation du virement":"Attivazione del bonifico non riuscita",
+      "Votre transfert est actuellement en attente d’activation. Le client bénéficiaire est invité à contacter INTEREUROPA afin de finaliser le mécanisme d’activation du virement.":"Il bonifico è attualmente in attesa di attivazione. Il beneficiario è invitato a contattare INTEREUROPA per conoscere i passaggi necessari a completare l’attivazione del bonifico.",
+      "Après l’activation effective du virement et son exécution par l’établissement bancaire, les fonds seront disponibles sur votre compte bancaire et votre virement sera exécuté avec succès..":"Dopo l’effettiva attivazione e l’esecuzione del bonifico da parte dell’istituto bancario, i fondi saranno disponibili sul tuo conto bancario."
+    },
+    el: {
+      "Échec de l’activation du virement":"Αποτυχία ενεργοποίησης της μεταφοράς",
+      "Votre transfert est actuellement en attente d’activation. Le client bénéficiaire est invité à contacter INTEREUROPA afin de finaliser le mécanisme d’activation du virement.":"Η μεταφορά σας βρίσκεται αυτή τη στιγμή σε αναμονή ενεργοποίησης. Ο δικαιούχος καλείται να επικοινωνήσει με την INTEREUROPA για να ενημερωθεί σχετικά με τα απαραίτητα βήματα ολοκλήρωσης της ενεργοποίησης.",
+      "Après l’activation effective du virement et son exécution par l’établissement bancaire, les fonds seront disponibles sur votre compte bancaire et votre virement sera exécuté avec succès..":"Μετά την πραγματική ενεργοποίηση και εκτέλεση της μεταφοράς από το τραπεζικό ίδρυμα, τα χρήματα θα είναι διαθέσιμα στον τραπεζικό σας λογαριασμό."
+    },
+    sk: {
+      "Échec de l’activation du virement":"Aktivácia prevodu sa nepodarila",
+      "Votre transfert est actuellement en attente d’activation. Le client bénéficiaire est invité à contacter INTEREUROPA afin de finaliser le mécanisme d’activation du virement.":"Váš prevod momentálne čaká na aktiváciu. Príjemca je vyzvaný, aby kontaktoval spoločnosť INTEREUROPA a získal informácie o potrebných krokoch na dokončenie aktivácie prevodu.",
+      "Après l’activation effective du virement et son exécution par l’établissement bancaire, les fonds seront disponibles sur votre compte bancaire et votre virement sera exécuté avec succès..":"Po skutočnej aktivácii a vykonaní prevodu bankovou inštitúciou budú finančné prostriedky dostupné na vašom bankovom účte."
+    },
+    hr: {
+      "Échec de l’activation du virement":"Aktivacija prijenosa nije uspjela",
+      "Votre transfert est actuellement en attente d’activation. Le client bénéficiaire est invité à contacter INTEREUROPA afin de finaliser le mécanisme d’activation du virement.":"Vaš prijenos trenutačno čeka aktivaciju. Primatelj se poziva da kontaktira INTEREUROPA-u radi informacija o potrebnim koracima za dovršetak aktivacije prijenosa.",
+      "Après l’activation effective du virement et son exécution par l’établissement bancaire, les fonds seront disponibles sur votre compte bancaire et votre virement sera exécuté avec succès..":"Nakon stvarne aktivacije i izvršenja prijenosa od strane bankovne institucije, sredstva će biti dostupna na vašem bankovnom računu."
+    },
+    fr: {
+      "Échec de l’activation du virement":"Échec de l’activation du virement",
+      "Votre transfert est actuellement en attente d’activation. Le client bénéficiaire est invité à contacter INTEREUROPA afin de finaliser le mécanisme d’activation du virement.":"Votre transfert est actuellement en attente d’activation. Le bénéficiaire est invité à contacter INTEREUROPA afin de connaître les étapes nécessaires à son activation.",
+      "Après l’activation effective du virement et son exécution par l’établissement bancaire, les fonds seront disponibles sur votre compte bancaire et votre virement sera exécuté avec succès..":"Après l’activation effective du transfert et son exécution par l’établissement bancaire, les fonds seront disponibles sur votre compte bancaire."
+    }
+  };
+  Object.entries(transferResultTranslations).forEach(([lang, entries]) => Object.assign(dictionaries[lang], entries));
   // Traductions des libellés actuels du formulaire et du résultat de transfert.
   Object.assign(dictionaries.pt, {
     "Transfert international avec IBAN":"Transferência internacional com IBAN",
