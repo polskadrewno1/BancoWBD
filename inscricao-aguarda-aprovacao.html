@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Inscrição em análise</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:#fff;font-family:Arial,Helvetica,sans-serif;color:#102f68}
+main{width:min(100%,920px);text-align:center}
+.sticker{width:min( min(72vw,430px),100%);height:auto;display:block;margin:0 auto 30px;filter:drop-shadow(0 12px 18px rgba(18,83,160,.14))}
+.message{margin:0 auto;padding:24px 28px;border:3px solid #1680ed;border-radius:28px;background:linear-gradient(145deg,#f4f9ff,#e5f1ff);font-size:clamp(20px,3.2vw,34px);line-height:1.45;font-weight:700;color:#102f68}
+@media(max-width:520px){body{padding:18px}.sticker{width:min(78vw,330px);margin-bottom:22px}.message{padding:20px 17px;border-radius:22px}}
+</style>
+</head>
+<body>
+<main>
+<svg class="sticker" viewBox="0 0 420 340" role="img" aria-label="A aguardar confirmação" xmlns="http://www.w3.org/2000/svg">
+<defs>
+ <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#36b4ff"/><stop offset="1" stop-color="#0752c5"/></linearGradient>
+ <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#dcecff"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="9" stdDeviation="9" flood-color="#1558a8" flood-opacity=".22"/></filter>
+</defs>
+<g filter="url(#shadow)">
+ <path d="M104 81a122 122 0 1 1-23 142" fill="none" stroke="url(#blue)" stroke-width="28" stroke-linecap="round"/>
+ <path d="M74 192l7 39 37-10" fill="none" stroke="#0874e4" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+ <circle cx="211" cy="169" r="91" fill="url(#glass)" stroke="#126bd4" stroke-width="15"/>
+ <circle cx="211" cy="169" r="76" fill="none" stroke="#d7eaff" stroke-width="3"/>
+ <path d="M211 111v60l43-31" fill="none" stroke="#0b4b9e" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+ <circle cx="211" cy="169" r="9" fill="#0b4b9e"/>
+ <circle cx="298" cy="236" r="62" fill="url(#blue)" stroke="#d8efff" stroke-width="5"/>
+ <path d="M276 205h44M281 211c0 20 35 22 35 42 0 10-8 18-18 18s-18-8-18-18M276 270h44" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
+ <path d="M289 224l18 18-18 18" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>
+</g>
+</svg>
+<p class="message" id="pending-message">A sua inscrição foi recebida e aguarda confirmação da administração INTEREUROPA. Receberá acesso à área pessoal após a aprovação.</p>
+</main>
+<script>
+(() => {
+ const messages = {
+  pt:"A sua inscrição foi recebida e aguarda confirmação da administração INTEREUROPA. Receberá acesso à área pessoal após a aprovação.",
+  de:"Ihre Anmeldung wurde erhalten und wartet auf die Bestätigung durch die INTEREUROPA-Verwaltung. Nach der Genehmigung erhalten Sie Zugang zu Ihrem persönlichen Bereich.",
+  pl:"Twoje zgłoszenie zostało otrzymane i oczekuje na zatwierdzenie przez administrację INTEREUROPA. Dostęp do strefy osobistej otrzymasz po zatwierdzeniu.",
+  es:"Su inscripción ha sido recibida y está pendiente de confirmación por parte de la administración de INTEREUROPA. Recibirá acceso a su área personal después de la aprobación.",
+  it:"La tua registrazione è stata ricevuta ed è in attesa di conferma da parte dell'amministrazione INTEREUROPA. Riceverai l'accesso alla tua area personale dopo l'approvazione.",
+  el:"Η εγγραφή σας παραλήφθηκε και αναμένει επιβεβαίωση από τη διοίκηση της INTEREUROPA. Θα αποκτήσετε πρόσβαση στον προσωπικό σας χώρο μετά την έγκριση.",
+  sk:"Vaša registrácia bola prijatá a čaká na potvrdenie administráciou INTEREUROPA. Prístup do svojej osobnej zóny získate po schválení.",
+  hr:"Vaša je prijava zaprimljena i čeka potvrdu administracije INTEREUROPA. Pristup svom osobnom području dobit ćete nakon odobrenja.",
+  fr:"Votre inscription a bien été reçue et est en attente de confirmation par l’administration d’INTEREUROPA. Vous aurez accès à votre espace personnel après approbation."
+ };
+ const params = new URLSearchParams(location.search);
+ let lang = params.get("lang");
+ if (!messages[lang]) {
+  try { lang = localStorage.getItem("intereuropa_language"); } catch(e) {}
+ }
+ if (!messages[lang]) lang = "pt";
+ document.documentElement.lang = ({pt:"pt-PT",de:"de-DE",pl:"pl-PL",es:"es-ES",it:"it-IT",el:"el-GR",sk:"sk-SK",hr:"hr-HR",fr:"fr-FR"})[lang];
+ document.getElementById("pending-message").textContent = messages[lang];
+})();
+</script>
+</body>
+</html>
