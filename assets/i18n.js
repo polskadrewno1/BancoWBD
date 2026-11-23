@@ -122,6 +122,7 @@
       "Finalidade do financiamento":"Namjena financiranja","IBAN":"IBAN","BIC / SWIFT":"BIC / SWIFT","Nome do banco":"Naziv banke"
     },
     fr: {
+      "Solicitar financiamento":"Demander un financement",
       "Início":"Accueil","Serviços":"Services","Financiamento":"Financement","Área de cliente":"Espace client","Contacto":"Contact",
       "SOLUÇÕES DE FINANCIAMENTO":"SOLUTIONS DE FINANCEMENT","O futuro financeiro começa com uma nova experiência.":"L’avenir financier commence par une nouvelle expérience.",
       "Solicitar um empréstimo":"Demander un financement","Entrar na minha conta":"Accéder à mon compte","Conheça os nossos serviços":"Découvrez nos services",
