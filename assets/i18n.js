@@ -25,7 +25,8 @@
     pl: {
       "Início":"Strona główna","Serviços":"Usługi","Financiamento":"Finansowanie","Área de cliente":"Strefa klienta","Contacto":"Kontakt",
       "SOLUÇÕES DE FINANCIAMENTO":"ROZWIĄZANIA FINANSOWE","O futuro financeiro começa com uma nova experiência.":"Finansowa przyszłość zaczyna się od nowego doświadczenia.",
-      "Solicitar um empréstimo":"Złóż wniosek o finansowanie","Entrar na minha conta":"Zaloguj się na konto","Conheça os nossos serviços":"Poznaj nasze usługi",
+      "Solicitar um empréstimo":"Złóż wniosek o finansowanie",
+      "Solicitar financiamento":"Złóż wniosek o finansowanie","Entrar na minha conta":"Zaloguj się na konto","Conheça os nossos serviços":"Poznaj nasze usługi",
       "Fale connosco":"Skontaktuj się z nami","Página inicial":"Strona główna","CRIAR UMA CONTA":"UTWÓRZ KONTO","INICIAR SESSÃO":"ZALOGUJ SIĘ",
       "Criar uma conta":"Utwórz konto","Registe-se para aceder à sua área pessoal.":"Zarejestruj się, aby uzyskać dostęp do swojej strefy klienta.",
       "Nome completo":"Imię i nazwisko","Número de WhatsApp":"Numer WhatsApp","Endereço de e-mail":"Adres e-mail","Criar palavra-passe":"Utwórz hasło",
