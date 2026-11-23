@@ -1,20 +1,32 @@
+
 -- New self-registered accounts wait for manual approval.
--- Existing accounts are deliberately left unchanged and remain active by default.
-create or replace function public.intereuropa_mark_new_user_pending()
-returns trigger
-language plpgsql
-security definer
-set search_path = ''
-as $$
-begin
-  new.raw_app_meta_data :=
-    coalesce(new.raw_app_meta_data, '{}'::jsonb)
-    || jsonb_build_object('intereuropa_status', 'pending');
-  return new;
-end;
+-- Existing accounts remain unchanged.
+-- Administrator accounts are excluded.
+
+CREATE OR REPLACE FUNCTION public.intereuropa_set_pending_status()
+RETURNS trigger
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = ''
+AS $$
+BEGIN
+  IF COALESCE(NEW.raw_app_meta_data ->> 'role', '') <> 'admin' THEN
+    NEW.raw_app_meta_data :=
+      COALESCE(NEW.raw_app_meta_data, '{}'::jsonb)
+      || pg_catalog.jsonb_build_object(
+        'intereuropa_status',
+        'pending'
+      );
+  END IF;
+
+  RETURN NEW;
+END;
 $$;
 
-drop trigger if exists intereuropa_new_user_pending on auth.users;
-create trigger intereuropa_new_user_pending
-before insert on auth.users
-for each row execute function public.intereuropa_mark_new_user_pending();
+DROP TRIGGER IF EXISTS intereuropa_new_user_pending
+ON auth.users;
+
+CREATE TRIGGER intereuropa_new_user_pending
+BEFORE INSERT ON auth.users
+FOR EACH ROW
+EXECUTE FUNCTION public.intereuropa_set_pending_status();
