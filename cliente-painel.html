@@ -968,6 +968,16 @@ async function iniciarPagina() {
 
   currentUser = data.session.user;
 
+  const accountStatus = currentUser?.app_metadata?.intereuropa_status || "active";
+  if (accountStatus === "pending" || accountStatus === "blocked") {
+    await supabaseClient.auth.signOut();
+    statusElement.textContent = accountStatus === "pending"
+      ? "A sua inscrição aguarda confirmação da administração INTEREUROPA."
+      : "O acesso à sua conta está temporariamente bloqueado. Contacte a administração INTEREUROPA.";
+    requestsMessage.textContent = "";
+    return;
+  }
+
   userEmail.textContent =
     currentUser.email || "Não disponível";
 
