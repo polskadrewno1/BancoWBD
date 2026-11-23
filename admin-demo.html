@@ -420,7 +420,60 @@ async function carregarClientes() {
     adicionarCampo(card, "Nome completo", clientData.nome);
     adicionarCampo(card, "Endereço de e-mail", clientData.email);
     adicionarCampo(card, "WhatsApp", clientData.whatsapp);
+    adicionarCampo(card, "E-mail confirmado", clientData.email_confirmado ? "Sim" : "Não");
 
+    const statusNames = {
+      pending: "A aguardar confirmação da administração",
+      active: "Conta confirmada",
+      blocked: "Conta temporariamente bloqueada"
+    };
+    const currentStatus = clientData.estado || "active";
+    adicionarCampo(card, "Estado da conta", statusNames[currentStatus] || currentStatus);
+
+    const actions = document.createElement("div");
+    actions.style.display = "flex";
+    actions.style.flexWrap = "wrap";
+    actions.style.gap = "8px";
+    actions.style.marginTop = "12px";
+
+    const addAction = (label, action, confirmText) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = label;
+      button.addEventListener("click", async () => {
+        if (!confirm(confirmText)) return;
+        button.disabled = true;
+        const previousText = button.textContent;
+        button.textContent = "A atualizar...";
+        const { data: result, error: actionError } = await client.functions.invoke(
+          "admin-manage-client",
+          { body: { user_id: clientData.id, action } }
+        );
+        if (actionError || result?.error || !result?.success) {
+          alert("Não foi possível atualizar a conta: " +
+            (result?.error || actionError?.message || "Erro desconhecido."));
+          button.disabled = false;
+          button.textContent = previousText;
+          return;
+        }
+        await carregarClientes();
+      });
+      actions.appendChild(button);
+    };
+
+    if (currentStatus === "pending") {
+      addAction("Confirmar inscrição", "approve",
+        "Confirma a inscrição deste cliente e autoriza o acesso à área pessoal?");
+    }
+    if (currentStatus !== "blocked") {
+      addAction("Bloquear temporariamente", "block",
+        "Bloquear temporariamente este cliente? O acesso ficará suspenso até ao desbloqueio.");
+    } else {
+      addAction("Desbloquear cliente", "unblock",
+        "Desbloquear este cliente e reativar o acesso à conta?");
+    }
+
+    card.appendChild(actions);
     clientsList.appendChild(card);
   });
 }
