@@ -285,8 +285,7 @@ const nextPage =
     ? "inscricao.html"
     : "cliente-painel.html";
 
-const signupRedirectUrl =
-  "https://polskadrewno1.github.io/BancoWBD/cliente-demo.html?auth=confirmed";
+
 
 // MOSTRAR APENAS UMA SECÇÃO DE CADA VEZ
 function showArea(area) {
@@ -347,6 +346,13 @@ document.getElementById("registerForm")
   const whatsapp = document.getElementById("whatsapp").value.trim();
   const email = document.getElementById("registerEmail").value.trim();
   const password = document.getElementById("registerPassword").value;
+
+  const selectedSignupLanguage =
+    document.getElementById("intereuropa-language")?.value ||
+    localStorage.getItem("intereuropa_language") || "pt";
+  const signupRedirectUrl =
+    "https://polskadrewno1.github.io/BancoWBD/cliente-demo.html?auth=confirmed&lang=" +
+    encodeURIComponent(selectedSignupLanguage);
 
   const { data, error } = await supabaseClient.auth.signUp({
     email,
@@ -514,7 +520,10 @@ document.getElementById("recoveryForm")
     showArea(loginArea);
     return;
   }
-  window.location.replace("cliente-painel.html");
+  const selectedLanguage = params.get("lang") || "pt";
+  window.location.replace(
+    "inscricao-aguarda-aprovacao.html?lang=" + encodeURIComponent(selectedLanguage)
+  );
 })();
 
 // CONVITE E RECUPERAÇÃO
