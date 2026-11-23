@@ -49,6 +49,7 @@ footer{margin-top:26px;color:#94a3b8;font-size:12px}
       if(supported.indexOf(lang)===-1)return;
       try{
         localStorage.setItem("intereuropa_language",lang);
+        localStorage.setItem("intereuropa_language_intro_seen","yes");
         document.cookie="intereuropa_language="+encodeURIComponent(lang)+"; path=/; max-age=31536000; SameSite=Lax";
       }catch(e){}
       window.location.href="index.html";
