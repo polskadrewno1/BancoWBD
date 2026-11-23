@@ -1,0 +1,27 @@
+name: Deploy admin-list-users to Supabase
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      PROJECT_ID: mzrxzuwtndegpwcbkwhj
+    steps:
+      - name: Checkout deployment branch
+        uses: actions/checkout@v4
+        with:
+          ref: intereuropa-approval-access
+
+      - name: Install Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Deploy only admin-list-users
+        run: supabase functions deploy admin-list-users --project-ref "$PROJECT_ID" --yes
