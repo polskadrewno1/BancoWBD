@@ -35,35 +35,29 @@ USING (
   AND public.intereuropa_is_account_active()
 );
 
-DROP POLICY IF EXISTS "Clients podem depositar suas demandas"
-  ON public.demandes_financement;
+-- Replace the existing client INSERT policy while preserving its original rule.
+DO $$
+DECLARE
+  existing_policy text;
+BEGIN
+  SELECT policyname
+    INTO existing_policy
+  FROM pg_policies
+  WHERE schemaname = 'public'
+    AND tablename = 'demandes_financement'
+    AND cmd = 'INSERT'
+    AND with_check LIKE '%aguarda_admin%'
+  ORDER BY policyname
+  LIMIT 1;
 
-DROP POLICY IF EXISTS "Clients podem depositar seus pedidos"
-  ON public.demandes_financement;
-
-DROP POLICY IF EXISTS "Clients podem depositar suas demandes"
-  ON public.demandes_financement;
-
-DROP POLICY IF EXISTS "Clients podem depositar seus pedidos de financiamento"
-  ON public.demandes_financement;
-
-DROP POLICY IF EXISTS "Clients podem depositar suas demandes de financement"
-  ON public.demandes_financement;
-
-DROP POLICY IF EXISTS "Clients podem depositar leurs demandes"
-  ON public.demandes_financement;
-
-DROP POLICY IF EXISTS "Clients peuvent déposer leurs demandes"
-  ON public.demandes_financement;
-
-DROP POLICY IF EXISTS "Clients podem depositar suas demandas"
-  ON public.demandes_financement;
-
-DROP POLICY IF EXISTS "Clients podem depositar leurs demandes de financement"
-  ON public.demandes_financement;
-
-DROP POLICY IF EXISTS "Clients peuvent déposer leurs demandes"
-  ON public.demandes_financement;
+  IF existing_policy IS NOT NULL THEN
+    EXECUTE format(
+      'DROP POLICY %I ON public.demandes_financement',
+      existing_policy
+    );
+  END IF;
+END;
+$$;
 
 CREATE POLICY "Clients peuvent déposer leurs demandes"
 ON public.demandes_financement
