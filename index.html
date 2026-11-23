@@ -4,6 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<script>
+(function () {
+  var supported = ["pt","de","pl","es","it","el","sk","hr","fr"];
+  try {
+    var saved = localStorage.getItem("intereuropa_language");
+    if (supported.indexOf(saved) === -1) {
+      window.location.replace("language.html");
+    }
+  } catch (e) {
+    window.location.replace("language.html");
+  }
+})();
+</script>
+
 <title>INTEREUROPA.PT | Soluções Financeiras</title>
 <meta name="description" content="INTEREUROPA.PT — Soluções Financeiras.">
 <meta property="og:type" content="website">
