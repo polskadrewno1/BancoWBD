@@ -6,10 +6,8 @@
 
 <script>
 (function () {
-  var supported = ["pt","de","pl","es","it","el","sk","hr","fr"];
   try {
-    var saved = localStorage.getItem("intereuropa_language");
-    if (supported.indexOf(saved) === -1) {
+    if (localStorage.getItem("intereuropa_language_intro_seen") !== "yes") {
       window.location.replace("language.html");
     }
   } catch (e) {
