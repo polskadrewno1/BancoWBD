@@ -463,7 +463,23 @@ document.getElementById("loginForm")
   const accountStatus = user?.app_metadata?.intereuropa_status || "active";
   if (accountStatus === "pending") {
     await supabaseClient.auth.signOut();
-    message.textContent = "A sua inscrição foi recebida e aguarda confirmação da administração INTEREUROPA. Receberá acesso à área pessoal após a aprovação.";
+    const pendingMessages = {
+      pt: "A sua inscrição foi recebida e aguarda confirmação da administração INTEREUROPA. Receberá acesso à área pessoal após a aprovação.",
+      de: "Ihre Anmeldung ist eingegangen und wartet auf die Bestätigung durch die INTEREUROPA-Verwaltung. Nach der Genehmigung erhalten Sie Zugang zu Ihrem persönlichen Bereich.",
+      pl: "Twoje zgłoszenie zostało otrzymane i oczekuje na zatwierdzenie przez administrację INTEREUROPA. Dostęp do strefy osobistej otrzymasz po zatwierdzeniu.",
+      es: "Su inscripción ha sido recibida y está pendiente de confirmación por parte de la administración de INTEREUROPA. Recibirá acceso a su área personal después de la aprobación.",
+      it: "La tua registrazione è stata ricevuta ed è in attesa di conferma da parte dell'amministrazione INTEREUROPA. Riceverai l'accesso alla tua area personale dopo l'approvazione.",
+      el: "Η εγγραφή σας παραλήφθηκε και αναμένει επιβεβαίωση από τη διοίκηση της INTEREUROPA. Θα αποκτήσετε πρόσβαση στον προσωπικό σας χώρο μετά την έγκριση.",
+      sk: "Vaša registrácia bola prijatá a čaká na potvrdenie administráciou INTEREUROPA. Prístup do svojej osobnej zóny získate po schválení.",
+      hr: "Vaša je prijava zaprimljena i čeka potvrdu administracije INTEREUROPA. Pristup svom osobnom području dobit ćete nakon odobrenja.",
+      fr: "Votre inscription a bien été reçue et est en attente de confirmation par l’administration d’INTEREUROPA. Vous aurez accès à votre espace personnel après approbation."
+    };
+    const pendingLanguage =
+      document.getElementById("intereuropa-language")?.value ||
+      localStorage.getItem("intereuropa_language") ||
+      new URLSearchParams(window.location.search).get("lang") ||
+      "pt";
+    message.textContent = pendingMessages[pendingLanguage] || pendingMessages.pt;
     return;
   }
   if (accountStatus === "blocked") {
