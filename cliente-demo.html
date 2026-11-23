@@ -449,7 +449,35 @@ document.getElementById("loginForm")
 
   if (error) {
     console.error("Erreur Supabase :", error);
-    message.textContent = "Erro de autenticação: " + error.message;
+
+    // Traduzir especificamente o bloqueio de autenticação do Supabase.
+    // Os restantes erros mantêm a mensagem técnica existente.
+    const bannedMessages = {
+      pt: "A sua conta está temporariamente bloqueada.",
+      de: "Ihr Konto wurde vorübergehend gesperrt.",
+      pl: "Twoje konto zostało tymczasowo zablokowane.",
+      es: "Su cuenta está bloqueada temporalmente.",
+      it: "Il tuo account è temporaneamente bloccato.",
+      el: "Ο λογαριασμός σας είναι προσωρινά αποκλεισμένος.",
+      sk: "Váš účet je dočasne zablokovaný.",
+      hr: "Vaš račun je privremeno blokiran.",
+      fr: "Votre compte est temporairement bloqué."
+    };
+
+    const isBanned = /user is banned|banned|user_banned/i.test(
+      (error.message || "") + " " + (error.code || "")
+    );
+
+    if (isBanned) {
+      const selectedLanguage =
+        document.getElementById("intereuropa-language")?.value ||
+        localStorage.getItem("intereuropa_language") ||
+        new URLSearchParams(window.location.search).get("lang") ||
+        "pt";
+      message.textContent = bannedMessages[selectedLanguage] || bannedMessages.pt;
+    } else {
+      message.textContent = "Erro de autenticação: " + error.message;
+    }
     return;
   }
 
