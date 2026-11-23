@@ -953,8 +953,21 @@ document.getElementById("transferRequestForm")
 
 async function iniciarPagina() {
 
-  const { data, error } =
-    await supabaseClient.auth.getSession();
+  // Atualiza o token antes de abrir o painel. Uma conta banida não deve
+  // continuar a entrar com uma sessão antiga depois de atualizar a página.
+  const { data: refreshData, error: refreshError } =
+    await supabaseClient.auth.refreshSession();
+
+  if (refreshError || !refreshData.session) {
+    await supabaseClient.auth.signOut();
+    statusElement.textContent =
+      "A sua sessão terminou ou o acesso à conta está suspenso. Inicie sessão novamente.";
+    requestsMessage.textContent = "";
+    return;
+  }
+
+  const data = refreshData;
+  const error = null;
 
   if (error || !data.session) {
 
