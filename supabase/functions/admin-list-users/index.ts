@@ -2,45 +2,110 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
 
+const respond = (data: object, status = 200) =>
+  new Response(JSON.stringify(data), {
+    status,
+    headers: {
+      ...corsHeaders,
+      "Content-Type": "application/json",
+    },
+  });
+
 Deno.serve(async (req) => {
-  if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
-  if (req.method !== "POST") return new Response(JSON.stringify({ error: "Method not allowed" }), { status: 405, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+  if (req.method === "OPTIONS") {
+    return new Response("ok", { headers: corsHeaders });
+  }
+
+  if (req.method !== "POST") {
+    return respond({ error: "Método não autorizado." }, 405);
+  }
 
   try {
-    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-    const anonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
-    const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-    const authHeader = req.headers.get("Authorization");
-    if (!authHeader) throw new Error("Sessão não autorizada.");
+    const supabaseUrl = Deno.env.get("SUPABASE_URL");
+    const anonKey = Deno.env.get("SUPABASE_ANON_KEY");
+    const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
 
-    const authClient = createClient(supabaseUrl, anonKey, { global: { headers: { Authorization: authHeader } } });
-    const { data: { user }, error: userError } = await authClient.auth.getUser();
-    if (userError || !user || user.app_metadata?.role !== "admin") {
-      return new Response(JSON.stringify({ error: "Acesso reservado à administração." }), { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    if (!supabaseUrl || !anonKey || !serviceKey) {
+      return respond({ error: "Configuração do servidor incompleta." }, 500);
     }
 
-    const admin = createClient(supabaseUrl, serviceKey, { auth: { autoRefreshToken: false, persistSession: false } });
-    const { data, error } = await admin.auth.admin.listUsers({ page: 1, perPage: 1000 });
-    if (error) throw error;
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader) {
+      return respond({ error: "Sessão não autorizada." }, 401);
+    }
 
-    const clients = data.users
-      .filter((u) => u.app_metadata?.role !== "admin")
-      .map((u) => ({
-        id: u.id,
-        nome: u.user_metadata?.full_name || u.user_metadata?.name || "",
-        email: u.email || "",
-        whatsapp: u.user_metadata?.whatsapp || "",
-        criado_em: u.created_at,
-        email_confirmado: Boolean(u.email_confirmed_at),
-        estado: u.app_metadata?.intereuropa_status || "active",
-      }));
+    const authClient = createClient(supabaseUrl, anonKey, {
+      global: { headers: { Authorization: authHeader } },
+      auth: { autoRefreshToken: false, persistSession: false },
+    });
 
-    return new Response(JSON.stringify({ success: true, clients }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    const {
+      data: { user },
+      error: userError,
+    } = await authClient.auth.getUser();
+
+    if (userError || !user || user.app_metadata?.role !== "admin") {
+      return respond({ error: "Acesso reservado à administração." }, 403);
+    }
+
+    const adminClient = createClient(supabaseUrl, serviceKey, {
+      auth: { autoRefreshToken: false, persistSession: false },
+    });
+
+    const clients = [];
+    let page = 1;
+    const perPage = 1000;
+
+    while (true) {
+      const { data, error } = await adminClient.auth.admin.listUsers({
+        page,
+        perPage,
+      });
+
+      if (error) {
+        return respond({ error: error.message }, 500);
+      }
+
+      for (const listedUser of data.users) {
+        if (listedUser.app_metadata?.role === "admin") continue;
+
+        clients.push({
+          id: listedUser.id,
+          nome:
+            listedUser.user_metadata?.full_name ||
+            listedUser.user_metadata?.name ||
+            "",
+          email: listedUser.email || "",
+          whatsapp: listedUser.user_metadata?.whatsapp || "",
+          criado_em: listedUser.created_at,
+          email_confirmado: Boolean(listedUser.email_confirmed_at),
+          estado: listedUser.app_metadata?.intereuropa_status || "active",
+        });
+      }
+
+      if (data.users.length < perPage) break;
+      page++;
+    }
+
+    return respond({
+      success: true,
+      total: clients.length,
+      clients,
+    });
   } catch (error) {
-    return new Response(JSON.stringify({ error: error instanceof Error ? error.message : "Erro interno." }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    return respond(
+      {
+        error:
+          error instanceof Error
+            ? error.message
+            : "Erro interno do servidor.",
+      },
+      500
+    );
   }
 });
