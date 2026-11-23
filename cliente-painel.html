@@ -1223,8 +1223,14 @@ iniciarPagina();
     if (select && select.value !== lang) select.value = lang;
   }
   function schedule(lang) { window.setTimeout(() => apply(lang), 30); }
-  const select = document.getElementById("intereuropa-language");
-  if (select) select.addEventListener("change", () => schedule(select.value));
+  // O seletor de idioma é criado dinamicamente por assets/i18n.js após DOMContentLoaded.
+  // Por isso, usar um listener delegado no documento garante que a mudança de idioma
+  // também atualize os três painéis locais (transferência, histórico e assistência).
+  document.addEventListener("change", (event) => {
+    if (event.target && event.target.id === "intereuropa-language") {
+      schedule(event.target.value);
+    }
+  });
   document.addEventListener("DOMContentLoaded", () => {
     let saved = new URLSearchParams(window.location.search).get("lang") || "pt";
     try { saved = new URLSearchParams(window.location.search).get("lang") || localStorage.getItem("intereuropa_language") || "pt"; } catch(e) {}
