@@ -1199,8 +1199,9 @@ iniciarPagina();
     try { saved = new URLSearchParams(window.location.search).get("lang") || localStorage.getItem("intereuropa_language") || "pt"; } catch(e) {}
     schedule(saved);
   });
-  const dynamicObserver = new MutationObserver(() => schedule(currentLang));
-  dynamicObserver.observe(document.body, { childList: true, subtree: true });
+  // Sem observador global: observar todo o body fazia o tradutor reescrever
+  // os mesmos elementos repetidamente, provocando oscilações visuais.
+  // O i18n.js global trata os elementos adicionados dinamicamente.
 })();
 </script></body>
 </html>
