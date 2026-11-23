@@ -451,9 +451,22 @@ document.getElementById("loginForm")
 
   if (user?.app_metadata?.role === "admin") {
     window.location.href = "admin-demo.html";
-  } else {
-    window.location.href = nextPage;
+    return;
   }
+
+  const accountStatus = user?.app_metadata?.intereuropa_status || "active";
+  if (accountStatus === "pending") {
+    await supabaseClient.auth.signOut();
+    message.textContent = "A sua inscrição foi recebida e aguarda confirmação da administração INTEREUROPA. Receberá acesso à área pessoal após a aprovação.";
+    return;
+  }
+  if (accountStatus === "blocked") {
+    await supabaseClient.auth.signOut();
+    message.textContent = "O acesso à sua conta está temporariamente bloqueado. Contacte a administração INTEREUROPA.";
+    return;
+  }
+
+  window.location.href = nextPage;
 });
 
 // RECUPERAÇÃO DE PALAVRA-PASSE
