@@ -748,21 +748,42 @@ inviteButton.addEventListener("click", async () => {
   inviteButton.disabled = true;
   inviteMessage.textContent = "A enviar o convite...";
 
-  const { data, error } = await client.functions.invoke(
-    "admin-create-user",
-    {
-      body: { name, email }
+  try {
+    const { data, error } = await client.functions.invoke(
+      "admin-create-user",
+      {
+        body: { name, email }
+      }
+    );
+
+    inviteButton.disabled = false;
+
+    if (error || data?.error) {
+      let detail = data?.error || "";
+
+      // Supabase devolve o corpo da resposta dentro de error.context.
+      // Lê esse corpo para apresentar a mensagem real da Edge Function.
+      if (!detail && error?.context) {
+        try {
+          const response = typeof error.context.clone === "function"
+            ? error.context.clone()
+            : error.context;
+          const responseData = typeof response.json === "function"
+            ? await response.json()
+            : null;
+          detail = responseData?.error || responseData?.message || "";
+        } catch (_) {
+          // Mantém a mensagem alternativa se a resposta não for JSON.
+        }
+      }
+
+      if (!detail) {
+        detail = error?.message || "Erro desconhecido.";
+      }
+
+      inviteMessage.textContent = "Erro ao criar a conta: " + detail;
+      return;
     }
-  );
-
-  inviteButton.disabled = false;
-
-  if (error || data?.error) {
-    inviteMessage.textContent =
-      "Erro ao enviar o convite: " +
-      (data?.error || error.message);
-    return;
-  }
 
   inviteMessage.textContent =
     "Convite enviado com sucesso.";
@@ -783,8 +804,14 @@ inviteButton.addEventListener("click", async () => {
     inviteMessage.appendChild(passwordWarning);
   }
 
-  document.getElementById("clientName").value = "";
-  document.getElementById("clientEmail").value = "";
+    document.getElementById("clientName").value = "";
+    document.getElementById("clientEmail").value = "";
+  } catch (unexpectedError) {
+    inviteButton.disabled = false;
+    inviteMessage.textContent =
+      "Erro ao criar a conta: " +
+      (unexpectedError?.message || "Erro inesperado.");
+  }
 });
 
 document.getElementById("refreshClientsButton").addEventListener(
