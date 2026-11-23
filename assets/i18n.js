@@ -1526,7 +1526,8 @@
     const nodes = [];
     while (walker.nextNode()) {
       const node = walker.currentNode;
-      if (node.parentElement && !node.parentElement.closest("script,style")) nodes.push(node);
+      // Os painéis do cliente usam tradutor local; não sobrescrever as traduções locais.
+      if (node.parentElement && !node.parentElement.closest("script,style,#withdrawPanel,#historyPanel,#helpPanel")) nodes.push(node);
     }
     nodes.forEach(node => {
       if (!originalTextNodes.has(node)) originalTextNodes.set(node, node.nodeValue);
