@@ -173,6 +173,11 @@ footer {
       3 — Pedidos de financiamento
     </button>
 
+    <button class="menu-button" type="button"
+      onclick="abrirEnvioSms()">
+      4 — Envio Manual de SMS
+    </button>
+
   </div>
 
   <button id="logoutButton" type="button">
@@ -231,6 +236,24 @@ footer {
   <div id="clientsList"></div>
 </section>
 
+<section class="card" id="smsSection" style="display:none;">
+  <button class="back-button" type="button" onclick="voltarMenu()">
+    ← Voltar ao menu
+  </button>
+  <h2>Envio Manual de SMS</h2>
+  <p>Envie uma mensagem individual para um número internacional. Confirme que o destinatário autorizou ou espera receber esta comunicação.</p>
+  <label for="smsRecipient">Número de telefone internacional</label>
+  <input id="smsRecipient" type="tel" inputmode="tel" autocomplete="tel"
+    placeholder="+351912345678" style="display:block;width:100%;"
+    maxlength="20">
+  <label for="smsContent">Mensagem</label>
+  <textarea id="smsContent" rows="5" maxlength="1000"
+    placeholder="Escreva a mensagem..." style="display:block;width:100%;padding:11px 14px;border:1px solid #cbd5e1;border-radius:7px;margin-top:8px;font:inherit;"></textarea>
+  <p id="smsLength">0 / 1000 caracteres</p>
+  <button id="sendSmsButton" type="button">Enviar SMS</button>
+  <p id="smsMessage" class="message" aria-live="polite"></p>
+</section>
+
 <section class="card" id="requestsSection" style="display:none;">
 
   <button class="back-button" type="button" onclick="voltarMenu()">
@@ -287,6 +310,7 @@ function mostrarSecao(id) {
   document.getElementById("inviteSection").style.display = "none";
   document.getElementById("clientsSection").style.display = "none";
   document.getElementById("requestsSection").style.display = "none";
+  document.getElementById("smsSection").style.display = "none";
   document.getElementById("adminMenu").style.display = "none";
 
   document.getElementById(id).style.display = "block";
@@ -296,6 +320,7 @@ function voltarMenu() {
   document.getElementById("inviteSection").style.display = "none";
   document.getElementById("clientsSection").style.display = "none";
   document.getElementById("requestsSection").style.display = "none";
+  document.getElementById("smsSection").style.display = "none";
 
   document.getElementById("adminMenu").style.display = "block";
 }
@@ -308,6 +333,11 @@ async function abrirClientes() {
 async function abrirPedidos() {
   mostrarSecao("requestsSection");
   await carregarPedidos();
+}
+
+function abrirEnvioSms() {
+  mostrarSecao("smsSection");
+  document.getElementById("smsMessage").textContent = "";
 }
 
 /* FUNÇÕES ORIGINAIS */
@@ -818,6 +848,55 @@ document.getElementById("refreshClientsButton").addEventListener(
   "click",
   carregarClientes
 );
+
+const smsContent = document.getElementById("smsContent");
+const smsLength = document.getElementById("smsLength");
+const sendSmsButton = document.getElementById("sendSmsButton");
+smsContent.addEventListener("input", () => {
+  smsLength.textContent = smsContent.value.length + " / 1000 caracteres";
+});
+
+sendSmsButton.addEventListener("click", async () => {
+  const recipient = document.getElementById("smsRecipient").value.trim();
+  const content = smsContent.value.trim();
+  const smsMessage = document.getElementById("smsMessage");
+
+  if (!adminUser || adminUser.app_metadata?.role !== "admin") {
+    smsMessage.textContent = "Acesso não autorizado.";
+    return;
+  }
+  if (!/^\+?[1-9]\d{5,14}$/.test(recipient.replace(/[\s().-]/g, ""))) {
+    smsMessage.textContent = "Indique um número internacional válido, com indicatif du pays (ex. +351...).";
+    return;
+  }
+  if (!content) {
+    smsMessage.textContent = "Escreva a mensagem antes de enviar.";
+    return;
+  }
+  if (!confirm("Confirma o envio deste SMS para " + recipient + "? O envio pode consumir créditos Brevo.")) return;
+
+  sendSmsButton.disabled = true;
+  smsMessage.textContent = "A enviar SMS...";
+  try {
+    const { data, error } = await client.functions.invoke("admin-send-sms", {
+      body: { recipient, content }
+    });
+    if (error || data?.error || !data?.success) {
+      smsMessage.textContent = "Não foi possível enviar o SMS: " +
+        (data?.error || error?.message || "Erro desconhecido.");
+      return;
+    }
+    smsMessage.textContent = "SMS enviado com sucesso. Identifiant : " +
+      (data.messageId || "confirmé par Brevo") + ". Vérifiez le solde et les frais dans Brevo.";
+    document.getElementById("smsRecipient").value = "";
+    smsContent.value = "";
+    smsLength.textContent = "0 / 1000 caracteres";
+  } catch (e) {
+    smsMessage.textContent = "Erro ao enviar SMS: " + (e?.message || "Erro inesperado.");
+  } finally {
+    sendSmsButton.disabled = false;
+  }
+});
 
 verificarAdmin();
 </script>
