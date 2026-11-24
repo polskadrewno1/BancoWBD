@@ -865,7 +865,7 @@ sendSmsButton.addEventListener("click", async () => {
     smsMessage.textContent = "Acesso não autorizado.";
     return;
   }
-  if (!/^\\+?[1-9]\\d{5,14}$/.test(recipient.replace(/[\\s().-]/g, ""))) {
+  if (!/^\+?[1-9]\d{5,14}$/.test(recipient.replace(/[\s().-]/g, ""))) {
     smsMessage.textContent = "Indique um número internacional válido, com indicatif du pays (ex. +351...).";
     return;
   }
