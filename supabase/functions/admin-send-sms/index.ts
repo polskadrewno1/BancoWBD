@@ -41,9 +41,9 @@ Deno.serve(async (req) => {
     const payload = await req.json();
     const rawRecipient = typeof payload?.recipient === "string" ? payload.recipient.trim() : "";
     const content = typeof payload?.content === "string" ? payload.content.trim() : "";
-    const recipient = rawRecipient.replace(/[\\s().-]/g, "");
+    const recipient = rawRecipient.replace(/[\s().-]/g, "");
 
-    if (!/^\\+?[1-9]\\d{5,14}$/.test(recipient)) {
+    if (!/^\+?[1-9]\d{5,14}$/.test(recipient)) {
       return json({ error: "Número internacional inválido. Inclua o indicativo do país." }, 400);
     }
     if (!content || content.length > 1000) {
