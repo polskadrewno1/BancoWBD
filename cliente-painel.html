@@ -1088,6 +1088,18 @@ iniciarPagina();
     hr: {"Conta interna":"Interni račun","Saldo inicial":"Početno stanje","Identificador fictício":"Fiktivni identifikator","Identificador fictício — não utilizável para transferências bancárias.":"Fiktivni identifikator — nije za bankovne prijenose.","Nova solicitação de financiamento":"Novi zahtjev za financiranje"},
     fr: {"Conta interna":"Compte interne","Saldo inicial":"Solde initial","Identificador fictício":"Identifiant fictif","Identificador fictício — não utilizável para transferências bancárias.":"Identifiant fictif — non utilisable pour les virements bancaires.","Nova solicitação de financiamento":"Nouvelle demande de financement"}
   };
+  const dashboardCoreTranslations = {
+    pt: {"Conta autenticada":"Conta autenticada","Os meus pedidos de financiamento":"Os meus pedidos de financiamento","Consulte todos os detalhes dos pedidos que enviou.":"Consulte todos os detalhes dos pedidos que enviou.","Ainda não tem pedidos registados.":"Ainda não tem pedidos registados.","Nova solicitação de financiamento":"Nova solicitação de financiamento","INTEREUROPA — SOLUÇÕES FINANCEIRAS":"INTEREUROPA — SOLUÇÕES FINANCEIRAS","© 2026 — estabilidade financeira de cada cliente":"© 2026 — estabilidade financeira de cada cliente","Terminar sessão":"Terminar sessão"},
+    de: {"Conta autenticada":"Konto angemeldet","Os meus pedidos de financiamento":"Meine Finanzierungsanträge","Consulte todos os detalhes dos pedidos que enviou.":"Hier finden Sie alle Einzelheiten zu Ihren eingereichten Anträgen.","Ainda não tem pedidos registados.":"Sie haben noch keine Anträge eingereicht.","Nova solicitação de financiamento":"Neuen Finanzierungsantrag stellen","INTEREUROPA — SOLUÇÕES FINANCEIRAS":"INTEREUROPA — FINANZLÖSUNGEN","© 2026 — estabilidade financeira de cada cliente":"© 2026 — finanzielle Stabilität jedes Kunden","Terminar sessão":"Abmelden"},
+    pl: {"Conta autenticada":"Konto uwierzytelnione","Os meus pedidos de financiamento":"Moje wnioski o finansowanie","Consulte todos os detalhes dos pedidos que enviou.":"Sprawdź wszystkie szczegóły wysłanych wniosków.","Ainda não tem pedidos registados.":"Nie masz jeszcze zarejestrowanych wniosków.","Nova solicitação de financiamento":"Nowy wniosek o finansowanie","INTEREUROPA — SOLUÇÕES FINANCEIRAS":"INTEREUROPA — ROZWIĄZANIA FINANSOWE","© 2026 — estabilidade financeira de cada cliente":"© 2026 — stabilność finansowa każdego klienta","Terminar sessão":"Wyloguj się"},
+    es: {"Conta autenticada":"Cuenta autenticada","Os meus pedidos de financiamento":"Mis solicitudes de financiación","Consulte todos os detalhes dos pedidos que enviou.":"Consulte todos los detalles de las solicitudes que ha enviado.","Ainda não tem pedidos registados.":"Todavía no tiene solicitudes registradas.","Nova solicitação de financiamento":"Nueva solicitud de financiación","INTEREUROPA — SOLUÇÕES FINANCEIRAS":"INTEREUROPA — SOLUCIONES FINANCIERAS","© 2026 — estabilidade financeira de cada cliente":"© 2026 — estabilidad financiera de cada cliente","Terminar sessão":"Cerrar sesión"},
+    it: {"Conta autenticada":"Account autenticato","Os meus pedidos de financiamento":"Le mie richieste di finanziamento","Consulte todos os detalhes dos pedidos que enviou.":"Consulta tutti i dettagli delle richieste che hai inviato.","Ainda não tem pedidos registados.":"Non hai ancora richieste registrate.","Nova solicitação de financiamento":"Nuova richiesta di finanziamento","INTEREUROPA — SOLUÇÕES FINANCEIRAS":"INTEREUROPA — SOLUZIONI FINANZIARIE","© 2026 — estabilidade financeira de cada cliente":"© 2026 — stabilità finanziaria di ogni cliente","Terminar sessão":"Esci"},
+    el: {"Conta autenticada":"Ο λογαριασμός έχει πιστοποιηθεί","Os meus pedidos de financiamento":"Τα αιτήματά μου για χρηματοδότηση","Consulte todos os detalhes dos pedidos que enviou.":"Δείτε όλες τις λεπτομέρειες των αιτημάτων που υποβάλατε.","Ainda não tem pedidos registados.":"Δεν έχετε ακόμη καταχωρημένα αιτήματα.","Nova solicitação de financiamento":"Νέο αίτημα χρηματοδότησης","INTEREUROPA — SOLUÇÕES FINANCEIRAS":"INTEREUROPA — ΧΡΗΜΑΤΟΟΙΚΟΝΟΜΙΚΕΣ ΛΥΣΕΙΣ","© 2026 — estabilidade financeira de cada cliente":"© 2026 — οικονομική σταθερότητα κάθε πελάτη","Terminar sessão":"Αποσύνδεση"},
+    sk: {"Conta autenticada":"Účet je overený","Os meus pedidos de financiamento":"Moje žiadosti o financovanie","Consulte todos os detalhes dos pedidos que enviou.":"Pozrite si všetky podrobnosti odoslaných žiadostí.","Ainda não tem pedidos registados.":"Zatiaľ nemáte žiadne registrované žiadosti.","Nova solicitação de financiamento":"Nová žiadosť o financovanie","INTEREUROPA — SOLUÇÕES FINANCEIRAS":"INTEREUROPA — FINANČNÉ RIEŠENIA","© 2026 — estabilidade financeira de cada cliente":"© 2026 — finančná stabilita každého klienta","Terminar sessão":"Odhlásiť sa"},
+    hr: {"Conta autenticada":"Račun je potvrđen","Os meus pedidos de financiamento":"Moji zahtjevi za financiranje","Consulte todos os detalhes dos pedidos que enviou.":"Pogledajte sve pojedinosti zahtjeva koje ste poslali.","Ainda não tem pedidos registados.":"Još nemate registriranih zahtjeva.","Nova solicitação de financiamento":"Novi zahtjev za financiranje","INTEREUROPA — SOLUÇÕES FINANCEIRAS":"INTEREUROPA — FINANCIJSKA RJEŠENJA","© 2026 — estabilidade financeira de cada cliente":"© 2026 — financijska stabilnost svakog klijenta","Terminar sessão":"Odjava"},
+    fr: {"Conta autenticada":"Compte authentifié","Os meus pedidos de financiamento":"Mes demandes de financement","Consulte todos os detalhes dos pedidos que enviou.":"Consultez tous les détails des demandes que vous avez envoyées.","Ainda não tem pedidos registados.":"Vous n’avez encore aucune demande enregistrée.","Nova solicitação de financiamento":"Nouvelle demande de financement","INTEREUROPA — SOLUÇÕES FINANCEIRAS":"INTEREUROPA — SOLUTIONS FINANCIÈRES","© 2026 — estabilidade financeira de cada cliente":"© 2026 — stabilité financière de chaque client","Terminar sessão":"Se déconnecter"}
+  };
+  Object.entries(dashboardCoreTranslations).forEach(([lang, entries]) => Object.assign(dictionaries[lang], entries));
   Object.entries(clientAreaTranslations).forEach(([lang, entries]) => Object.assign(dictionaries[lang], entries));
   const transferResultTranslations = {
     pt: ["Ativação da transferência pendente","A transferência ainda não foi executada. Por isso, os fundos ainda não estão disponíveis na conta do beneficiário.","Pedido registado","Análise do pedido","Ativação pendente","A transferência ainda não está ativada. O beneficiário pode contactar a INTEREUROPA.PT para conhecer os procedimentos necessários.","Execução da transferência","Etapa ainda não realizada"],
@@ -1277,13 +1289,15 @@ iniciarPagina();
       const title = resultView.querySelector("h2");
       const intro = resultView.querySelector(".transfer-intro");
       const items = resultView.querySelectorAll(".transfer-timeline li");
-      if (title) title.textContent = resultTexts[0];
-      if (intro) intro.textContent = resultTexts[1];
+      if (title && title.textContent !== resultTexts[0]) title.textContent = resultTexts[0];
+      if (intro && intro.textContent !== resultTexts[1]) intro.textContent = resultTexts[1];
       items.forEach((item, index) => {
         const strong = item.querySelector("strong");
         const paragraph = item.querySelector("p");
-        if (strong) strong.textContent = resultTexts[index < 2 ? index + 2 : (index === 2 ? 4 : 6)];
-        if (paragraph) paragraph.textContent = resultTexts[index === 2 ? 5 : 7];
+        const strongText = resultTexts[index < 2 ? index + 2 : (index === 2 ? 4 : 6)];
+        const paragraphText = resultTexts[index === 2 ? 5 : 7];
+        if (strong && strong.textContent !== strongText) strong.textContent = strongText;
+        if (paragraph && paragraph.textContent !== paragraphText) paragraph.textContent = paragraphText;
       });
     }
     const select = document.getElementById("intereuropa-language");
@@ -1298,14 +1312,20 @@ iniciarPagina();
       schedule(event.target.value);
     }
   });
-  document.addEventListener("DOMContentLoaded", () => {
+  function initClientTranslations() {
     let saved = new URLSearchParams(window.location.search).get("lang") || "pt";
     try { saved = new URLSearchParams(window.location.search).get("lang") || localStorage.getItem("intereuropa_language") || "pt"; } catch(e) {}
     schedule(saved);
-    // Reaplicar as traduções quando o painel insere dados ou textos após o login.
+    // Observar apenas a inserção de conteúdo; as atualizações condicionais
+    // abaixo evitam que o próprio tradutor provoque um ciclo de mutations.
     const observer = new MutationObserver(() => schedule(currentLang));
     observer.observe(document.body, { childList: true, subtree: true });
-  });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initClientTranslations, { once: true });
+  } else {
+    initClientTranslations();
+  }
 })();
 </script></body>
 </html>
