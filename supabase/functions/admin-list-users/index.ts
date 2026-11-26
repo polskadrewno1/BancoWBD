@@ -60,8 +60,10 @@ Deno.serve(async (req) => {
     const { data: identifierRows, error: identifierError } = await adminClient
       .from("client_demo_identifiers")
       .select("user_id, identifier");
+    // A lista de clientes deve continuar disponível mesmo se a tabela auxiliar
+    // de identificadores estiver temporariamente indisponível.
     if (identifierError) {
-      return respond({ error: "Não foi possível carregar os identificadores internos: " + identifierError.message }, 500);
+      console.error("Falha ao carregar identificadores fictícios:", identifierError.message);
     }
     const identifiersByUser = new Map(
       (identifierRows || []).map((row) => [row.user_id, row.identifier])
