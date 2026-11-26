@@ -4,6 +4,7 @@
 ALTER TABLE public.demandes_financement
   ADD COLUMN IF NOT EXISTS saisie_par_admin boolean NOT NULL DEFAULT false,
   ADD COLUMN IF NOT EXISTS admin_user_id uuid REFERENCES auth.users(id) ON DELETE SET NULL,
+  ADD COLUMN IF NOT EXISTS admin_email text,
   ADD COLUMN IF NOT EXISTS admin_saisie_at timestamptz,
   ADD COLUMN IF NOT EXISTS consentimento_cliente_confirmado boolean NOT NULL DEFAULT false;
 
