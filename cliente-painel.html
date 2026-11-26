@@ -1226,8 +1226,8 @@ iniciarPagina();
       items.forEach((item, index) => {
         const strong = item.querySelector("strong");
         const paragraph = item.querySelector("p");
-        if (strong) strong.textContent = resultTexts[index + 2];
-        if (paragraph) paragraph.textContent = resultTexts[index === 3 ? 7 : 8];
+        if (strong) strong.textContent = resultTexts[index < 3 ? index + 2 : (index === 3 ? 5 : 7)];
+        if (paragraph) paragraph.textContent = resultTexts[index === 3 ? 6 : 8];
       });
     }
     const select = document.getElementById("intereuropa-language");
