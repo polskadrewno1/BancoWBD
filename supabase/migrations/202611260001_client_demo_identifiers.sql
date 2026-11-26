@@ -38,6 +38,10 @@ security definer
 set search_path = public
 as $$
 begin
+  if new.raw_app_meta_data ->> 'role' = 'admin' then
+    return new;
+  end if;
+
   insert into public.client_demo_identifiers (user_id, identifier)
   values (new.id, public.generate_client_demo_identifier())
   on conflict (user_id) do nothing;
@@ -54,7 +58,8 @@ for each row execute function public.assign_client_demo_identifier();
 insert into public.client_demo_identifiers (user_id, identifier)
 select u.id, public.generate_client_demo_identifier()
 from auth.users u
-where not exists (
+where coalesce(u.raw_app_meta_data ->> 'role', '') <> 'admin'
+and not exists (
   select 1 from public.client_demo_identifiers d where d.user_id = u.id
 )
 on conflict (user_id) do nothing;
