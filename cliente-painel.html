@@ -251,10 +251,10 @@ body.approved-view main { max-width:600px; margin:0 auto; padding:0 15px 100px; 
 .approved-account-amount { color:white; font-size:29px; font-weight:800; padding:5px 0 12px 66px; }
 .approved-activation-title { display:flex; align-items:center; gap:14px; font-size:22px; font-weight:800; padding:12px 0; border-bottom:1px solid rgba(255,255,255,.75); }
 .approved-activation-title svg { width:48px; height:48px; flex:none; }
-.approved-account-details { display:grid; grid-template-columns:1fr 1.55fr; gap:12px; padding-top:14px; color:white; }
-.approved-bank { font-size:17px; overflow-wrap:anywhere; }
-.approved-iban { border-left:2px solid rgba(255,255,255,.8); padding-left:14px; font-size:15px; overflow-wrap:anywhere; }
-.approved-iban strong { display:block; margin-bottom:3px; font-weight:400; }
+.approved-account-details { display:block; padding-top:14px; color:white; }
+.approved-demo-id { display:flex; flex-direction:column; gap:7px; padding:12px 0 2px; overflow-wrap:anywhere; }
+.approved-demo-id small { color:rgba(255,255,255,.88); font-size:12px; line-height:1.4; }
+.approved-demo-id strong { color:white; font-size:19px; letter-spacing:.5px; overflow-wrap:anywhere; }
 .approved-transactions {
   background:white; border:1px solid #dce5f2; border-radius:18px; overflow:hidden;
   margin-bottom:20px;
@@ -389,13 +389,11 @@ footer {
       <span class="approved-chevron" aria-hidden="true" style="color:white;margin-left:auto">›</span>
     </div>
     <div class="approved-account-details">
-      <div class="approved-bank" id="clientBank"></div>
-      <div class="approved-iban"><strong>IBAN</strong><span id="clientIban"></span></div>
-    </div>
-    <div class="approved-demo-id">
-      <small>Identificador fictício</small>
-      <strong id="approvedDemoIdentifier">A carregar...</strong>
-      <small>Identificador fictício — não utilizável para transferências bancárias.</small>
+      <div class="approved-demo-id">
+        <small>Identificador fictício</small>
+        <strong id="approvedDemoIdentifier">A carregar...</strong>
+        <small>Identificador fictício — não utilizável para transferências bancárias.</small>
+      </div>
     </div>
   </section>
 
@@ -657,12 +655,6 @@ function mostrarFinanciamentoAprovado(pedido) {
 document.getElementById("headerSubtitle").textContent =
   "SOLUÇÕES FINANCEIRAS";
 
-document.getElementById("clientBank").textContent =
-  pedido.nome_banco || "Trade Republic";
-
-document.getElementById("clientIban").textContent =
-  pedido.iban || "Não indicado";
-
   document.getElementById("approvedAmount").textContent =
     formatarEuro(pedido.montant_approuve);
   document.getElementById("accountAmount").textContent =
@@ -716,24 +708,6 @@ document.getElementById("clientIban").textContent =
     approvedDetails,
     "Montante aprovado",
     formatarEuro(pedido.montant_approuve)
-  );
-
-  adicionarCampo(
-    approvedDetails,
-    "IBAN",
-    pedido.iban
-  );
-
-  adicionarCampo(
-    approvedDetails,
-    "BIC",
-    pedido.bic
-  );
-
-  adicionarCampo(
-    approvedDetails,
-    "Nome do banco",
-    pedido.nome_banco
   );
 
   adicionarCampo(
