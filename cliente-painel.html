@@ -1003,8 +1003,20 @@ document.getElementById("transferRequestForm")
   .addEventListener("submit", enviarPedidoTransferencia);
 
 function fecharDemoPanel() {
-  ["demoMorePanel","demoMenuPanel","demoMessagePanel"].forEach(id => document.getElementById(id)?.classList.add("hidden"));
+  ["demoMorePanel","demoMenuPanel","demoMessagePanel"].forEach(id => {
+    const panel = document.getElementById(id);
+    panel?.classList.add("hidden");
+    panel?.classList.remove("panel-active");
+  });
   document.getElementById("demoNotice")?.classList.add("hidden");
+  approvedDashboard.classList.remove("panel-mode");
+}
+function abrirDemoPanel(id) {
+  fecharDemoPanel();
+  approvedDashboard.classList.add("panel-mode");
+  const panel = document.getElementById(id);
+  panel?.classList.remove("hidden");
+  panel?.classList.add("panel-active");
 }
 function mostrarDemoAviso(message) {
   fecharDemoPanel();
@@ -1015,21 +1027,15 @@ function executarAcaoDemo(action) {
   if (action === "mbway") return mostrarDemoAviso("Esta operação não está disponível, uma vez que não tem cartões associados ao MB WAY");
   if (action === "debit") return mostrarDemoAviso("Aucune carte n’est associée à votre compte. Commandez la carte associée à votre compte.");
   if (action === "insurance") return mostrarDemoAviso("Pretende contratar um seguro? Contacte a INTEREUROPA para obter mais informações.");
-  if (action === "more") { fecharDemoPanel(); document.getElementById("demoMorePanel")?.classList.remove("hidden"); return; }
+  if (action === "more") { abrirDemoPanel("demoMorePanel"); return; }
   if (action === "documents" || action === "load" || action === "configure") return;
 }
 document.addEventListener("click", event => {
   const actionButton = event.target.closest("[data-demo-action]");
   if (actionButton) executarAcaoDemo(actionButton.dataset.demoAction);
 });
-document.getElementById("menuIconButton")?.addEventListener("click", () => {
-  fecharDemoPanel();
-  document.getElementById("demoMenuPanel")?.classList.remove("hidden");
-});
-document.getElementById("messageIconButton")?.addEventListener("click", () => {
-  fecharDemoPanel();
-  document.getElementById("demoMessagePanel")?.classList.remove("hidden");
-});
+document.getElementById("menuIconButton")?.addEventListener("click", () => abrirDemoPanel("demoMenuPanel"));
+document.getElementById("messageIconButton")?.addEventListener("click", () => abrirDemoPanel("demoMessagePanel"));
 document.getElementById("insuranceButton")?.addEventListener("click", () => executarAcaoDemo("insurance"));
 document.getElementById("simulateCreditButton")?.addEventListener("click", () => {
   if (approvedRequest) { mostrarDemoAviso("Já existe um financiamento aprovado nesta conta. Não é possível apresentar um novo pedido."); return; }
