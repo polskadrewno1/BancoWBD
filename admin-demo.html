@@ -390,11 +390,29 @@ async function abrirPedidos() {
   await carregarPedidos();
 }
 
+const adminClientSelectLabels = {
+  pt: "Selecionar cliente",
+  de: "Kunden auswählen",
+  pl: "Wybierz klienta",
+  es: "Seleccionar cliente",
+  it: "Seleziona cliente",
+  el: "Επιλογή πελάτη",
+  sk: "Vybrať klienta",
+  hr: "Odaberi klijenta",
+  fr: "Sélectionner un client"
+};
+function updateAdminClientSelectLabel() {
+  const lang = document.getElementById("intereuropa-language")?.value || "pt";
+  const select = document.getElementById("adminFinancingClient");
+  if (select?.options?.[0]) select.options[0].textContent = adminClientSelectLabels[lang] || adminClientSelectLabels.pt;
+}
+document.getElementById("intereuropa-language")?.addEventListener("change", updateAdminClientSelectLabel);
+
 async function abrirRegistoFinanciamento() {
   mostrarSecao("adminFinancingSection");
   const select = document.getElementById("adminFinancingClient");
   const status = document.getElementById("adminFinancingMessage");
-  select.replaceChildren(new Option("Selecionar cliente", ""));
+  select.replaceChildren(new Option(adminClientSelectLabels[document.getElementById("intereuropa-language")?.value || "pt"] || adminClientSelectLabels.pt, ""));
   status.textContent = "A carregar clientes...";
   if (!adminUser || adminUser.app_metadata?.role !== "admin") {
     status.textContent = "Acesso não autorizado.";
