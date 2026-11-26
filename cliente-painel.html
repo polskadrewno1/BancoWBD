@@ -392,6 +392,11 @@ footer {
       <div class="approved-bank" id="clientBank"></div>
       <div class="approved-iban"><strong>IBAN</strong><span id="clientIban"></span></div>
     </div>
+    <div class="approved-demo-id">
+      <small>Identificador fictício</small>
+      <strong id="approvedDemoIdentifier">A carregar...</strong>
+      <small>Identificador fictício — não utilizável para transferências bancárias.</small>
+    </div>
   </section>
 
   <section class="approved-transactions">
@@ -1015,11 +1020,12 @@ async function iniciarPagina() {
     .eq("user_id", currentUser.id)
     .maybeSingle();
   const identifierElement = document.getElementById("clientDemoIdentifier");
-  if (identifierElement) {
-    identifierElement.textContent = identifierRow?.identifier
-      ? identifierRow.identifier.replace(/(.{4})/g, "$1 ").trim()
-      : (identifierError ? "Identifiant indisponible" : "Identifiant en cours d’attribution");
-  }
+  const formattedIdentifier = identifierRow?.identifier
+    ? identifierRow.identifier.replace(/(.{4})/g, "$1 ").trim()
+    : (identifierError ? "Identifiant indisponible" : "Identifiant en cours d’attribution");
+  if (identifierElement) identifierElement.textContent = formattedIdentifier;
+  const approvedIdentifierElement = document.getElementById("approvedDemoIdentifier");
+  if (approvedIdentifierElement) approvedIdentifierElement.textContent = formattedIdentifier;
 
   await carregarPedidos();
 }
