@@ -1580,8 +1580,14 @@
     const nodes = [];
     while (walker.nextNode()) {
       const node = walker.currentNode;
-      // Os painéis do cliente usam tradutor local; não sobrescrever as traduções locais.
-      if (node.parentElement && !node.parentElement.closest("script,style,#withdrawPanel,#historyPanel,#helpPanel")) nodes.push(node);
+      // A área de cliente tem um tradutor próprio. Não deixar este tradutor
+      // reescrever os mesmos textos, o que causava alternância e retorno ao idioma anterior.
+      const isClientDashboard = !!document.getElementById("clientWelcome");
+      const isClientContent = isClientDashboard && node.parentElement &&
+        node.parentElement.closest("header,main,footer,.demo-label");
+      if (node.parentElement &&
+          !node.parentElement.closest("script,style,#withdrawPanel,#historyPanel,#helpPanel") &&
+          !isClientContent) nodes.push(node);
     }
     nodes.forEach(node => {
       if (!originalTextNodes.has(node)) originalTextNodes.set(node, node.nodeValue);
