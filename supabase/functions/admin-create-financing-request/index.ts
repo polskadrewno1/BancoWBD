@@ -109,6 +109,7 @@ Deno.serve(async (req) => {
         statut: "reçue",
         saisie_par_admin: true,
         admin_user_id: adminUser.id,
+        admin_email: adminUser.email || null,
         admin_saisie_at: new Date().toISOString(),
         consentimento_cliente_confirmado: true,
       })
