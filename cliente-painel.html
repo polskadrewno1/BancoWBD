@@ -33,6 +33,16 @@
 
 * { box-sizing: border-box; }
 
+/* Evita mostrar o idioma ou os dados antigos enquanto a sessão é restaurada. */
+body:not(.page-ready) > :not(#pageLoading) { visibility: hidden !important; }
+#pageLoading {
+  position: fixed; inset: 0; z-index: 99999; display: flex;
+  align-items: center; justify-content: center; padding: 24px;
+  background: #f1f5f9; color: #123f83; text-align: center;
+  font: 600 15px Arial, sans-serif;
+}
+body.page-ready #pageLoading { display: none; }
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -328,6 +338,7 @@ footer {
 </head>
 
 <body>
+<div id="pageLoading" role="status" aria-live="polite">A carregar a sua área pessoal…</div>
 
 <header>
   <div class="approved-brand">
@@ -1048,7 +1059,14 @@ async function terminarSessao() {
 document.getElementById("logoutButton")
   .addEventListener("click", terminarSessao);
 
-iniciarPagina();
+iniciarPagina()
+  .catch(error => {
+    console.error("Erro ao iniciar a área do cliente:", error);
+    statusElement.textContent = "Não foi possível carregar todos os dados. Atualize a página e tente novamente.";
+  })
+  .finally(() => {
+    document.body.classList.add("page-ready");
+  });
 
 </script>
 
