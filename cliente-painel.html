@@ -1125,8 +1125,7 @@ async function terminarSessao() {
     botoes.forEach(botao => { botao.disabled = false; });
   }
 }
-document.getElementById("logoutButton")
-  .addEventListener("click", terminarSessao);
+document.getElementById("logoutButton")?.addEventListener("click", terminarSessao);
 
 iniciarPagina()
   .catch(error => {
