@@ -1486,6 +1486,52 @@
 
   Object.entries({"de":{"Solicitar financiamento":"Finanzierung beantragen","Solicitar financiamento →":"Finanzierung beantragen →","Se connecter":"Anmelden","Globe des neuf langues disponíveis":"Globus für die neun verfügbaren Sprachen","Logótipo INTEREUROPA.PT":"INTEREUROPA.PT-Logo"},"pl":{"Solicitar financiamento":"Złóż wniosek o finansowanie","Solicitar financiamento →":"Złóż wniosek o finansowanie →","Se connecter":"Zaloguj się","Globe des neuf langues disponíveis":"Globus dziewięciu dostępnych języków","Logótipo INTEREUROPA.PT":"Logo INTEREUROPA.PT"},"es":{"Solicitar financiamento":"Solicitar financiación","Solicitar financiamento →":"Solicitar financiación →","Se connecter":"Iniciar sesión","Globe des neuf langues disponíveis":"Globo de los nueve idiomas disponibles","Logótipo INTEREUROPA.PT":"Logotipo de INTEREUROPA.PT"},"it":{"Solicitar financiamento":"Richiedere un finanziamento","Solicitar financiamento →":"Richiedere un finanziamento →","Se connecter":"Accedi","Globe des neuf langues disponíveis":"Globo delle nove lingue disponibili","Logótipo INTEREUROPA.PT":"Logo INTEREUROPA.PT"},"el":{"Solicitar financiamento":"Υποβολή αίτησης χρηματοδότησης","Solicitar financiamento →":"Υποβολή αίτησης χρηματοδότησης →","Se connecter":"Σύνδεση","Globe des neuf langues disponíveis":"Υδρόγειος των εννέα διαθέσιμων γλωσσών","Logótipo INTEREUROPA.PT":"Λογότυπο INTEREUROPA.PT"},"sk":{"Solicitar financiamento":"Požiadať o financovanie","Solicitar financiamento →":"Požiadať o financovanie →","Se connecter":"Prihlásiť sa","Globe des neuf langues disponíveis":"Glóbus deviatich dostupných jazykov","Logótipo INTEREUROPA.PT":"Logo INTEREUROPA.PT"},"hr":{"Solicitar financiamento":"Zatražite financiranje","Solicitar financiamento →":"Zatražite financiranje →","Se connecter":"Prijava","Globe des neuf langues disponíveis":"Globus devet dostupnih jezika","Logótipo INTEREUROPA.PT":"Logotip INTEREUROPA.PT"},"fr":{"Solicitar financiamento":"Demander un financement","Solicitar financiamento →":"Demander un financement →","Se connecter":"Se connecter","Globe des neuf langues disponíveis":"Globe des neuf langues disponibles","Logótipo INTEREUROPA.PT":"Logo INTEREUROPA.PT"}}).forEach(([lang, entries]) => Object.assign(translations[lang], entries));
   const key = "intereuropa_language";
+  // Traduções completas da identificação da área de cliente e da assinatura da marca.
+  Object.assign(translations.pt, {
+    "ÁREA DE CLIENTE":"ÁREA DE CLIENTE",
+    "SOLUÇÕES FINANCEIRAS":"SOLUÇÕES FINANCEIRAS",
+    "© 2026 INTEREUROPA — Área de cliente.":"© 2026 INTEREUROPA — Área de cliente."
+  });
+  Object.assign(translations.de, {
+    "ÁREA DE CLIENTE":"KUNDENBEREICH",
+    "SOLUÇÕES FINANCEIRAS":"FINANZLÖSUNGEN",
+    "© 2026 INTEREUROPA — Área de cliente.":"© 2026 INTEREUROPA — Kundenbereich."
+  });
+  Object.assign(translations.pl, {
+    "ÁREA DE CLIENTE":"STREFA KLIENTA",
+    "SOLUÇÕES FINANCEIRAS":"ROZWIĄZANIA FINANSOWE",
+    "© 2026 INTEREUROPA — Área de cliente.":"© 2026 INTEREUROPA — Strefa klienta."
+  });
+  Object.assign(translations.es, {
+    "ÁREA DE CLIENTE":"ÁREA DE CLIENTE",
+    "SOLUÇÕES FINANCEIRAS":"SOLUCIONES FINANCIERAS",
+    "© 2026 INTEREUROPA — Área de cliente.":"© 2026 INTEREUROPA — Área de cliente."
+  });
+  Object.assign(translations.it, {
+    "ÁREA DE CLIENTE":"AREA CLIENTI",
+    "SOLUÇÕES FINANCEIRAS":"SOLUZIONI FINANZIARIE",
+    "© 2026 INTEREUROPA — Área de cliente.":"© 2026 INTEREUROPA — Area clienti."
+  });
+  Object.assign(translations.el, {
+    "ÁREA DE CLIENTE":"ΠΕΡΙΟΧΗ ΠΕΛΑΤΩΝ",
+    "SOLUÇÕES FINANCEIRAS":"ΧΡΗΜΑΤΟΟΙΚΟΝΟΜΙΚΕΣ ΛΥΣΕΙΣ",
+    "© 2026 INTEREUROPA — Área de cliente.":"© 2026 INTEREUROPA — Περιοχή πελατών."
+  });
+  Object.assign(translations.sk, {
+    "ÁREA DE CLIENTE":"KLIENTSKA ZÓNA",
+    "SOLUÇÕES FINANCEIRAS":"FINANČNÉ RIEŠENIA",
+    "© 2026 INTEREUROPA — Área de cliente.":"© 2026 INTEREUROPA — Klientska zóna."
+  });
+  Object.assign(translations.hr, {
+    "ÁREA DE CLIENTE":"KORISNIČKO PODRUČJE",
+    "SOLUÇÕES FINANCEIRAS":"FINANCIJSKA RJEŠENJA",
+    "© 2026 INTEREUROPA — Área de cliente.":"© 2026 INTEREUROPA — Korisničko područje."
+  });
+  Object.assign(translations.fr, {
+    "ÁREA DE CLIENTE":"ESPACE CLIENT",
+    "SOLUÇÕES FINANCEIRAS":"SOLUTIONS FINANCIÈRES",
+    "© 2026 INTEREUROPA — Área de cliente.":"© 2026 INTEREUROPA — Espace client."
+  });
   const originalTextNodes = new WeakMap();
   const originalAttributes = new WeakMap();
   const getLang = () => {
