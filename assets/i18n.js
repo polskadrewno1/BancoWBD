@@ -1549,6 +1549,107 @@
   hr: {"Conta interna":"Interni račun","Saldo inicial":"Početno stanje","Identificador fictício":"Fiktivni identifikator","Identificador fictício — não utilizável para transferências bancárias.":"Fiktivni identifikator — ne može se koristiti za bankovne prijenose.","Nova solicitação de financiamento":"Novi zahtjev za financiranje","Identificador indisponível":"Identifikator nije dostupan","Identificador em curso de atribuição":"Dodjela identifikatora je u tijeku"},
   fr: {"Conta interna":"Compte interne","Saldo inicial":"Solde initial","Identificador fictício":"Identifiant fictif","Identificador fictício — não utilizável para transferências bancárias.":"Identifiant fictif — non utilisable pour les virements bancaires.","Nova solicitação de financiamento":"Nouvelle demande de financement","Identificador indisponível":"Identifiant indisponible","Identificador em curso de atribuição":"Attribution de l’identifiant en cours"}
 };
+  const clientTransferPageTranslations = {
+    pt: {
+      "Activation du virement en attente":"Ativação da transferência pendente",
+      "Le transfert n'est pas encore exécuté. Les fonds ne sont donc pas encore disponibles sur le compte du bénéficiaire.":"A transferência ainda não foi executada. Por isso, os fundos ainda não estão disponíveis na conta do beneficiário.",
+      "Demande enregistrée":"Pedido registado",
+      "Examen de la demande":"Análise do pedido",
+      "Activation en attente":"Ativação pendente",
+      "Le transfert n'est pas encore activé. Le bénéficiaire peut contacter INTEREUROPA.PT pour connaître les démarches nécessaires.":"A transferência ainda não foi ativada. O beneficiário pode contactar a INTEREUROPA.PT para conhecer os procedimentos necessários.",
+      "Compte destinataire":"Conta do destinatário",
+      "IBAN :":"IBAN:",
+      "Retour":"Voltar"
+    },
+    de: {
+      "Activation du virement en attente":"Überweisungsaktivierung ausstehend",
+      "Le transfert n'est pas encore exécuté. Les fonds ne sont donc pas encore disponibles sur le compte du bénéficiaire.":"Die Überweisung wurde noch nicht ausgeführt. Daher sind die Gelder noch nicht auf dem Konto des Begünstigten verfügbar.",
+      "Demande enregistrée":"Antrag registriert",
+      "Examen de la demande":"Prüfung des Antrags",
+      "Activation en attente":"Aktivierung ausstehend",
+      "Le transfert n'est pas encore activé. Le bénéficiaire peut contacter INTEREUROPA.PT pour connaître les démarches nécessaires.":"Die Überweisung ist noch nicht aktiviert. Der Begünstigte kann INTEREUROPA.PT kontaktieren, um sich über die erforderlichen Schritte zu informieren.",
+      "Compte destinataire":"Empfängerkonto",
+      "IBAN :":"IBAN:",
+      "Retour":"Zurück"
+    },
+    pl: {
+      "Activation du virement en attente":"Oczekiwanie na aktywację przelewu",
+      "Le transfert n'est pas encore exécuté. Les fonds ne sont donc pas encore disponibles sur le compte du bénéficiaire.":"Przelew nie został jeszcze zrealizowany. Środki nie są więc jeszcze dostępne na rachunku odbiorcy.",
+      "Demande enregistrée":"Wniosek zarejestrowany",
+      "Examen de la demande":"Rozpatrywanie wniosku",
+      "Activation en attente":"Oczekiwanie na aktywację",
+      "Le transfert n'est pas encore activé. Le bénéficiaire peut contacter INTEREUROPA.PT pour connaître les démarches nécessaires.":"Przelew nie został jeszcze aktywowany. Odbiorca może skontaktować się z INTEREUROPA.PT, aby poznać wymagane formalności.",
+      "Compte destinataire":"Konto odbiorcy",
+      "IBAN :":"IBAN:",
+      "Retour":"Wróć"
+    },
+    es: {
+      "Activation du virement en attente":"Activación de la transferencia pendiente",
+      "Le transfert n'est pas encore exécuté. Les fonds ne sont donc pas encore disponibles sur le compte du bénéficiaire.":"La transferencia todavía no se ha ejecutado. Por lo tanto, los fondos aún no están disponibles en la cuenta del beneficiario.",
+      "Demande enregistrée":"Solicitud registrada",
+      "Examen de la demande":"Revisión de la solicitud",
+      "Activation en attente":"Activación pendiente",
+      "Le transfert n'est pas encore activé. Le bénéficiaire peut contacter INTEREUROPA.PT pour connaître les démarches nécessaires.":"La transferencia aún no está activada. El beneficiario puede ponerse en contacto con INTEREUROPA.PT para conocer los trámites necesarios.",
+      "Compte destinataire":"Cuenta destinataria",
+      "IBAN :":"IBAN:",
+      "Retour":"Volver"
+    },
+    it: {
+      "Activation du virement en attente":"Attivazione del bonifico in attesa",
+      "Le transfert n'est pas encore exécuté. Les fonds ne sont donc pas encore disponibles sur le compte du bénéficiaire.":"Il trasferimento non è ancora stato eseguito. Pertanto, i fondi non sono ancora disponibili sul conto del beneficiario.",
+      "Demande enregistrée":"Richiesta registrata",
+      "Examen de la demande":"Esame della richiesta",
+      "Activation en attente":"Attivazione in attesa",
+      "Le transfert n'est pas encore activé. Le bénéficiaire peut contacter INTEREUROPA.PT pour connaître les démarches nécessaires.":"Il trasferimento non è ancora attivato. Il beneficiario può contattare INTEREUROPA.PT per conoscere le procedure necessarie.",
+      "Compte destinataire":"Conto destinatario",
+      "IBAN :":"IBAN:",
+      "Retour":"Indietro"
+    },
+    el: {
+      "Activation du virement en attente":"Εκκρεμεί η ενεργοποίηση της μεταφοράς",
+      "Le transfert n'est pas encore exécuté. Les fonds ne sont donc pas encore disponibles sur le compte du bénéficiaire.":"Η μεταφορά δεν έχει εκτελεστεί ακόμη. Επομένως, τα χρήματα δεν είναι ακόμη διαθέσιμα στον λογαριασμό του δικαιούχου.",
+      "Demande enregistrée":"Το αίτημα καταχωρίστηκε",
+      "Examen de la demande":"Εξέταση του αιτήματος",
+      "Activation en attente":"Εκκρεμεί η ενεργοποίηση",
+      "Le transfert n'est pas encore activé. Le bénéficiaire peut contacter INTEREUROPA.PT pour connaître les démarches nécessaires.":"Η μεταφορά δεν έχει ενεργοποιηθεί ακόμη. Ο δικαιούχος μπορεί να επικοινωνήσει με την INTEREUROPA.PT για να ενημερωθεί σχετικά με τις απαραίτητες διαδικασίες.",
+      "Compte destinataire":"Λογαριασμός παραλήπτη",
+      "IBAN :":"IBAN:",
+      "Retour":"Επιστροφή"
+    },
+    sk: {
+      "Activation du virement en attente":"Čaká sa na aktiváciu prevodu",
+      "Le transfert n'est pas encore exécuté. Les fonds ne sont donc pas encore disponibles sur le compte du bénéficiaire.":"Prevod ešte nebol vykonaný. Finančné prostriedky preto zatiaľ nie sú dostupné na účte príjemcu.",
+      "Demande enregistrée":"Žiadosť bola zaregistrovaná",
+      "Examen de la demande":"Posúdenie žiadosti",
+      "Activation en attente":"Čaká sa na aktiváciu",
+      "Le transfert n'est pas encore activé. Le bénéficiaire peut contacter INTEREUROPA.PT pour connaître les démarches nécessaires.":"Prevod ešte nie je aktivovaný. Príjemca môže kontaktovať INTEREUROPA.PT a zistiť potrebné postupy.",
+      "Compte destinataire":"Účet príjemcu",
+      "IBAN :":"IBAN:",
+      "Retour":"Späť"
+    },
+    hr: {
+      "Activation du virement en attente":"Aktivacija prijenosa na čekanju",
+      "Le transfert n'est pas encore exécuté. Les fonds ne sont donc pas encore disponibles sur le compte du bénéficiaire.":"Prijenos još nije izvršen. Stoga sredstva još nisu dostupna na računu primatelja.",
+      "Demande enregistrée":"Zahtjev je zaprimljen",
+      "Examen de la demande":"Pregled zahtjeva",
+      "Activation en attente":"Aktivacija na čekanju",
+      "Le transfert n'est pas encore activé. Le bénéficiaire peut contacter INTEREUROPA.PT pour connaître les démarches nécessaires.":"Prijenos još nije aktiviran. Primatelj može kontaktirati INTEREUROPA.PT kako bi saznao potrebne postupke.",
+      "Compte destinataire":"Račun primatelja",
+      "IBAN :":"IBAN:",
+      "Retour":"Natrag"
+    },
+    fr: {
+      "Activation du virement en attente":"Activation du virement en attente",
+      "Le transfert n'est pas encore exécuté. Les fonds ne sont donc pas encore disponibles sur le compte du bénéficiaire.":"Le transfert n'est pas encore exécuté. Les fonds ne sont donc pas encore disponibles sur le compte du bénéficiaire.",
+      "Demande enregistrée":"Demande enregistrée",
+      "Examen de la demande":"Examen de la demande",
+      "Activation en attente":"Activation en attente",
+      "Le transfert n'est pas encore activé. Le bénéficiaire peut contacter INTEREUROPA.PT pour connaître les démarches nécessaires.":"Le transfert n'est pas encore activé. Le bénéficiaire peut contacter INTEREUROPA.PT pour connaître les démarches nécessaires.",
+      "Compte destinataire":"Compte destinataire",
+      "IBAN :":"IBAN :",
+      "Retour":"Retour"
+    }
+  };
   const clientTransferStatusTranslations = {
     pt: {"Compte destinataire":"Conta do destinatário","IBAN :":"IBAN:","Exemple d’IBAN — ne pas utiliser pour effectuer un virement.":"Exemplo de IBAN — não utilizar para efetuar uma transferência."},
     de: {"Compte destinataire":"Empfängerkonto","IBAN :":"IBAN:","Exemple d’IBAN — ne pas utiliser pour effectuer un virement.":"IBAN-Beispiel — nicht für eine Überweisung verwenden."},
@@ -1566,6 +1667,7 @@
     Object.assign(translations[lang], clientDashboardPanelTranslations[lang] || {});
     Object.assign(translations[lang], clientDashboardIdentityTranslations[lang] || {});
     Object.assign(translations[lang], clientTransferStatusTranslations[lang] || {});
+    Object.assign(translations[lang], clientTransferPageTranslations[lang] || {});
   }
 
   const key = "intereuropa_language";
