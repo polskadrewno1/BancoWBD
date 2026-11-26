@@ -57,6 +57,16 @@ Deno.serve(async (req) => {
       auth: { autoRefreshToken: false, persistSession: false },
     });
 
+    const { data: identifierRows, error: identifierError } = await adminClient
+      .from("client_demo_identifiers")
+      .select("user_id, identifier");
+    if (identifierError) {
+      return respond({ error: "Não foi possível carregar os identificadores internos: " + identifierError.message }, 500);
+    }
+    const identifiersByUser = new Map(
+      (identifierRows || []).map((row) => [row.user_id, row.identifier])
+    );
+
     const clients = [];
     let page = 1;
     const perPage = 1000;
@@ -85,6 +95,7 @@ Deno.serve(async (req) => {
           criado_em: listedUser.created_at,
           email_confirmado: Boolean(listedUser.email_confirmed_at),
           estado: listedUser.app_metadata?.intereuropa_status || "active",
+          identificador_ficticio: identifiersByUser.get(listedUser.id) || "",
         });
       }
 
