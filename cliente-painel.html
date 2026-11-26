@@ -1005,9 +1005,12 @@ async function iniciarPagina() {
   const fullName = String(currentUser.user_metadata?.full_name || currentUser.user_metadata?.name || "").trim();
   const firstName = fullName ? fullName.split(/\s+/)[0] : "";
   const welcome = document.getElementById("clientWelcome");
-  if (welcome) welcome.textContent = firstName
-    ? "Bem-vindo à sua área pessoal, " + firstName
-    : "Bem-vindo à sua área pessoal";
+  if (welcome) {
+    welcome.dataset.firstName = firstName;
+    welcome.textContent = firstName
+      ? "Bem-vindo à sua área pessoal, " + firstName
+      : "Bem-vindo à sua área pessoal";
+  }
   const approvedWelcome = document.getElementById("approvedWelcome");
   if (approvedWelcome) approvedWelcome.dataset.firstName = firstName;
 
@@ -1067,7 +1070,15 @@ iniciarPagina();
   };
   // Traductions complètes de l’écran de résultat du transfert dans les neuf langues.
   const clientAreaTranslations = {
-    pt: {"Conta interna":"Conta interna","Saldo inicial":"Saldo inicial","Identificador fictício":"Identificador fictício","Identificador fictício — não utilizável para transferências bancárias.":"Identificador fictício — não utilizável para transferências bancárias.","Nova solicitação de financiamento":"Nova solicitação de financiamento"},
+    pt: {"Conta interna":"Conta interna","Saldo inicial":"Saldo inicial","Identificador fictício":"Identificador fictício","Identificador fictício — não utilizável para transferências bancárias.":"Identificador fictício — não utilizável para transferências bancárias.","Nova solicitação de financiamento":"Nova solicitação de financiamento","Bem-vindo à sua área pessoal":"Bem-vindo à sua área pessoal","SOLUÇÕES FINANCEIRAS":"SOLUÇÕES FINANCEIRAS","Ordem de transferência":"Ordem de transferência"},
+    de: {"Bem-vindo à sua área pessoal":"Willkommen in Ihrem persönlichen Bereich","SOLUÇÕES FINANCEIRAS":"Finanzlösungen","Ordem de transferência":"Überweisungsauftrag"},
+    pl: {"Bem-vindo à sua área pessoal":"Witamy w Twojej strefie klienta","SOLUÇÕES FINANCEIRAS":"Rozwiązania finansowe","Ordem de transferência":"Zlecenie przelewu"},
+    es: {"Bem-vindo à sua área pessoal":"Bienvenido a su área personal","SOLUÇÕES FINANCEIRAS":"Soluciones financieras","Ordem de transferência":"Orden de transferencia"},
+    it: {"Bem-vindo à sua área pessoal":"Benvenuto nella tua area personale","SOLUÇÕES FINANCEIRAS":"Soluzioni finanziarie","Ordem de transferência":"Ordine di trasferimento"},
+    el: {"Bem-vindo à sua área pessoal":"Καλώς ήρθατε στον προσωπικό σας χώρο","SOLUÇÕES FINANCEIRAS":"ΧΡΗΜΑΤΟΟΙΚΟΝΟΜΙΚΕΣ ΛΥΣΕΙΣ","Ordem de transferência":"Εντολή μεταφοράς"},
+    sk: {"Bem-vindo à sua área pessoal":"Vitajte vo svojom osobnom priestore","SOLUÇÕES FINANCEIRAS":"Finančné riešenia","Ordem de transferência":"Príkaz na prevod"},
+    hr: {"Bem-vindo à sua área pessoal":"Dobro došli u svoj osobni prostor","SOLUÇÕES FINANCEIRAS":"Financijska rješenja","Ordem de transferência":"Nalog za prijenos"},
+    fr: {"Bem-vindo à sua área pessoal":"Bienvenue dans votre espace personnel","SOLUÇÕES FINANCEIRAS":"Solutions financières","Ordem de transferência":"Ordre de virement"},
     de: {"Conta interna":"Internes Konto","Saldo inicial":"Anfangsguthaben","Identificador fictício":"Fiktive Kennung","Identificador fictício — não utilizável para transferências bancárias.":"Fiktive Kennung — nicht für Banküberweisungen verwendbar.","Nova solicitação de financiamento":"Neue Finanzierungsanfrage"},
     pl: {"Conta interna":"Konto wewnętrzne","Saldo inicial":"Saldo początkowe","Identificador fictício":"Identyfikator fikcyjny","Identificador fictício — não utilizável para transferências bancárias.":"Identyfikator fikcyjny — nie można go używać do przelewów bankowych.","Nova solicitação de financiamento":"Nowy wniosek o finansowanie"},
     es: {"Conta interna":"Cuenta interna","Saldo inicial":"Saldo inicial","Identificador fictício":"Identificador ficticio","Identificador fictício — não utilizável para transferências bancárias.":"Identificador ficticio — no utilizable para transferencias bancarias.","Nova solicitação de financiamento":"Nueva solicitud de financiación"},
@@ -1230,13 +1241,34 @@ iniciarPagina();
       // le traducteur global peut déjà avoir traduit ce nœud.
       if (translated !== undefined) node.nodeValue = raw.replace(trimmed, translated);
     }
-    // Traduire également le salut dynamique et le lien des transactions.
+    // Traduire aussi les textes dynamiques de l’espace client après leur chargement.
+    const clientWelcome = document.getElementById("clientWelcome");
+    if (clientWelcome && clientWelcome.dataset.firstName !== undefined) {
+      const greeting = dictionaries[lang]["Bem-vindo à sua área pessoal"] || "Bem-vindo à sua área pessoal";
+      const firstName = clientWelcome.dataset.firstName;
+      const translatedWelcome = firstName ? `${greeting}, ${firstName}` : greeting;
+      if (clientWelcome.textContent !== translatedWelcome) clientWelcome.textContent = translatedWelcome;
+    }
+    const headerSubtitle = document.getElementById("headerSubtitle");
+    if (headerSubtitle && dictionaries[lang]["SOLUÇÕES FINANCEIRAS"]) {
+      const translatedSubtitle = dictionaries[lang]["SOLUÇÕES FINANCEIRAS"];
+      if (headerSubtitle.textContent !== translatedSubtitle) headerSubtitle.textContent = translatedSubtitle;
+    }
+    const demoLabel = document.querySelector(".demo-label");
+    if (demoLabel && dictionaries[lang]["Ordem de transferência"]) {
+      const translatedDemoLabel = dictionaries[lang]["Ordem de transferência"];
+      if (demoLabel.textContent.trim() !== translatedDemoLabel) demoLabel.textContent = translatedDemoLabel;
+    }
     const approvedWelcome = document.getElementById("approvedWelcome");
     if (approvedWelcome && approvedWelcome.dataset.firstName) {
-      approvedWelcome.textContent = `${dictionaries[lang]["Bonjour,"] || "Bonjour,"} ${approvedWelcome.dataset.firstName}`;
+      const translatedApprovedWelcome = `${dictionaries[lang]["Bonjour,"] || "Bonjour,"} ${approvedWelcome.dataset.firstName}`;
+      if (approvedWelcome.textContent !== translatedApprovedWelcome) approvedWelcome.textContent = translatedApprovedWelcome;
     }
     const seeAll = document.querySelector(".approved-transactions .see-all");
-    if (seeAll) seeAll.textContent = `${dictionaries[lang]["Voir tout"] || "Voir tout"} ›`;
+    if (seeAll) {
+      const translatedSeeAll = `${dictionaries[lang]["Voir tout"] || "Voir tout"} ›`;
+      if (seeAll.textContent !== translatedSeeAll) seeAll.textContent = translatedSeeAll;
+    }
     // Appliquer aussi les traductions directement aux éléments du résultat :
     // cet écran est révélé après l'envoi du formulaire et peut être réécrit par i18n.js.
     const resultTexts = transferResultTranslations[lang];
@@ -1270,10 +1302,10 @@ iniciarPagina();
     let saved = new URLSearchParams(window.location.search).get("lang") || "pt";
     try { saved = new URLSearchParams(window.location.search).get("lang") || localStorage.getItem("intereuropa_language") || "pt"; } catch(e) {}
     schedule(saved);
+    // Reaplicar as traduções quando o painel insere dados ou textos após o login.
+    const observer = new MutationObserver(() => schedule(currentLang));
+    observer.observe(document.body, { childList: true, subtree: true });
   });
-  // Sem observador global: observar todo o body fazia o tradutor reescrever
-  // os mesmos elementos repetidamente, provocando oscilações visuais.
-  // O i18n.js global trata os elementos adicionados dinamicamente.
 })();
 </script></body>
 </html>
