@@ -450,6 +450,9 @@ async function carregarClientes() {
     adicionarCampo(card, "Nome completo", clientData.nome);
     adicionarCampo(card, "Endereço de e-mail", clientData.email);
     adicionarCampo(card, "WhatsApp", clientData.whatsapp);
+    adicionarCampo(card, "Identificador fictício", clientData.identificador_ficticio
+      ? clientData.identificador_ficticio.replace(/(.{4})/g, "$1 ").trim() + " — não utilizável para operações bancárias"
+      : "Ainda não atribuído");
     adicionarCampo(card, "E-mail confirmado", clientData.email_confirmado ? "Sim" : "Não");
 
     const statusNames = {
