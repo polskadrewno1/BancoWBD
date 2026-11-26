@@ -529,7 +529,6 @@ footer {
 
   <h2>Os meus pedidos de financiamento</h2>
 
-  <p>Consulte todos os detalhes dos pedidos que enviou.</p>
 
   <div id="requestsMessage">A carregar os seus pedidos...</div>
 
@@ -853,54 +852,30 @@ async function carregarPedidos() {
   approvedDashboard.classList.add("hidden");
   normalDashboard.classList.remove("hidden");
 
-  requestsMessage.textContent =
-    "Total de pedidos: " + data.length;
+  requestsMessage.textContent = "";
 
-  data.forEach((pedido, index) => {
-
+  data.forEach(pedido => {
     const card = document.createElement("div");
-
     card.className = "request";
 
-    const title = document.createElement("h3");
-
-    title.textContent =
-      "Pedido de financiamento " + (index + 1);
-
-    card.appendChild(title);
-
-    adicionarCampo(card, "Nome completo", pedido.nome_completo);
-    adicionarCampo(card, "Idade", pedido.idade);
-    adicionarCampo(card, "País", pedido.pais);
-    adicionarCampo(card, "Cidade", pedido.cidade);
-    adicionarCampo(card, "Profissão", pedido.profissao);
-
-    adicionarCampo(
-      card,
-      "Rendimento mensal aproximado",
-      formatarEuro(pedido.rendimento_mensal)
-    );
-
-    adicionarCampo(
-      card,
-      "Montante solicitado",
-      formatarEuro(pedido.montant_demande)
-    );
-
-    adicionarCampo(
-      card,
-      "Estado",
-      pedido.statut || "Recebido"
-    );
-
-    adicionarCampo(
-      card,
-      "Data do pedido",
-      pedido.date_creation
-        ? new Date(pedido.date_creation).toLocaleDateString("pt-PT")
-        : "Não indicada"
-    );
-
+    const rawStatus = String(pedido.statut || "aguarda_admin")
+      .trim()
+      .toLocaleLowerCase("pt-PT");
+    const statusMap = {
+      "aguarda_admin": "Recebido",
+      "reçue": "Recebido",
+      "recebida": "Recebido",
+      "recebido": "Recebido",
+      "em análise": "Em análise",
+      "em analise": "Em análise",
+      "em_análise": "Em análise",
+      "em_analise": "Em análise",
+      "recusada": "Recusado",
+      "recusado": "Recusado",
+      "aprovada": "Aprovado",
+      "aprovado": "Aprovado"
+    };
+    adicionarCampo(card, "Estado", statusMap[rawStatus] || "Recebido");
     requestsList.appendChild(card);
   });
 }
