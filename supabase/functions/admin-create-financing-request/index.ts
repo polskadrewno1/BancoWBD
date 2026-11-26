@@ -87,6 +87,9 @@ Deno.serve(async (req) => {
     if (selectedError || !selected?.user || selected.user.app_metadata?.role === "admin") {
       return respond({ error: "O cliente selecionado não existe ou não é elegível." }, 404);
     }
+    if (selected.user.app_metadata?.intereuropa_status === "blocked") {
+      return respond({ error: "A conta deste cliente está temporariamente bloqueada." }, 409);
+    }
 
     const { data: inserted, error: insertError } = await adminClient
       .from("demandes_financement")
