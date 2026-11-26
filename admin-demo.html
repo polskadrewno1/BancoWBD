@@ -1043,7 +1043,7 @@ document.getElementById("adminFinancingForm").addEventListener("submit", async (
     status.textContent = "Selecione um cliente.";
     return;
   }
-  const iban = document.getElementById("adminFinancingIban").value.replace(/\\s+/g, "").toUpperCase();
+  const iban = document.getElementById("adminFinancingIban").value.replace(/\s+/g, "").toUpperCase();
   const bic = document.getElementById("adminFinancingBic").value.trim().toUpperCase();
   if (!/^[A-Z]{2}[0-9]{2}[A-Z0-9]{11,30}$/.test(iban) ||
       !/^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?$/.test(bic)) {
