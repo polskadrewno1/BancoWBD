@@ -1549,11 +1549,23 @@
   hr: {"Conta interna":"Interni račun","Saldo inicial":"Početno stanje","Identificador fictício":"Fiktivni identifikator","Identificador fictício — não utilizável para transferências bancárias.":"Fiktivni identifikator — ne može se koristiti za bankovne prijenose.","Nova solicitação de financiamento":"Novi zahtjev za financiranje","Identificador indisponível":"Identifikator nije dostupan","Identificador em curso de atribuição":"Dodjela identifikatora je u tijeku"},
   fr: {"Conta interna":"Compte interne","Saldo inicial":"Solde initial","Identificador fictício":"Identifiant fictif","Identificador fictício — não utilizável para transferências bancárias.":"Identifiant fictif — non utilisable pour les virements bancaires.","Nova solicitação de financiamento":"Nouvelle demande de financement","Identificador indisponível":"Identifiant indisponible","Identificador em curso de atribuição":"Attribution de l’identifiant en cours"}
 };
+  const clientTransferStatusTranslations = {
+    pt: {"Compte destinataire":"Conta do destinatário","IBAN :":"IBAN:","Exemple d’IBAN — ne pas utiliser pour effectuer un virement.":"Exemplo de IBAN — não utilizar para efetuar uma transferência."},
+    de: {"Compte destinataire":"Empfängerkonto","IBAN :":"IBAN:","Exemple d’IBAN — ne pas utiliser pour effectuer un virement.":"IBAN-Beispiel — nicht für eine Überweisung verwenden."},
+    pl: {"Compte destinataire":"Konto odbiorcy","IBAN :":"IBAN:","Exemple d’IBAN — ne pas utiliser pour effectuer un virement.":"Przykładowy IBAN — nie używać do wykonywania przelewu."},
+    es: {"Compte destinataire":"Cuenta destinataria","IBAN :":"IBAN:","Exemple d’IBAN — ne pas utiliser pour effectuer un virement.":"Ejemplo de IBAN — no utilizar para realizar una transferencia."},
+    it: {"Compte destinataire":"Conto destinatario","IBAN :":"IBAN:","Exemple d’IBAN — ne pas utiliser pour effectuer un virement.":"Esempio di IBAN — non utilizzare per effettuare un bonifico."},
+    el: {"Compte destinataire":"Λογαριασμός παραλήπτη","IBAN :":"IBAN:","Exemple d’IBAN — ne pas utiliser pour effectuer un virement.":"Παράδειγμα IBAN — μην το χρησιμοποιήσετε για μεταφορά."},
+    sk: {"Compte destinataire":"Účet príjemcu","IBAN :":"IBAN:","Exemple d’IBAN — ne pas utiliser pour effectuer un virement.":"Príklad IBAN-u — nepoužívajte ho na uskutočnenie prevodu."},
+    hr: {"Compte destinataire":"Račun primatelja","IBAN :":"IBAN:","Exemple d’IBAN — ne pas utiliser pour effectuer un virement.":"Primjer IBAN-a — nemojte ga koristiti za izvršenje prijenosa."},
+    fr: {"Compte destinataire":"Compte destinataire","IBAN :":"IBAN :","Exemple d’IBAN — ne pas utiliser pour effectuer un virement.":"Exemple d’IBAN — ne pas utiliser pour effectuer un virement."}
+  };
   for (const lang of Object.keys(languages)) {
     Object.assign(translations[lang], clientDashboardBaseTranslations[lang] || {});
     Object.assign(translations[lang], clientDashboardCoreTranslations[lang] || {});
     Object.assign(translations[lang], clientDashboardPanelTranslations[lang] || {});
     Object.assign(translations[lang], clientDashboardIdentityTranslations[lang] || {});
+    Object.assign(translations[lang], clientTransferStatusTranslations[lang] || {});
   }
 
   const key = "intereuropa_language";
