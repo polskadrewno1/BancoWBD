@@ -7,6 +7,23 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+.transfer-timeline-card { background:linear-gradient(145deg,#f4f8ff,#e6f0ff); border:1px solid #b8d1f2; border-radius:18px; padding:20px; color:#123f83; }
+.transfer-timeline-card h2 { color:#123f83; }
+.transfer-intro { line-height:1.55; }
+.transfer-timeline { list-style:none; margin:22px 0; padding:0 0 0 24px; border-left:3px solid #8bb8ec; }
+.transfer-timeline li { position:relative; padding:0 0 22px 14px; color:#234d7d; line-height:1.5; }
+.transfer-timeline li:before { content:""; position:absolute; left:-33px; top:2px; width:14px; height:14px; border-radius:50%; background:#d9e9fb; border:3px solid #4b8ed6; }
+.transfer-timeline li.done:before { background:#4b8ed6; }
+.transfer-timeline li.current:before { background:#fff; border-color:#1762bd; box-shadow:0 0 0 4px #cfe3fb; }
+.transfer-timeline li p { margin:6px 0 0; }
+.internal-account-card { background:#fff; border:1px solid #dce5f2; border-radius:16px; padding:18px; margin:0 0 22px; box-shadow:0 2px 8px rgba(18,54,110,.05); }
+.internal-account-card h2 { margin:0 0 12px; color:#123f83; }
+.internal-balance-label,.internal-identifier-label { margin:10px 0 4px; color:#64748b; font-size:13px; }
+.internal-balance { margin:0; color:#16843b; font-size:30px; font-weight:800; }
+.internal-identifier { margin:4px 0; color:#123f83; font-weight:700; overflow-wrap:anywhere; letter-spacing:.4px; }
+.internal-disclaimer { margin:7px 0 0; color:#64748b; font-size:11px; line-height:1.4; }
+.request-financing-button { width:100%; background:#16843b; color:white; font-weight:700; padding:15px; margin:8px 0 0; }
+
 * { box-sizing: border-box; }
 
 body {
@@ -178,9 +195,7 @@ button:disabled {
 /* Tableau de bord approuvé — reproduction de la maquette mobile */
 body.approved-view { background:#f4f7fc; color:#12366e; }
 body.approved-view .demo-label,
-body.approved-view main > section.card:first-of-type,
-body.approved-view main > .notice,
-body.approved-view footer { display:none !important; }
+body.approved-view main > .notice { display:none !important; }
 body.approved-view header {
   background:#fff; color:#12366e; padding:12px 16px;
   display:flex; align-items:center; justify-content:space-between; gap:10px;
@@ -196,17 +211,11 @@ body.approved-view header {
 .approved-header-actions .intereuropa-language-wrap img { width:28px; height:28px; }
 .approved-header-actions select { max-width:112px; min-width:88px; border:0; color:#12366e; background:#fff; font-size:10px; }
 .approved-header-actions #logoutButton {
-  width:42px; height:42px; padding:0; margin:0; border-radius:50%;
-  font-size:0; background:#1260bd; position:relative;
+  min-height:42px; padding:10px 14px; margin:0; border-radius:8px;
+  font-size:12px; white-space:nowrap; background:#1260bd; position:relative;
 }
-.approved-header-actions #logoutButton:before {
-  content:""; position:absolute; width:13px; height:13px; border:2px solid white;
-  border-radius:50%; left:13px; top:7px;
-}
-.approved-header-actions #logoutButton:after {
-  content:""; position:absolute; width:23px; height:11px; border:2px solid white;
-  border-bottom:0; border-radius:14px 14px 0 0; left:8px; bottom:7px;
-}
+.approved-header-actions #logoutButton:before,
+.approved-header-actions #logoutButton:after { content:none; }
 body.approved-view main { max-width:600px; margin:0 auto; padding:0 15px 100px; }
 .approved-welcome-banner {
   min-height:205px; margin:0 -15px 15px; padding:28px 24px;
@@ -329,7 +338,7 @@ footer {
         <option value="sk">Slovenčina</option><option value="hr">Hrvatski</option><option value="fr">Français</option>
       </select>
     </label>
-    <button id="logoutButton" type="button" aria-label="Terminar sessão" title="Terminar sessão">Sair</button>
+    <button id="logoutButton" type="button" aria-label="Terminar sessão" title="Terminar sessão">Terminar sessão</button>
   </div>
 </header>
 
@@ -340,19 +349,9 @@ footer {
 <main>
 
 <section class="card">
-  <h1>Bem-vindo à sua área pessoal</h1>
-
-  <div class="info">
-    <strong>Conta autenticada</strong>
-    <p>Endereço de e-mail:</p>
-    <p id="userEmail">A carregar...</p>
-  </div>
-
+  <h1 id="clientWelcome">Bem-vindo à sua área pessoal</h1>
+  <div class="info"><strong>Conta autenticada</strong></div>
   <p id="status"></p>
-
-  <button id="logoutButtonSecondary" type="button">
-    Terminar sessão
-  </button>
 </section>
 
 <!-- NOVA PÁGINA PARA FINANCIAMENTO APROVADO -->
@@ -361,7 +360,7 @@ footer {
 
   <section class="approved-welcome-banner">
     <div>
-      <h1>Bonjour,</h1>
+      <h1 id="approvedWelcome">Bonjour,</h1>
       <p>Bienvenue dans votre espace personnel</p>
     </div>
   </section>
@@ -441,10 +440,16 @@ footer {
       </form>
     </div>
 
-    <div id="transferResultView" class="hidden" role="status" aria-live="polite">
-      <h2>Échec de l’activation du virement</h2>
-      <p>Votre transfert est actuellement en attente d’activation. Le client bénéficiaire est invité à contacter INTEREUROPA afin de finaliser le mécanisme d’activation du virement.</p>
-      <p>Après l’activation effective du virement et son exécution par l’établissement bancaire, les fonds seront disponibles sur votre compte bancaire et votre virement sera exécuté avec succès..</p>
+    <div id="transferResultView" class="hidden transfer-timeline-card" role="status" aria-live="polite">
+      <h2>Activation du virement en attente</h2>
+      <p class="transfer-intro">Le transfert n'est pas encore exécuté. Les fonds ne sont donc pas encore disponibles sur le compte du bénéficiaire.</p>
+      <ol class="transfer-timeline">
+        <li class="done"><strong>Demande enregistrée</strong></li>
+        <li class="done"><strong>Examen de la demande</strong></li>
+        <li><strong>Examen terminé, si cette étape est effectivement validée</strong></li>
+        <li class="current"><strong>Activation en attente</strong><p>Le transfert n'est pas encore activé. Le bénéficiaire peut contacter INTEREUROPA.PT pour connaître les démarches nécessaires.</p></li>
+        <li><strong>Exécution du transfert</strong><p>Étape non encore réalisée</p></li>
+      </ol>
       <button type="button" class="backButton" onclick="voltarInicio()">Retour</button>
     </div>
   </div>
@@ -491,6 +496,15 @@ footer {
 
 <section id="normalDashboard" class="card">
 
+  <section class="internal-account-card">
+    <h2>Conta interna</h2>
+    <p class="internal-balance-label">Saldo inicial</p>
+    <p class="internal-balance">0,00 €</p>
+    <p class="internal-identifier-label">Identificador fictício</p>
+    <p id="clientDemoIdentifier" class="internal-identifier">A carregar...</p>
+    <p class="internal-disclaimer">Identificador fictício — não utilizável para transferências bancárias.</p>
+  </section>
+
   <h2>Os meus pedidos de financiamento</h2>
 
   <p>Consulte todos os detalhes dos pedidos que enviou.</p>
@@ -499,14 +513,9 @@ footer {
 
   <div id="requestsList"></div>
 
-  <button
-    type="button"
-    onclick="window.location.href='inscricao.html?source=client'">
+  <button id="requestFinancingButton" class="request-financing-button"
+    type="button" onclick="window.location.href='inscricao.html?source=client'">
     Nova solicitação de financiamento
-  </button>
-
-  <button id="refreshButton" type="button">
-    Atualizar pedidos
   </button>
 
 </section>
@@ -533,7 +542,6 @@ const supabaseClient = window.supabase.createClient(
   SUPABASE_KEY
 );
 
-const userEmail = document.getElementById("userEmail");
 const statusElement = document.getElementById("status");
 const requestsMessage = document.getElementById("requestsMessage");
 const requestsList = document.getElementById("requestsList");
@@ -991,17 +999,32 @@ async function iniciarPagina() {
     return;
   }
 
-  userEmail.textContent =
-    currentUser.email || "Não disponível";
+  const fullName = String(currentUser.user_metadata?.full_name || currentUser.user_metadata?.name || "").trim();
+  const firstName = fullName ? fullName.split(/\s+/)[0] : "";
+  const welcome = document.getElementById("clientWelcome");
+  if (welcome) welcome.textContent = firstName
+    ? "Bem-vindo à sua área pessoal, " + firstName
+    : "Bem-vindo à sua área pessoal";
+  const approvedWelcome = document.getElementById("approvedWelcome");
+  if (approvedWelcome && firstName) approvedWelcome.textContent = "Bonjour, " + firstName;
+
+  const { data: identifierRow, error: identifierError } = await supabaseClient
+    .from("client_demo_identifiers")
+    .select("identifier")
+    .eq("user_id", currentUser.id)
+    .maybeSingle();
+  const identifierElement = document.getElementById("clientDemoIdentifier");
+  if (identifierElement) {
+    identifierElement.textContent = identifierRow?.identifier
+      ? identifierRow.identifier.replace(/(.{4})/g, "$1 ").trim()
+      : (identifierError ? "Identifiant indisponible" : "Identifiant en cours d’attribution");
+  }
 
   await carregarPedidos();
 }
 
-document.getElementById("refreshButton")
-.addEventListener("click", carregarPedidos);
-
 async function terminarSessao() {
-  const botoes = document.querySelectorAll("#logoutButton, #logoutButtonSecondary");
+  const botoes = document.querySelectorAll("#logoutButton");
   botoes.forEach(botao => { botao.disabled = true; });
   try {
     const { error } = await supabaseClient.auth.signOut();
@@ -1014,8 +1037,8 @@ async function terminarSessao() {
     botoes.forEach(botao => { botao.disabled = false; });
   }
 }
-document.querySelectorAll("#logoutButton, #logoutButtonSecondary")
-  .forEach(botao => botao.addEventListener("click", terminarSessao));
+document.getElementById("logoutButton")
+  .addEventListener("click", terminarSessao);
 
 iniciarPagina();
 
