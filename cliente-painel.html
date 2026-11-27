@@ -667,6 +667,16 @@ const SUPABASE_URL =
 
 const SUPABASE_KEY = "sb_publishable_WXC0WbSEvvnhcrR6-7VUSw_kABFoXYU";
 
+if (!window.supabase || typeof window.supabase.createClient !== "function") {
+  document.body.classList.add("page-ready");
+  const startupStatus = document.getElementById("status");
+  if (startupStatus) {
+    startupStatus.textContent =
+      "Não foi possível iniciar a ligação segura. Verifique a sua ligação à internet e atualize a página.";
+  }
+  throw new Error("A biblioteca Supabase não foi carregada.");
+}
+
 const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
@@ -1193,12 +1203,27 @@ async function terminarSessao() {
 }
 document.getElementById("logoutButton")?.addEventListener("click", terminarSessao);
 
-iniciarPagina()
+let startupTimeoutId;
+
+const startupTimeout = new Promise((_, reject) => {
+  startupTimeoutId = window.setTimeout(() => {
+    reject(new Error("Tempo limite excedido ao ligar ao serviço."));
+  }, 15000);
+});
+
+Promise.race([iniciarPagina(), startupTimeout])
   .catch(error => {
     console.error("Erro ao iniciar a área do cliente:", error);
-    statusElement.textContent = "Não foi possível carregar todos os dados. Atualize a página e tente novamente.";
+    if (statusElement) {
+      statusElement.textContent =
+        error && error.message === "Tempo limite excedido ao ligar ao serviço."
+          ? "A ligação está a demorar mais do que o esperado. Verifique a internet e atualize a página."
+          : "Não foi possível carregar todos os dados. Verifique a ligação e atualize a página.";
+    }
+    if (requestsMessage) requestsMessage.textContent = "";
   })
   .finally(() => {
+    window.clearTimeout(startupTimeoutId);
     document.body.classList.add("page-ready");
   });
 
