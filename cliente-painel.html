@@ -224,16 +224,18 @@ body.approved-view header {
 .approved-brand-copy { min-width:0; }
 .approved-brand-copy h2 { color:#12366e; margin:0; font-size:20px; font-weight:800; white-space:nowrap; }
 .approved-brand-copy p { color:#12366e; margin:3px 0 0; font-size:10px; font-weight:800; letter-spacing:1.5px; white-space:nowrap; }
-.approved-header-actions { display:flex; align-items:center; gap:8px; }
-.approved-header-actions .intereuropa-language-wrap { display:flex; align-items:center; }
-.approved-header-actions .intereuropa-language-wrap img { width:28px; height:28px; }
-.approved-header-actions select { max-width:112px; min-width:88px; border:0; color:#12366e; background:#fff; font-size:10px; }
+.approved-header-actions { display:flex; align-items:center; gap:6px; }
+.approved-header-actions select {
+  width:82px; min-width:0; max-width:82px; padding:7px 2px;
+  border:0; color:#12366e; background:#fff; font-size:11px;
+}
 .approved-header-actions #logoutButton {
-  min-height:42px; padding:10px 14px; margin:0; border-radius:8px;
-  font-size:12px; white-space:nowrap; background:#1260bd; position:relative;
+  min-height:36px; padding:7px 9px; margin:0; border-radius:7px;
+  font-size:11px; white-space:nowrap; background:#1260bd; position:relative;
 }
 .approved-header-actions #logoutButton:before,
 .approved-header-actions #logoutButton:after { content:none; }
+.approved-header-actions #menuIconButton { display:none !important; }
 body.approved-view main { max-width:600px; margin:0 auto; padding:0 15px 100px; }
 .approved-welcome-banner {
   min-height:205px; margin:0 -15px 15px; padding:28px 24px;
@@ -516,7 +518,19 @@ body.approved-view .approved-nav a.active{border-top:3px solid #075dd2}
   </div>
   <div class="approved-header-actions">
     <button id="messageIconButton" class="header-icon-button" type="button" aria-label="Messages" title="Messages">✉</button>
-    <button id="menuIconButton" class="header-icon-button" type="button" aria-label="Menu" title="Menu">☰</button>
+    <select id="clientLanguageSelect" aria-label="Langue" title="Langue">
+      <option value="pt">Português</option>
+      <option value="de">Deutsch</option>
+      <option value="pl">Polski</option>
+      <option value="es">Español</option>
+      <option value="it">Italiano</option>
+      <option value="el">Ελληνικά</option>
+      <option value="sk">Slovenčina</option>
+      <option value="hr">Hrvatski</option>
+      <option value="fr">Français</option>
+      <option value="en">English</option>
+    </select>
+    <button id="logoutButton" type="button">Terminar sessão</button>
   </div>
 </header>
 
@@ -1181,8 +1195,21 @@ document.addEventListener("click", event => {
   const actionButton = event.target.closest("[data-demo-action]");
   if (actionButton) executarAcaoDemo(actionButton.dataset.demoAction);
 });
-document.getElementById("menuIconButton")?.addEventListener("click", () => abrirDemoPanel("demoMenuPanel"));
 document.getElementById("messageIconButton")?.addEventListener("click", () => abrirDemoPanel("demoMessagePanel"));
+
+const clientLanguageSelect = document.getElementById("clientLanguageSelect");
+if (clientLanguageSelect) {
+  const savedLanguage = localStorage.getItem("intereuropa_language") || "pt";
+  clientLanguageSelect.value = savedLanguage;
+  clientLanguageSelect.addEventListener("change", () => {
+    const selectedLanguage = clientLanguageSelect.value || "pt";
+    localStorage.setItem("intereuropa_language", selectedLanguage);
+    document.cookie = "intereuropa_language=" + encodeURIComponent(selectedLanguage) + "; path=/; max-age=31536000; SameSite=Lax";
+    const nextUrl = new URL(window.location.href);
+    nextUrl.searchParams.set("lang", selectedLanguage);
+    window.location.replace(nextUrl.toString());
+  });
+}
 document.getElementById("insuranceButton")?.addEventListener("click", () => executarAcaoDemo("insurance"));
 document.getElementById("simulateCreditButton")?.addEventListener("click", () => {
   if (approvedRequest) { mostrarDemoAviso("Já existe um financiamento aprovado nesta conta. Não é possível apresentar um novo pedido."); return; }
@@ -1292,6 +1319,6 @@ Promise.race([iniciarPagina(), startupTimeout])
 </script>
 
 
-<script src="assets/i18n.js?v=20261127k"></script>
+<script src="assets/i18n.js?v=20261127l"></script>
 </body>
 </html>
