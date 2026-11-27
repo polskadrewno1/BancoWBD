@@ -1758,6 +1758,7 @@
     "Aucune carte n’est associée à votre compte. Commandez la carte associée à votre compte.":"No card is associated with your account. Order the card linked to your account.",
     "Aucune carte n'est associée à votre compte. Commandez la carte associée à votre compte.":"No card is associated with your account. Order the card linked to your account.",
     "Esta operação não está disponível, uma vez que não tem cartões associados ao MB WAY":"This operation is unavailable because you do not have any cards linked to MB WAY.",
+    "Pretende contratar um seguro? Contacte a INTEREUROPA para obter mais informações.":"Would you like to take out insurance? Contact INTEREUROPA for more information.",
     "Para qualquer informação sobre a demonstração, contacte a equipa INTEREUROPA.":"For any information about this demonstration, please contact the INTEREUROPA team.",
     "© 2026 — estabilidade financeira de cada cliente":"© 2026 — financial stability for every client" 
   });
