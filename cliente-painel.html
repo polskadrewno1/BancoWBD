@@ -567,8 +567,8 @@ body.approved-view .approved-nav a.active{border-top:3px solid #075dd2}
   </section>
 
   <button type="button" class="reference-debit-card" data-demo-action="debit">
-    <span class="reference-card-number">XXXXXXXXXX8539</span>
-    <span class="reference-card-bottom"><span>Débito | *8539</span><span class="reference-mini-brand"><img src="assets/intereuropa-ie.svg" alt="IE"><b>VISA</b></span></span>
+    <span class="reference-card-number" id="referenceCardNumber">XXXXXXXXXXXXXX</span>
+    <span class="reference-card-bottom"><span>Débito | <span id="referenceCardSuffix">* XXXX</span></span><span class="reference-mini-brand"><img src="assets/intereuropa-ie.svg" alt="IE"><b>VISA</b></span></span>
   </button>
 
   <section class="reference-service-card">
@@ -783,6 +783,7 @@ let currentUser = null;
 
 let approvedRequest = null;
 let clientDemoIdentifier = "";
+let clientCardLastFour = "";
 
 function adicionarCampo(container, label, value) {
 
@@ -890,6 +891,18 @@ function mostrarAccueilClient(pedido, nomClient) {
 
   const accountAmountNode = document.getElementById("accountAmount");
   aplicarMontanteComCentimosReduzidos(accountAmountNode, montantAffiche);
+
+  // Os quatro últimos dígitos só são apresentados depois da aprovação do financiamento.
+  const cardSuffix = approvedRequest && clientCardLastFour
+    ? clientCardLastFour
+    : "XXXX";
+  const cardNumberElement = document.getElementById("referenceCardNumber");
+  const cardSuffixElement = document.getElementById("referenceCardSuffix");
+  if (cardNumberElement) cardNumberElement.textContent =
+    approvedRequest && clientCardLastFour
+      ? "XXXXXXXXXX" + clientCardLastFour
+      : "XXXXXXXXXXXXXX";
+  if (cardSuffixElement) cardSuffixElement.textContent = "* " + cardSuffix;
 
   const greeting = document.getElementById("clientGreetingName");
   const nom = String(nomClient || "").trim().split(" ").filter(Boolean)[0] || "";
@@ -1226,6 +1239,9 @@ async function iniciarPagina() {
     ? identifierRow.identifier.replace(/(.{4})/g, "$1 ").trim()
     : (identifierError ? "Identifiant indisponible" : "Identifiant en cours d’attribution");
   clientDemoIdentifier = formattedIdentifier;
+  clientCardLastFour = identifierRow?.identifier
+    ? String(identifierRow.identifier).replace(/\s+/g, "").slice(-4)
+    : "";
   if (identifierElement) identifierElement.textContent = formattedIdentifier;
   const approvedIdentifierElement = document.getElementById("approvedDemoIdentifier");
   if (approvedIdentifierElement) approvedIdentifierElement.textContent = formattedIdentifier;
@@ -1276,6 +1292,6 @@ Promise.race([iniciarPagina(), startupTimeout])
 </script>
 
 
-<script src="assets/i18n.js?v=20261127j"></script>
+<script src="assets/i18n.js?v=20261127k"></script>
 </body>
 </html>
