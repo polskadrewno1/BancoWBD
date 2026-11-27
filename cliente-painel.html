@@ -1008,8 +1008,9 @@ async function enviarPedidoTransferencia(event) {
   event.preventDefault();
   const message = document.getElementById("transferFormMessage");
   if (message) message.textContent = "Fundos insuficientes.";
-  return;
-  const form = document.getElementById("transferRequestForm");
+}
+
+document.getElementById("transferRequestForm");
   const message = document.getElementById("transferFormMessage");
   const submitButton = document.getElementById("transferSubmitButton");
   const lang = "pt";
