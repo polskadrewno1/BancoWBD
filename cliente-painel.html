@@ -579,7 +579,6 @@ body.approved-view .approved-nav a.active{border-top:3px solid #075dd2}
     <span class="reference-card-number" id="referenceCardNumber">XXXXXXXXXXXXXX</span>
     <span class="reference-card-bottom"><span>Débito | <span id="referenceCardSuffix">*XXXX</span></span><span class="reference-mini-brand"><img src="assets/intereuropa-ie.svg" alt="IE"><b>VISA</b></span></span>
   </button>
-  <p class="reference-card-status" id="referenceCardStatus">Commandez votre carte pour profiter de toutes les fonctionnalités de votre espace client.</p>
 
   <section class="reference-service-card">
     <h2>EMPRÉSTIMOS</h2>
@@ -933,13 +932,6 @@ function mostrarAccueilClient(pedido, nomClient) {
       : "XXXXXXXXXXXXXX";
   if (cardSuffixElement) cardSuffixElement.textContent = "*" + cardSuffix;
 
-  const cardStatusElement = document.getElementById("referenceCardStatus");
-  if (cardStatusElement) {
-    cardStatusElement.textContent = approvedRequest
-      ? "Activez votre carte pour consulter les informations de votre carte bancaire."
-      : "Commandez votre carte pour profiter de toutes les fonctionnalités de votre espace client.";
-  }
-
   const greeting = document.getElementById("clientGreetingName");
   const nom = String(nomClient || "").trim().split(" ").filter(Boolean)[0] || "";
   if (greeting) greeting.textContent = nom;
@@ -1185,7 +1177,12 @@ async function enviarPedidoTransferencia(event) {
 document.getElementById("transferRequestForm")
   .addEventListener("submit", enviarPedidoTransferencia);
 
+let demoNoticeTimeoutId = null;
 function fecharDemoPanel() {
+  if (demoNoticeTimeoutId) {
+    window.clearTimeout(demoNoticeTimeoutId);
+    demoNoticeTimeoutId = null;
+  }
   ["demoMorePanel","demoMenuPanel","demoMessagePanel"].forEach(id => {
     const panel = document.getElementById(id);
     panel?.classList.add("hidden");
@@ -1204,11 +1201,21 @@ function abrirDemoPanel(id) {
 function mostrarDemoAviso(message) {
   fecharDemoPanel();
   const box = document.getElementById("demoNotice");
-  if (box) { box.textContent = message; box.classList.remove("hidden"); }
+  if (box) {
+    box.textContent = message;
+    box.classList.remove("hidden");
+    demoNoticeTimeoutId = window.setTimeout(() => {
+      box.classList.add("hidden");
+      approvedDashboard.classList.remove("panel-mode");
+      demoNoticeTimeoutId = null;
+    }, 5000);
+  }
 }
 function executarAcaoDemo(action) {
   if (action === "mbway") return mostrarDemoAviso("Esta operação não está disponível, uma vez que não tem cartões associados ao MB WAY");
-  if (action === "debit") return mostrarDemoAviso("Aucune carte n’est associée à votre compte. Commandez la carte associée à votre compte.");
+  if (action === "debit") return mostrarDemoAviso(approvedRequest
+    ? "Activez votre carte pour consulter les informations de votre carte bancaire."
+    : "Commandez votre carte pour profiter de toutes les fonctionnalités de votre espace client.");
   if (action === "insurance") return mostrarDemoAviso("Pretende contratar um seguro? Contacte a INTEREUROPA para obter mais informações.");
   if (action === "more") { abrirDemoPanel("demoMorePanel"); return; }
   if (action === "documents" || action === "load" || action === "configure") return;
@@ -1352,6 +1359,6 @@ Promise.race([iniciarPagina(), startupTimeout])
 </script>
 
 
-<script src="assets/i18n.js?v=20261127p"></script>
+<script src="assets/i18n.js?v=20261127q"></script>
 </body>
 </html>
