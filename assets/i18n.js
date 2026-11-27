@@ -1753,6 +1753,8 @@
     "Para informações sobre a demonstração, contacte a equipa INTEREUROPA.":"For information about this demonstration, please contact the INTEREUROPA team.",
     "Esta área é exclusivamente demonstrativa. Não são realizadas operações bancárias.":"This area is for demonstration purposes only. No banking transactions are carried out.",
     "Já existe um financiamento aprovado nesta conta. Não é possível apresentar um novo pedido.":"There is already an approved financing request on this account. A new request cannot be submitted.",
+    "Vous n'avez pas encore de notification":"You do not have any notifications yet.",
+    "Vous n’avez pas encore de notification":"You do not have any notifications yet.",
     "Aucune carte n’est associée à votre compte. Commandez la carte associée à votre compte.":"No card is associated with your account. Order the card linked to your account.",
     "Aucune carte n'est associée à votre compte. Commandez la carte associée à votre compte.":"No card is associated with your account. Order the card linked to your account.",
     "Esta operação não está disponível, uma vez que não tem cartões associados ao MB WAY":"This operation is unavailable because you do not have any cards linked to MB WAY.",
