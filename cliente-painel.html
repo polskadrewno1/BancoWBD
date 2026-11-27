@@ -443,11 +443,12 @@ body.approved-view main{max-width:850px;padding:0 27px 104px;margin:12px auto 0}
 .reference-account-right strong{font-size:17px}
 .reference-debit-card{width:100%;min-height:136px;margin:0 0 23px;padding:17px 22px;display:flex;flex-direction:column;justify-content:space-between;align-items:stretch;text-align:left;background:#fff;color:#111b45;border:1px solid #e2e5ea;border-radius:14px;box-shadow:0 2px 9px rgba(20,40,70,.08)}
 .reference-card-top{display:flex;align-items:center;justify-content:space-between;min-height:20px}
+.reference-card-top{display:flex;align-items:flex-start;justify-content:flex-start;min-height:15px}
+.reference-card-logo{display:block;width:19px;height:12px;object-fit:contain;opacity:.78}
 .reference-card-number{font-size:25px;font-weight:800}
-.reference-card-bottom{display:flex;align-items:center;justify-content:space-between;font-size:22px;font-weight:400}
-.reference-mini-brand{width:42px;height:25px;flex:none;display:flex;align-items:center;justify-content:space-evenly;gap:3px;padding:3px 4px;background:linear-gradient(130deg,#0751a5,#0788c9);border-radius:4px;box-sizing:border-box}
-.reference-mini-brand img{display:block;width:13px;height:10px;object-fit:contain;filter:brightness(0) invert(1)}
-.reference-mini-brand b{font-size:7px;line-height:1;color:#fff;font-style:italic;font-weight:700}
+.reference-card-bottom{display:flex;align-items:flex-end;justify-content:space-between;font-size:22px;font-weight:400}
+.reference-visa{display:block;margin-left:auto;padding:0;background:transparent;color:#174a8b;text-align:right;font-size:5px;line-height:1}
+.reference-visa b{font-size:8px;font-style:italic;font-weight:700}
 .reference-service-card{margin:0 0 20px;border:1px solid #e1e5eb;border-radius:13px;background:#fff;box-shadow:0 2px 8px rgba(20,40,70,.06);overflow:hidden}
 .reference-service-card h2{margin:0;padding:17px 25px;border-bottom:1px solid #e7e9ed;color:#111b45;font-size:23px;font-weight:400;letter-spacing:0}
 .reference-service-link{width:100%;min-height:90px;margin:0;padding:12px 24px;display:flex;align-items:center;gap:23px;background:#fff;color:#174d91;border-radius:0;text-align:left;font-size:19px;font-weight:400}
@@ -485,11 +486,12 @@ body.approved-view .approved-nav a.active{border-top:3px solid #075dd2}
  .reference-account-right strong{font-size:17px;color:#111b45;font-weight:600}\n .reference-account-right .balance-cents{font-size:12px;font-weight:600;color:inherit;vertical-align:baseline;position:relative;top:3px}
  .reference-fictitious{left:12px;bottom:5px;font-size:7px}
  .reference-debit-card{min-height:82px;padding:9px 12px;margin-bottom:12px;border-radius:10px}
+ .reference-card-top{min-height:10px}
+ .reference-card-logo{width:14px;height:9px;opacity:.72}
  .reference-card-number{font-size:15px}
  .reference-card-bottom{font-size:13px}
- .reference-mini-brand{width:34px;height:20px;padding:2px 3px;gap:2px;border-radius:3px}
- .reference-mini-brand img{width:10px;height:8px}
- .reference-mini-brand b{font-size:5px}
+ .reference-visa{font-size:4px}
+ .reference-visa b{font-size:6px}
  .reference-service-card{margin-bottom:10px;border-radius:10px}
  .reference-service-card h2{font-size:15px;padding:9px 14px}
  .reference-service-link{min-height:54px;padding:7px 13px;gap:12px;font-size:12px}
@@ -567,8 +569,9 @@ body.approved-view .approved-nav a.active{border-top:3px solid #075dd2}
   </section>
 
   <button type="button" class="reference-debit-card" data-demo-action="debit">
+    <span class="reference-card-top"><img class="reference-card-logo" src="assets/intereuropa-ie.svg" alt="IE"></span>
     <span class="reference-card-number">XXXXXXXXXX8539</span>
-    <span class="reference-card-bottom"><span>Débito | *8539</span><span class="reference-mini-brand"><img src="assets/intereuropa-ie.svg" alt="IE"><b>VISA</b></span></span>
+    <span class="reference-card-bottom"><span>Débito | *8539</span><span class="reference-visa"><b>VISA</b></span></span>
   </button>
 
   <section class="reference-service-card">
