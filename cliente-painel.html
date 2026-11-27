@@ -803,7 +803,7 @@ function mostrarAccueilClient(pedido, nomClient) {
   if (accountAmountNode) accountAmountNode.textContent = montantAffiche;
 
   const greeting = document.getElementById("clientGreetingName");
-  const nom = String(nomClient || "").trim().split(/\\s+/)[0];
+  const nom = String(nomClient || "").trim().split(" ").filter(Boolean)[0] || "";
   if (greeting) greeting.textContent = nom ? "Olá, " + nom : "Olá";
 }
 
