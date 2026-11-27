@@ -969,13 +969,9 @@ async function carregarPedidos() {
   }
 
   approvedRequest = null;
-  document.body.classList.add("approved-view");
-  normalDashboard.classList.add("hidden");
-  approvedDashboard.classList.remove("hidden");
-  const money = document.getElementById("approvedAmount");
-  if (money) money.textContent = "0,00 €";
-  const accountMoney = document.getElementById("accountAmount");
-  if (accountMoney) accountMoney.textContent = "0,00 €";
+  document.body.classList.remove("approved-view");
+  approvedDashboard.classList.add("hidden");
+  normalDashboard.classList.remove("hidden");
   requestsMessage.textContent = "";
 
   data.forEach(pedido => {
