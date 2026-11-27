@@ -3,6 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+(function(){
+  var path=window.location.pathname;
+  var isSiteRoot=path === "/" || path === "/index.html" ||
+    path === "/BancoWBD" || path === "/BancoWBD/" || /\/index\.html$/i.test(path);
+  if(!isSiteRoot) return;
+  try {
+    if(sessionStorage.getItem("intereuropa_language_selected_this_visit") !== "yes") {
+      window.location.replace("language.html");
+    }
+  } catch(e) { window.location.replace("language.html"); }
+})();
+</script>
  
 <title>INTEREUROPA.PT | Soluções Financeiras</title>
 <meta name="description" content="INTEREUROPA.PT — Soluções Financeiras.">
