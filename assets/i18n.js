@@ -1804,6 +1804,17 @@
   Object.assign(translations.hr, {"Olá,":"Pozdrav,","O seu dinheiro":"Vaš novac","Ocultar":"Sakrij","Documentos Digitais":"Digitalni dokumenti","Mais opções":"Više opcija","Saldo disponível":"Raspoloživo stanje","EMPRÉSTIMOS":"ZAJMOVI","Simular Crédito Pessoal":"Simuliraj osobni kredit","SEGUROS":"OSIGURANJA","Contratar Seguros":"Ugovori osiguranje","Faire un virement":"Izvrši prijenos","Históricos":"Povijest","Aide":"Pomoć","Débito":"Debitna","Accueil":"Početna"});
   Object.assign(translations.fr, {"Olá,":"Bonjour,","O seu dinheiro":"Votre argent","Ocultar":"Masquer","Documentos Digitais":"Documents numériques","Mais opções":"Plus d’options","Saldo disponível":"Solde disponible","EMPRÉSTIMOS":"PRÊTS","Simular Crédito Pessoal":"Simuler un crédit personnel","SEGUROS":"ASSURANCES","Contratar Seguros":"Souscrire une assurance","Faire un virement":"Faire un virement","Históricos":"Historique","Aide":"Aide","Débito":"Débit","Accueil":"Accueil"});
   Object.assign(translations.pt, {"Olá,":"Olá,","O seu dinheiro":"O seu dinheiro","Ocultar":"Ocultar","Documentos Digitais":"Documentos Digitais","Mais opções":"Mais opções","Saldo disponível":"Saldo disponível","EMPRÉSTIMOS":"EMPRÉSTIMOS","Simular Crédito Pessoal":"Simular Crédito Pessoal","SEGUROS":"SEGUROS","Contratar Seguros":"Contratar Seguros","Faire un virement":"Faire un virement","Históricos":"Históricos","Aide":"Aide","Débito":"Débito","Accueil":"Accueil"});
+
+  // Textes découpés en plusieurs nœuds dans le HTML du tableau de bord.
+  Object.assign(translations.en, {"Documentos":"Documents","Digitais":"Digital","Débito | *8539":"Debit | *8539"});
+  Object.assign(translations.de, {"Documentos":"Dokumente","Digitais":"Digital","Débito | *8539":"Debitkarte | *8539"});
+  Object.assign(translations.pl, {"Documentos":"Dokumenty","Digitais":"cyfrowe","Débito | *8539":"Debetowa | *8539"});
+  Object.assign(translations.es, {"Documentos":"Documentos","Digitais":"digitales","Débito | *8539":"Débito | *8539"});
+  Object.assign(translations.it, {"Documentos":"Documenti","Digitais":"digitali","Débito | *8539":"Debito | *8539"});
+  Object.assign(translations.el, {"Documentos":"Έγγραφα","Digitais":"ψηφιακά","Débito | *8539":"Χρεωστική | *8539"});
+  Object.assign(translations.sk, {"Documentos":"Dokumenty","Digitais":"digitálne","Débito | *8539":"Debetná | *8539"});
+  Object.assign(translations.hr, {"Documentos":"Digitalni","Digitais":"dokumenti","Débito | *8539":"Debitna | *8539"});
+  Object.assign(translations.fr, {"Documentos":"Documents","Digitais":"numériques","Débito | *8539":"Débit | *8539"});
   const originalTextNodes = new WeakMap();
   const originalAttributes = new WeakMap();
   const getLang = () => {
