@@ -1722,6 +1722,21 @@
     "Ordem de transferência":"Transfer order","Recebido":"Received","Em análise":"Under review","Aprovado":"Approved","Recusado":"Declined"
   });
 
+  Object.assign(translations.en, {
+    "Bem-vindo à INTEREUROPA. Conheça os nossos serviços disponíveis e acompanhe os seus pedidos através da área de cliente.":"Welcome to INTEREUROPA. Discover our available services and follow your requests through the client area.",
+    "Consulte as informações sobre o processo de candidatura e apresente um pedido para análise.":"Read about the application process and submit a request for review.",
+    "Aceda à sua conta, consulte os seus pedidos e acompanhe as respetivas atualizações.":"Access your account, review your requests and follow their updates.",
+    "Consulte o estado dos pedidos submetidos através da sua área pessoal.":"Check the status of requests submitted through your personal area.",
+    "Financiamento com responsabilidade":"Responsible financing",
+    "Todas as candidaturas estão sujeitas a uma análise individual. A apresentação de um pedido não representa uma aprovação nem garante a disponibilização de financiamento. As condições aplicáveis devem ser comunicadas antes de qualquer contratação.":"All applications are subject to individual assessment. Submitting a request does not constitute approval or guarantee financing. Applicable terms must be communicated before any agreement is made.",
+    "Solicitar um empréstimo →":"Apply for financing →",
+    "Aceder à minha conta →":"Access my account →",
+    "Consultar área pessoal →":"View client area →",
+    "Acompanhamento":"Tracking",
+    "Já tem uma conta? Entre na sua área pessoal.":"Already have an account? Sign in to your client area.",
+    "ÁREA DE CLIENTE":"CLIENT AREA",
+    "Escolha uma das opções para continuar.":"Choose an option to continue."
+  });
   const key = "intereuropa_language";
   // Traduções completas da identificação da área de cliente e da assinatura da marca.
   Object.assign(translations.pt, {
