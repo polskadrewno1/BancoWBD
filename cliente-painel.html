@@ -1172,7 +1172,7 @@ async function iniciarPagina() {
   clientDemoIdentifier = formattedIdentifier;
   if (identifierElement) identifierElement.textContent = formattedIdentifier;
   const approvedIdentifierElement = document.getElementById("approvedDemoIdentifier");
-  if (approvedIdentifierElement) approvedIdentifierElement.textContent = "PT50 0745 4564 1342 1474 6733 8";
+  if (approvedIdentifierElement) approvedIdentifierElement.textContent = formattedIdentifier;
 
   await carregarPedidos();
 }
