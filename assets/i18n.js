@@ -1901,6 +1901,22 @@
   };
   Object.entries(approvedFinancingNoticeTranslations).forEach(([lang, dictionary]) => Object.assign(translations[lang], dictionary));
 
+
+  // Messages sous la carte, selon le statut du financement.
+  const cardStatusTranslations = {
+    pt: {"Commandez votre carte pour profiter de toutes les fonctionnalités de votre espace client.":"Solicite o seu cartão para usufruir de todas as funcionalidades da sua área de cliente.","Activez votre carte pour consulter les informations de votre carte bancaire.":"Ative o seu cartão para consultar os dados do seu cartão bancário."},
+    en: {"Commandez votre carte pour profiter de toutes les fonctionnalités de votre espace client.":"Order your card to enjoy all the features available in your client area.","Activez votre carte pour consulter les informations de votre carte bancaire.":"Activate your card to view your bank card details."},
+    de: {"Commandez votre carte pour profiter de toutes les fonctionnalités de votre espace client.":"Bestellen Sie Ihre Karte, um alle Funktionen Ihres Kundenbereichs nutzen zu können.","Activez votre carte pour consulter les informations de votre carte bancaire.":"Aktivieren Sie Ihre Karte, um die Kartendaten Ihrer Bankkarte einzusehen."},
+    pl: {"Commandez votre carte pour profiter de toutes les fonctionnalités de votre espace client.":"Zamów kartę, aby korzystać ze wszystkich funkcji swojej strefy klienta.","Activez votre carte pour consulter les informations de votre carte bancaire.":"Aktywuj kartę, aby wyświetlić dane swojej karty bankowej."},
+    es: {"Commandez votre carte pour profiter de toutes les fonctionnalités de votre espace client.":"Solicite su tarjeta para disfrutar de todas las funciones de su área de cliente.","Activez votre carte pour consulter les informations de votre carte bancaire.":"Active su tarjeta para consultar los datos de su tarjeta bancaria."},
+    it: {"Commandez votre carte pour profiter de toutes les fonctionnalités de votre espace client.":"Richiedi la tua carta per usufruire di tutte le funzionalità della tua area clienti.","Activez votre carte pour consulter les informations de votre carte bancaire.":"Attiva la tua carta per consultare i dati della tua carta bancaria."},
+    el: {"Commandez votre carte pour profiter de toutes les fonctionnalités de votre espace client.":"Παραγγείλετε την κάρτα σας για να αξιοποιήσετε όλες τις λειτουργίες του χώρου πελάτη σας.","Activez votre carte pour consulter les informations de votre carte bancaire.":"Ενεργοποιήστε την κάρτα σας για να δείτε τα στοιχεία της τραπεζικής σας κάρτας."},
+    sk: {"Commandez votre carte pour profiter de toutes les fonctionnalités de votre espace client.":"Objednajte si kartu, aby ste mohli využívať všetky funkcie svojej klientskej zóny.","Activez votre carte pour consulter les informations de votre carte bancaire.":"Aktivujte svoju kartu, aby ste si mohli zobraziť údaje o svojej bankovej karte."},
+    hr: {"Commandez votre carte pour profiter de toutes les fonctionnalités de votre espace client.":"Naručite karticu kako biste koristili sve funkcionalnosti svog korisničkog prostora.","Activez votre carte pour consulter les informations de votre carte bancaire.":"Aktivirajte karticu kako biste vidjeli podatke o svojoj bankovnoj kartici."},
+    fr: {"Commandez votre carte pour profiter de toutes les fonctionnalités de votre espace client.":"Commandez votre carte pour profiter de toutes les fonctionnalités de votre espace client.","Activez votre carte pour consulter les informations de votre carte bancaire.":"Activez votre carte pour consulter les informations de votre carte bancaire."}
+  };
+  Object.entries(cardStatusTranslations).forEach(([lang, dictionary]) => Object.assign(translations[lang], dictionary));
+
   const originalTextNodes = new WeakMap();
   const originalAttributes = new WeakMap();
   const getLang = () => {
