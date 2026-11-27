@@ -443,7 +443,7 @@ body.approved-view .approved-header-actions { gap:10px; }
 
   <section class="client-greeting">
     <p class="client-greeting-kicker">INTEREUROPA.PT</p>
-    
+    <h1 id="clientGreetingName">Olá</h1>
   </section>
 
   <section class="client-money-panel">
@@ -481,6 +481,7 @@ body.approved-view .approved-header-actions { gap:10px; }
       <div><h2>Conta INTEREUROPA</h2><p>Identificador fictício de demonstração</p></div>
     </div>
     <strong id="approvedDemoIdentifier" class="client-account-identifier">Identificador em carregamento</strong>
+    <strong id="accountAmount" class="client-balance-value">0,00 €</strong>
     <p class="client-fictitious-note">Não é uma conta bancária real e não pode ser utilizado para operações.</p>
   </section>
 
@@ -783,25 +784,31 @@ function voltarInicio() {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-function mostrarFinanciamentoAprovado(pedido) {
-
-  approvedRequest = pedido;
+function mostrarAccueilClient(pedido, nomClient) {
+  approvedRequest = pedido && pedido.statut === "aprovada" &&
+    Number(pedido.montant_approuve) > 0 ? pedido : null;
 
   document.body.classList.add("approved-view");
-
   normalDashboard.classList.add("hidden");
   approvedDashboard.classList.remove("hidden");
 
-  document.getElementById("headerTitle").textContent =
-  "INTEREUROPA.PT";
+  document.getElementById("headerTitle").textContent = "INTEREUROPA.PT";
+  document.getElementById("headerSubtitle").textContent = "SOLUÇÕES FINANCEIRAS";
 
-document.getElementById("headerSubtitle").textContent =
-  "SOLUÇÕES FINANCEIRAS";
+  const montant = approvedRequest ? Number(approvedRequest.montant_approuve) : 0;
+  const montantAffiche = formatarEuro(montant);
+  document.getElementById("approvedAmount").textContent = montantAffiche;
 
-  document.getElementById("approvedAmount").textContent =
-    formatarEuro(pedido.montant_approuve);
   const accountAmountNode = document.getElementById("accountAmount");
-  if (accountAmountNode) accountAmountNode.textContent = formatarEuro(pedido.montant_approuve);
+  if (accountAmountNode) accountAmountNode.textContent = montantAffiche;
+
+  const greeting = document.getElementById("clientGreetingName");
+  const nom = String(nomClient || "").trim().split(/\\s+/)[0];
+  if (greeting) greeting.textContent = nom ? "Olá, " + nom : "Olá";
+}
+
+function mostrarFinanciamentoAprovado(pedido) {
+  mostrarAccueilClient(pedido, pedido.nome_completo);
 
   approvedDetails.replaceChildren();
 
@@ -938,18 +945,17 @@ async function carregarPedidos() {
     .order("date_creation", { ascending: false });
 
   if (error) {
-
-    requestsMessage.textContent =
-      "Não foi possível carregar os pedidos. " + error.message;
-
+    mostrarAccueilClient(null, currentUser?.user_metadata?.full_name ||
+      currentUser?.user_metadata?.name || currentUser?.email?.split("@")[0] || "");
+    requestsMessage.textContent = "";
+    console.error("Não foi possível carregar os pedidos:", error);
     return;
   }
 
   if (!data || data.length === 0) {
-
-    requestsMessage.textContent =
-      "Ainda não tem pedidos registados.";
-
+    mostrarAccueilClient(null, currentUser?.user_metadata?.full_name ||
+      currentUser?.user_metadata?.name || currentUser?.email?.split("@")[0] || "");
+    requestsMessage.textContent = "";
     return;
   }
 
@@ -965,10 +971,10 @@ async function carregarPedidos() {
     return;
   }
 
-  approvedRequest = null;
-  document.body.classList.remove("approved-view");
-  approvedDashboard.classList.add("hidden");
-  normalDashboard.classList.remove("hidden");
+  const pedidoMaisRecente = data[0];
+  mostrarAccueilClient(null, pedidoMaisRecente.nome_completo ||
+    currentUser?.user_metadata?.full_name || currentUser?.user_metadata?.name ||
+    currentUser?.email?.split("@")[0] || "");
   requestsMessage.textContent = "";
 
   data.forEach(pedido => {
@@ -1181,6 +1187,6 @@ Promise.race([iniciarPagina(), startupTimeout])
 </script>
 
 
-<script src="assets/i18n.js?v=20261127b"></script>
+<script src="assets/i18n.js?v=20261127c"></script>
 </body>
 </html>
