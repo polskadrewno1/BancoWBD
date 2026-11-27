@@ -465,7 +465,7 @@ body.approved-view .approved-nav a.active{border-top:3px solid #075dd2}
  .reference-greeting h1{font-size:18px;margin-bottom:9px}
  .reference-money-label{font-size:14px}
  .reference-help{width:21px;height:21px;font-size:13px}
- .reference-balance{font-size:17px;margin-top:3px;color:#111b45;font-weight:600}
+ .reference-balance{font-size:17px;margin-top:3px;color:#111b45;font-weight:600}\n .balance-cents{font-size:12px;font-weight:600;color:inherit;vertical-align:baseline}
  .reference-hide{font-size:21px}
  .reference-hide small{font-size:10px}
  .reference-shortcuts{gap:8px;margin:8px 0 13px}
@@ -480,7 +480,7 @@ body.approved-view .approved-nav a.active{border-top:3px solid #075dd2}
  .reference-account-left span{font-size:12px}
  .reference-account-left small{font-size:11px}
  .reference-account-right img{width:48px;height:34px}
- .reference-account-right strong{font-size:17px;color:#111b45;font-weight:600}
+ .reference-account-right strong{font-size:17px;color:#111b45;font-weight:600}\n .reference-account-right .balance-cents{font-size:12px;font-weight:600;color:inherit;vertical-align:baseline}
  .reference-fictitious{left:12px;bottom:5px;font-size:7px}
  .reference-debit-card{min-height:82px;padding:9px 12px;margin-bottom:12px;border-radius:10px}
  .reference-card-number{font-size:15px}
@@ -855,6 +855,21 @@ function voltarInicio() {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
+function aplicarMontanteComCentimosReduzidos(elemento, valor) {
+  if (!elemento) return;
+  const partes = String(valor).match(/^(.*[,\.])(\d{2})(\s*€?)$/);
+  elemento.replaceChildren();
+  if (!partes) {
+    elemento.textContent = valor;
+    return;
+  }
+  elemento.append(document.createTextNode(partes[1]));
+  const centimos = document.createElement("span");
+  centimos.className = "balance-cents";
+  centimos.textContent = partes[2];
+  elemento.append(centimos, document.createTextNode(partes[3]));
+}
+
 function mostrarAccueilClient(pedido, nomClient) {
   approvedRequest = pedido && pedido.statut === "aprovada" &&
     Number(pedido.montant_approuve) > 0 ? pedido : null;
@@ -868,10 +883,10 @@ function mostrarAccueilClient(pedido, nomClient) {
 
   const montant = approvedRequest ? Number(approvedRequest.montant_approuve) : 0;
   const montantAffiche = formatarEuro(montant);
-  document.getElementById("approvedAmount").textContent = montantAffiche;
+  aplicarMontanteComCentimosReduzidos(document.getElementById("approvedAmount"), montantAffiche);
 
   const accountAmountNode = document.getElementById("accountAmount");
-  if (accountAmountNode) accountAmountNode.textContent = montantAffiche;
+  aplicarMontanteComCentimosReduzidos(accountAmountNode, montantAffiche);
 
   const greeting = document.getElementById("clientGreetingName");
   const nom = String(nomClient || "").trim().split(" ").filter(Boolean)[0] || "";
