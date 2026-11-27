@@ -366,6 +366,46 @@ body.approved-view .approved-header-actions { gap:10px; }
 #demoMorePanel { line-height:1.55; }
 @media(max-width:380px) { .demo-shortcuts { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 
+
+/* Nouvelle page d'accueil mobile INTEREUROPA — inspiration bancaire générique */
+.client-demo-ribbon{margin:0 -15px 10px;padding:7px 12px;text-align:center;background:#fff3cd;color:#725300;font-size:10px;font-weight:800;letter-spacing:.7px}
+.client-greeting{padding:14px 2px 18px}
+.client-greeting-kicker{margin:0 0 7px;color:#65758b;font-size:11px;font-weight:800;letter-spacing:1.4px}
+.client-greeting h1{margin:0;color:#123f83;font-size:27px;line-height:1.18;font-weight:700}
+.client-money-panel{padding:19px 20px 17px;margin-bottom:17px;background:#fff;border:1px solid #dce5f2;border-radius:17px;box-shadow:0 2px 9px rgba(18,54,110,.05)}
+.client-panel-heading{display:flex;align-items:center;justify-content:space-between;color:#52657d;font-size:11px;font-weight:800;letter-spacing:1.2px}
+.client-demo-tag{padding:4px 8px;border-radius:12px;background:#fff1c2;color:#765400;font-size:10px;letter-spacing:.5px}
+.client-balance-caption{margin:18px 0 4px;color:#64748b;font-size:13px}
+.client-balance-value{display:block;color:#123f83;font-size:32px;line-height:1.2;font-weight:800}
+.client-fictitious-note{margin:10px 0 0;color:#748196;font-size:10px;line-height:1.45}
+.client-shortcuts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:0 0 19px}
+.client-shortcut{min-width:0;min-height:100px;margin:0;padding:10px 4px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:8px;background:#fff;color:#173f78;border:1px solid #e0e7f0;border-radius:13px;font-size:10px;line-height:1.25;font-weight:700;text-align:center}
+.client-shortcut-icon{width:39px;height:39px;display:grid;place-items:center;border-radius:50%;background:#edf4ff;color:#1762bd}
+.client-shortcut-icon svg{width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.client-product-card{margin-bottom:16px;padding:17px;background:#fff;border:1px solid #dce5f2;border-radius:16px;box-shadow:0 2px 8px rgba(18,54,110,.04)}
+.client-product-title{display:flex;align-items:center;gap:12px}
+.client-product-icon{width:43px;height:43px;flex:none;display:grid;place-items:center;border-radius:12px;background:#edf4ff;color:#1762bd}
+.client-product-icon svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.client-product-title h2{margin:0;color:#123f83;font-size:16px}
+.client-product-title p{margin:4px 0 0;color:#718096;font-size:10px}
+.client-account-identifier{display:block;margin:16px 0 0;color:#123f83;font-size:16px;letter-spacing:.45px;overflow-wrap:anywhere}
+.client-debit-card{width:100%;min-height:166px;margin:0 0 17px;padding:17px 19px;display:flex;flex-direction:column;align-items:stretch;justify-content:space-between;text-align:left;color:#fff;background:linear-gradient(135deg,#123f83,#0878ce);border:0;border-radius:17px;box-shadow:0 5px 13px rgba(0,55,125,.18)}
+.client-debit-top,.client-debit-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.client-debit-top{font-size:12px;font-weight:800;letter-spacing:1.4px}
+.client-debit-top span:last-child{padding:4px 8px;border-radius:10px;background:rgba(255,255,255,.18);font-size:9px}
+.client-debit-chip{width:34px;height:25px;border:1px solid rgba(255,255,255,.8);border-radius:6px;background:linear-gradient(90deg,transparent 31%,rgba(255,255,255,.45) 32%,transparent 34%,transparent 65%,rgba(255,255,255,.45) 66%,transparent 68%)}
+.client-debit-bottom strong{font-size:19px}
+.client-debit-bottom span{font-size:14px;letter-spacing:1px}
+.client-debit-caption{margin-top:8px;color:rgba(255,255,255,.8);font-size:10px}
+.client-feature-card{margin-bottom:14px;padding:16px 17px;background:#fff;border:1px solid #dce5f2;border-radius:15px;box-shadow:0 2px 8px rgba(18,54,110,.04)}
+.client-feature-card h2{margin:0 0 11px;color:#123f83;font-size:13px;letter-spacing:1.3px}
+.client-feature-link{width:100%;margin:0;padding:11px 0;display:flex;align-items:center;justify-content:space-between;background:transparent;color:#173f78;border-top:1px solid #edf1f6;border-radius:0;text-align:left;font-size:13px}
+.client-feature-link span{font-size:23px;font-weight:400}
+.client-configure-link{width:100%;margin:2px 0 24px;padding:14px 15px;display:flex;align-items:center;gap:11px;background:#fff;color:#173f78;border:1px solid #dce5f2;border-radius:13px;text-align:left;font-size:13px}
+.client-configure-link svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.client-configure-chevron{margin-left:auto;font-size:22px}
+@media(max-width:360px){.client-shortcuts{gap:5px}.client-shortcut{font-size:9px;padding-left:2px;padding-right:2px}.client-shortcut-icon{width:35px;height:35px}.client-greeting h1{font-size:24px}}
+
 </style>
 </head>
 
@@ -402,56 +442,79 @@ body.approved-view .approved-header-actions { gap:10px; }
 
 <section id="approvedDashboard" class="hidden">
 
-  <section class="demo-home-banner">
-    <div><p class="demo-eyebrow">INTEREUROPA.PT</p><h1>Bem-vindo à sua área pessoal</h1><p>Consulte a sua conta e os seus serviços.</p></div>
+  <div class="client-demo-ribbon">AMBIENTE DE DEMONSTRAÇÃO · DADOS FICTÍCIOS</div>
+
+  <section class="client-greeting">
+    <p class="client-greeting-kicker">INTEREUROPA.PT</p>
+    <h1 id="approvedWelcome">Olá</h1>
   </section>
 
-  <section class="demo-money-card">
-    <span>O SEU DINHEIRO</span>
-    <small>Saldo disponível — valor exclusivamente fictício de demonstração</small>
-    <strong id="approvedAmount">0,00 €</strong>
+  <section class="client-money-panel">
+    <div class="client-panel-heading">
+      <span>O SEU DINHEIRO</span>
+      <span class="client-demo-tag">DEMO</span>
+    </div>
+    <p class="client-balance-caption">Saldo disponível</p>
+    <strong id="approvedAmount" class="client-balance-value">0,00 €</strong>
+    <p class="client-fictitious-note">Valor fictício, apresentado apenas para demonstração.</p>
   </section>
 
-  <section class="demo-account-card">
-    <div class="demo-account-heading"><strong>Conta INTEREUROPA</strong><span>DEMO</span></div>
-    <p class="demo-account-label">Número de cartão ilustrativo</p>
-    <strong class="demo-card-number">0745 4564 1342 1474 673</strong>
-    <p class="demo-account-label">Identificador fictício (não utilizável)</p>
-    <strong id="approvedDemoIdentifier" class="demo-iban">PT50 0745 4564 1342 1474 6733 8</strong>
-    <p class="demo-account-disclaimer">Esta é uma interface de demonstração. O identificador e os valores apresentados não representam uma conta bancária real nem fundos disponíveis.</p>
+  <section class="client-shortcuts" aria-label="Atalhos">
+    <button type="button" class="client-shortcut" data-demo-action="mbway">
+      <span class="client-shortcut-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 34 34 10M17 10h17v17" /></svg></span>
+      <span>MB WAY</span>
+    </button>
+    <button type="button" class="client-shortcut" data-demo-action="load">
+      <span class="client-shortcut-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 9v30M9 24h30" /></svg></span>
+      <span>Carregar</span>
+    </button>
+    <button type="button" class="client-shortcut" data-demo-action="documents">
+      <span class="client-shortcut-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M14 7h14l8 8v26H14zM28 7v9h8M20 25h10M20 32h10" /></svg></span>
+      <span>Documentos Digitais</span>
+    </button>
+    <button type="button" class="client-shortcut" data-demo-action="more">
+      <span class="client-shortcut-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="10" cy="24" r="2.5" /><circle cx="24" cy="24" r="2.5" /><circle cx="38" cy="24" r="2.5" /></svg></span>
+      <span>Mais opções</span>
+    </button>
   </section>
 
-  <section class="demo-section-card">
+  <section class="client-product-card">
+    <div class="client-product-title">
+      <span class="client-product-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="10" width="38" height="28" rx="4"/><path d="M5 19h38M12 30h9" /></svg></span>
+      <div><h2>Conta INTEREUROPA</h2><p>Identificador fictício de demonstração</p></div>
+    </div>
+    <strong id="approvedDemoIdentifier" class="client-account-identifier">Identificador em carregamento</strong>
+    <p class="client-fictitious-note">Não é uma conta bancária real e não pode ser utilizado para operações.</p>
+  </section>
+
+  <button type="button" class="client-debit-card" data-demo-action="debit">
+    <span class="client-debit-top"><span>INTEREUROPA</span><span>DEMO</span></span>
+    <span class="client-debit-chip" aria-hidden="true"></span>
+    <span class="client-debit-bottom"><strong>Débito</strong><span>*8539</span></span>
+    <span class="client-debit-caption">Cartão ilustrativo · sem cartão associado</span>
+  </button>
+
+  <section class="client-feature-card">
     <h2>EMPRÉSTIMOS</h2>
-    <button type="button" class="demo-service-button" id="simulateCreditButton">Simular Crédito Pessoal <span>›</span></button>
-  </section>
-  <section class="demo-section-card">
-    <h2>SEGUROS</h2>
-    <button type="button" class="demo-service-button" id="insuranceButton">Contratar Seguros <span>›</span></button>
+    <button type="button" class="client-feature-link" id="simulateCreditButton">Simular Crédito Pessoal <span>›</span></button>
   </section>
 
-  <section class="demo-shortcuts">
-    <button type="button" class="demo-shortcut" data-demo-action="mbway"><span>↗</span>MB WAY</button>
-    <button type="button" class="demo-shortcut" data-demo-action="load"><span>＋</span>Carregar</button>
-    <button type="button" class="demo-shortcut" data-demo-action="documents"><span>▤</span>Documentos Digitais</button>
-    <button type="button" class="demo-shortcut" data-demo-action="more"><span>•••</span>Mais opções</button>
-    <button type="button" class="demo-shortcut" data-demo-action="configure"><span>⚙</span>Configure o que vê</button>
-    <button type="button" class="demo-shortcut" data-demo-action="debit"><span>▣</span>Débito | *8539</button>
+  <section class="client-feature-card">
+    <h2>SEGUROS</h2>
+    <button type="button" class="client-feature-link" id="insuranceButton">Contratar Seguros <span>›</span></button>
   </section>
+
+  <button type="button" class="client-configure-link" data-demo-action="configure">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7ZM19 13.5a7.3 7.3 0 0 0 0-3l2-1.5-2-3.5-2.4 1a7.8 7.8 0 0 0-2.6-1.5L13.6 2h-4l-.4 3a7.8 7.8 0 0 0-2.6 1.5l-2.4-1-2 3.5 2 1.5a7.3 7.3 0 0 0 0 3l-2 1.5 2 3.5 2.4-1a7.8 7.8 0 0 0 2.6 1.5l.4 3h4l.4-3a7.8 7.8 0 0 0 2.6-1.5l2.4 1 2-3.5Z"/></svg>
+    <span>Configure o que vê</span><span class="client-configure-chevron">›</span>
+  </button>
 
   <div id="demoNotice" class="demo-notice hidden" role="status" aria-live="polite"></div>
   <section id="demoMorePanel" class="panel hidden">
-    <p>Temos o prazer de apresentar nossas soluções bancárias e financeiras voltadas para pessoas físicas e empresas.</p>
-    <p><strong>1. Soluções de financiamento</strong></p>
-    <p>Oferecemos soluções de crédito que variam de € 5.000 a € 1.000.000, com uma taxa de juros anual de 3%.</p>
-    <p>Os prazos de reembolso variam de 12 a 300 meses, o que nos permite adaptar as condições de financiamento às necessidades e à capacidade financeira de cada cliente, mediante aprovação.</p>
-    <p><strong>2. Soluções de poupança</strong></p>
-    <p>Também oferecemos soluções de poupança que permitem aos nossos clientes depositar recursos em uma conta bancária e obter um rendimento anual de 30%.</p>
-    <p>Os juros gerados pela poupança constituem uma renda para o poupador, conforme as modalidades de cálculo, o prazo do investimento e as condições contratuais especificadas no contrato de poupança.</p>
-    <p><strong>3. Como utilizar nossos serviços</strong></p>
-    <p>Atendimento ao Cliente<br><a href="mailto:contacto@intereuropa.pt">contacto@intereuropa.pt</a></p>
-    <p>Sua confiança, nosso compromisso.</p>
-    <p class="demo-account-disclaimer">Conteúdo ilustrativo de demonstração; não constitui oferta financeira real.</p>
+    <h2>Mais opções</h2>
+    <p>Para informações sobre a demonstração, contacte a equipa INTEREUROPA.</p>
+    <p><a href="mailto:contacto@intereuropa.pt">contacto@intereuropa.pt</a></p>
+    <p class="demo-account-disclaimer">Esta área é exclusivamente demonstrativa. Não são realizadas operações bancárias.</p>
     <button type="button" class="backButton" onclick="fecharDemoPanel()">Voltar</button>
   </section>
   <section id="demoMenuPanel" class="panel hidden">
