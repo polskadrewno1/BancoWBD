@@ -407,6 +407,76 @@ body.approved-view .approved-header-actions { gap:10px; }
 @media(max-width:360px){.client-shortcuts{gap:5px}.client-shortcut{font-size:9px;padding-left:2px;padding-right:2px}.client-shortcut-icon{width:35px;height:35px}.client-greeting h1{font-size:24px}}
 
 .status-message:empty{display:none}
+
+/* Accueil client calquée sur la capture de référence */
+body.approved-view{background:#fff;color:#111b45}
+body.approved-view header{height:112px;min-height:112px;padding:17px 28px;background:#fff;box-shadow:none}
+body.approved-view .approved-brand img{width:142px;height:76px;object-fit:contain}
+body.approved-view .approved-brand-copy{display:none}
+body.approved-view .approved-header-actions{gap:18px}
+body.approved-view .header-icon-button{width:48px;height:48px;background:transparent;color:#064b9b;font-size:31px}
+body.approved-view .demo-label{display:none}
+body.approved-view main{max-width:850px;padding:0 27px 104px;margin:12px auto 0}
+.reference-greeting{position:relative;padding:6px 4px 18px;color:#111b45}
+.reference-greeting h1{font-size:30px;font-weight:400;margin:0 0 23px}
+.reference-greeting h1 strong{font-weight:800}
+.reference-money-label{font-size:21px;display:flex;align-items:center;gap:9px}
+.reference-help{width:26px;height:26px;border:2px solid #1760a9;border-radius:50%;display:inline-grid;place-items:center;font-size:17px;font-weight:700;color:#1760a9}
+.reference-money-row{display:flex;align-items:center;justify-content:space-between}
+.reference-balance{display:block;margin-top:7px;color:#111b45;font-size:43px;line-height:1.1;font-weight:800}
+.reference-hide{display:flex;flex-direction:column;align-items:center;gap:2px;margin:0;background:transparent;color:#064b9b;padding:0;font-size:27px}
+.reference-hide small{font-size:12px;font-weight:400}
+.reference-hidden{filter:blur(9px)}
+.reference-shortcuts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:18px 0 29px}
+.reference-shortcut{margin:0;padding:0 2px;display:flex;flex-direction:column;align-items:center;gap:10px;background:transparent;color:#111b45;font-size:17px;font-weight:400;line-height:1.25}
+.reference-shortcut-icon{width:112px;height:112px;border-radius:50%;background:#fff;box-shadow:0 3px 18px rgba(20,54,100,.08);display:grid;place-items:center;color:#064b9b}
+.reference-shortcut-icon svg{width:48px;height:48px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.reference-mbway{font-size:22px;font-weight:800;letter-spacing:-1.5px;font-style:italic}
+.reference-more{font-size:29px;letter-spacing:4px;font-weight:800}
+.reference-account-card{position:relative;display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:184px;padding:19px 22px 34px;margin:0 0 22px;border:1px solid #e2e5ea;border-radius:14px;background:#fff;box-shadow:0 2px 9px rgba(20,40,70,.08);color:#111b45}
+.reference-account-left{display:flex;flex-direction:column;gap:9px;min-width:0}
+.reference-account-left strong{font-size:25px;letter-spacing:.2px}
+.reference-account-left span{font-size:21px;overflow-wrap:anywhere}
+.reference-account-left small{font-size:17px;color:#78808d}
+.reference-account-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex:none}
+.reference-account-right img{width:84px;height:54px;object-fit:contain}
+.reference-account-right strong{font-size:30px;color:#111b45}
+.reference-fictitious{position:absolute;left:22px;bottom:8px;color:#7b8490;font-size:9px}
+.reference-debit-card{width:100%;min-height:136px;margin:0 0 23px;padding:17px 22px;display:flex;flex-direction:column;justify-content:space-between;align-items:stretch;text-align:left;background:#fff;color:#111b45;border:1px solid #e2e5ea;border-radius:14px;box-shadow:0 2px 9px rgba(20,40,70,.08)}
+.reference-card-number{font-size:25px;font-weight:800}
+.reference-card-bottom{display:flex;align-items:center;justify-content:space-between;font-size:22px;font-weight:400}
+.reference-visa{display:block;padding:8px 12px;background:linear-gradient(130deg,#0751a5,#0788c9);color:#fff;border-radius:9px;text-align:right;font-size:10px;line-height:1.2}
+.reference-visa b{font-size:19px;font-style:italic}
+.reference-fictitious-card{font-size:9px;color:#7b8490}
+.reference-service-card{margin:0 0 20px;border:1px solid #e1e5eb;border-radius:13px;background:#fff;box-shadow:0 2px 8px rgba(20,40,70,.06);overflow:hidden}
+.reference-service-card h2{margin:0;padding:17px 25px;border-bottom:1px solid #e7e9ed;color:#111b45;font-size:23px;font-weight:400;letter-spacing:0}
+.reference-service-link{width:100%;min-height:90px;margin:0;padding:12px 24px;display:flex;align-items:center;gap:23px;background:#fff;color:#174d91;border-radius:0;text-align:left;font-size:19px;font-weight:400}
+.reference-service-link b{margin-left:auto;font-size:35px;font-weight:400}
+.reference-service-icon{width:54px;flex:none;text-align:center;font-size:39px}
+body.approved-view .approved-nav{padding:8px 4px calc(8px + env(safe-area-inset-bottom));background:#fff}
+body.approved-view .approved-nav a{font-size:15px}
+body.approved-view .approved-nav svg{width:39px;height:39px}
+body.approved-view .approved-nav a.active{border-top:3px solid #075dd2}
+@media(max-width:480px){
+ body.approved-view header{height:104px;min-height:104px;padding:12px 20px}
+ body.approved-view .approved-brand img{width:126px;height:70px}
+ body.approved-view main{padding-left:25px;padding-right:25px}
+ .reference-greeting h1{font-size:29px}
+ .reference-balance{font-size:40px}
+ .reference-shortcut-icon{width:100px;height:100px}
+ .reference-shortcut{font-size:15px}
+ .reference-account-card{min-height:174px;padding-left:17px;padding-right:14px}
+ .reference-account-left strong{font-size:21px}
+ .reference-account-left span{font-size:17px}
+ .reference-account-right img{width:65px}
+ .reference-account-right strong{font-size:25px}
+ .reference-card-number{font-size:21px}
+ .reference-card-bottom{font-size:19px}
+ .reference-service-card h2{font-size:21px}
+ .reference-service-link{font-size:17px}
+ body.approved-view .approved-nav a{font-size:12px}
+}
+
 </style>
 </head>
 
@@ -438,74 +508,57 @@ body.approved-view .approved-header-actions { gap:10px; }
 <!-- NOVA PÁGINA PARA FINANCIAMENTO APROVADO -->
 
 <section id="approvedDashboard" class="hidden">
-
-  <div class="client-demo-ribbon">AMBIENTE DE DEMONSTRAÇÃO · DADOS FICTÍCIOS</div>
-
-  <section class="client-greeting">
-    <p class="client-greeting-kicker">INTEREUROPA.PT</p>
-    <h1 id="clientGreetingName">Olá</h1>
-  </section>
-
-  <section class="client-money-panel">
-    <div class="client-panel-heading">
-      <span>O SEU DINHEIRO</span>
-      <span class="client-demo-tag">DEMO</span>
+  <section class="reference-greeting">
+    <h1>Olá, <strong id="clientGreetingName">Cliente</strong></h1>
+    <div class="reference-money-label">O seu dinheiro <span class="reference-help">?</span></div>
+    <div class="reference-money-row">
+      <strong id="approvedAmount" class="reference-balance">0,00 €</strong>
+      <button type="button" class="reference-hide" aria-label="Ocultar saldo" onclick="document.getElementById('approvedAmount').classList.toggle('reference-hidden');document.getElementById('accountAmount').classList.toggle('reference-hidden')">
+        <span aria-hidden="true">◉̸</span><small>Ocultar</small>
+      </button>
     </div>
-    <p class="client-balance-caption">Saldo disponível</p>
-    <strong id="approvedAmount" class="client-balance-value">0,00 €</strong>
-    <p class="client-fictitious-note">Valor fictício, apresentado apenas para demonstração.</p>
   </section>
 
-  <section class="client-shortcuts" aria-label="Atalhos">
-    <button type="button" class="client-shortcut" data-demo-action="mbway">
-      <span class="client-shortcut-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 34 34 10M17 10h17v17" /></svg></span>
-      <span>MB WAY</span>
+  <section class="reference-shortcuts" aria-label="Atalhos">
+    <button type="button" class="reference-shortcut" data-demo-action="mbway">
+      <span class="reference-shortcut-icon reference-mbway">MB WAY</span><span>MB WAY</span>
     </button>
-    <button type="button" class="client-shortcut" data-demo-action="load">
-      <span class="client-shortcut-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 9v30M9 24h30" /></svg></span>
-      <span>Carregar</span>
+    <button type="button" class="reference-shortcut" data-demo-action="documents">
+      <span class="reference-shortcut-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M12 5h17l9 9v29H12zM29 5v10h9M17 30c0-5 8-7 11-2 5-2 9 5 5 9H18c-5-1-5-6-1-7" /></svg></span><span>Documentos<br>Digitais</span>
     </button>
-    <button type="button" class="client-shortcut" data-demo-action="documents">
-      <span class="client-shortcut-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M14 7h14l8 8v26H14zM28 7v9h8M20 25h10M20 32h10" /></svg></span>
-      <span>Documentos Digitais</span>
-    </button>
-    <button type="button" class="client-shortcut" data-demo-action="more">
-      <span class="client-shortcut-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="10" cy="24" r="2.5" /><circle cx="24" cy="24" r="2.5" /><circle cx="38" cy="24" r="2.5" /></svg></span>
-      <span>Mais opções</span>
+    <button type="button" class="reference-shortcut" data-demo-action="more">
+      <span class="reference-shortcut-icon reference-more">•••</span><span>Mais opções</span>
     </button>
   </section>
 
-  <section class="client-product-card">
-    <div class="client-product-title">
-      <span class="client-product-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="10" width="38" height="28" rx="4"/><path d="M5 19h38M12 30h9" /></svg></span>
-      <div><h2>Conta INTEREUROPA</h2><p>Identificador fictício de demonstração</p></div>
+  <section class="reference-account-card">
+    <div class="reference-account-left">
+      <strong>4564 1342 1474 673</strong>
+      <span>PT50 0745 4564 1342 1474 6733 8</span>
+      <small>Saldo disponível</small>
     </div>
-    <strong id="approvedDemoIdentifier" class="client-account-identifier">Identificador em carregamento</strong>
-    <strong id="accountAmount" class="client-balance-value">0,00 €</strong>
-    <p class="client-fictitious-note">Não é uma conta bancária real e não pode ser utilizado para operações.</p>
+    <div class="reference-account-right">
+      <img src="assets/intereuropa-emblem.svg" alt="INTEREUROPA">
+      <strong id="accountAmount">0,00 €</strong>
+    </div>
+    <small class="reference-fictitious">Identificadores e saldo fictícios — ambiente de demonstração.</small>
   </section>
 
-  <button type="button" class="client-debit-card" data-demo-action="debit">
-    <span class="client-debit-top"><span>INTEREUROPA</span><span>DEMO</span></span>
-    <span class="client-debit-chip" aria-hidden="true"></span>
-    <span class="client-debit-bottom"><strong>Débito</strong><span>*8539</span></span>
-    <span class="client-debit-caption">Cartão ilustrativo · sem cartão associado</span>
+  <button type="button" class="reference-debit-card" data-demo-action="debit">
+    <span class="reference-card-number">XXXXXXXXXX8539</span>
+    <span class="reference-card-bottom"><span>Débito | *8539</span><span class="reference-visa">INTEREUROPA<br><b>VISA</b></span></span>
+    <span class="reference-fictitious-card">Cartão ilustrativo de demonstração</span>
   </button>
 
-  <section class="client-feature-card">
+  <section class="reference-service-card">
     <h2>EMPRÉSTIMOS</h2>
-    <button type="button" class="client-feature-link" id="simulateCreditButton">Simular Crédito Pessoal <span>›</span></button>
+    <button type="button" id="simulateCreditButton" class="reference-service-link"><span class="reference-service-icon">♧</span><span>Simular Crédito Pessoal</span><b>›</b></button>
   </section>
 
-  <section class="client-feature-card">
+  <section class="reference-service-card">
     <h2>SEGUROS</h2>
-    <button type="button" class="client-feature-link" id="insuranceButton">Contratar Seguros <span>›</span></button>
+    <button type="button" id="insuranceButton" class="reference-service-link"><span class="reference-service-icon">♧</span><span>Contratar Seguros</span><b>›</b></button>
   </section>
-
-  <button type="button" class="client-configure-link" data-demo-action="configure">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7ZM19 13.5a7.3 7.3 0 0 0 0-3l2-1.5-2-3.5-2.4 1a7.8 7.8 0 0 0-2.6-1.5L13.6 2h-4l-.4 3a7.8 7.8 0 0 0-2.6 1.5l-2.4-1-2 3.5 2 1.5a7.3 7.3 0 0 0 0 3l-2 1.5 2 3.5 2.4-1a7.8 7.8 0 0 0 2.6 1.5l.4 3h4l.4-3a7.8 7.8 0 0 0 2.6-1.5l2.4 1 2-3.5Z"/></svg>
-    <span>Configure o que vê</span><span class="client-configure-chevron">›</span>
-  </button>
 
   <div id="demoNotice" class="demo-notice hidden" role="status" aria-live="polite"></div>
   <section id="demoMorePanel" class="panel hidden">
