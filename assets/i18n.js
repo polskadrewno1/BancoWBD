@@ -1885,6 +1885,22 @@
   };
   Object.entries(fixedDashboardTranslations).forEach(([lang, dictionary]) => Object.assign(translations[lang], dictionary));
 
+
+  // Aviso apresentado quando a administração já aprovou um financiamento.
+  const approvedFinancingNoticeTranslations = {
+    pt: {"Já existe um financiamento aprovado nesta conta. Não é possível apresentar um novo pedido.":"Já existe um financiamento aprovado nesta conta. Não é possível apresentar um novo pedido."},
+    en: {"Já existe um financiamento aprovado nesta conta. Não é possível apresentar um novo pedido.":"There is already an approved financing request on this account. A new request cannot be submitted."},
+    de: {"Já existe um financiamento aprovado nesta conta. Não é possível apresentar um novo pedido.":"Für dieses Konto wurde bereits eine Finanzierung genehmigt. Ein neuer Antrag kann nicht eingereicht werden."},
+    pl: {"Já existe um financiamento aprovado nesta conta. Não é possível apresentar um novo pedido.":"Na tym koncie zatwierdzono już finansowanie. Nie można złożyć nowego wniosku."},
+    es: {"Já existe um financiamento aprovado nesta conta. Não é possível apresentar um novo pedido.":"Ya hay una financiación aprobada en esta cuenta. No es posible presentar una nueva solicitud."},
+    it: {"Já existe um financiamento aprovado nesta conta. Não é possível apresentar um novo pedido.":"È già stato approvato un finanziamento per questo conto. Non è possibile presentare una nuova richiesta."},
+    el: {"Já existe um financiamento aprovado nesta conta. Não é possível apresentar um novo pedido.":"Έχει ήδη εγκριθεί χρηματοδότηση για αυτόν τον λογαριασμό. Δεν είναι δυνατή η υποβολή νέου αιτήματος."},
+    sk: {"Já existe um financiamento aprovado nesta conta. Não é possível apresentar um novo pedido.":"Na tomto účte už bolo schválené financovanie. Nie je možné podať novú žiadosť."},
+    hr: {"Já existe um financiamento aprovado nesta conta. Não é possível apresentar um novo pedido.":"Za ovaj račun već je odobreno financiranje. Nije moguće podnijeti novi zahtjev."},
+    fr: {"Já existe um financiamento aprovado nesta conta. Não é possível apresentar um novo pedido.":"Un financement a déjà été approuvé pour ce compte. Il n’est pas possible de soumettre une nouvelle demande."}
+  };
+  Object.entries(approvedFinancingNoticeTranslations).forEach(([lang, dictionary]) => Object.assign(translations[lang], dictionary));
+
   const originalTextNodes = new WeakMap();
   const originalAttributes = new WeakMap();
   const getLang = () => {
