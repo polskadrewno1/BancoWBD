@@ -37,12 +37,13 @@ footer{margin-top:26px;color:#94a3b8;font-size:12px}
 <button type="button" data-lang="sk">🇸🇰 Slovenčina</button>
 <button type="button" data-lang="hr">🇭🇷 Hrvatski</button>
 <button type="button" data-lang="fr">🇫🇷 Français</button>
+<button type="button" data-lang="en">🇬🇧 English</button>
 </div>
 <footer>© 2026 INTEREUROPA.PT</footer>
 </main>
 <script>
 (function(){
-  var supported=["pt","de","pl","es","it","el","sk","hr","fr"];
+  var supported=["pt","de","pl","es","it","el","sk","hr","fr","en"];
   document.querySelectorAll("[data-lang]").forEach(function(button){
     button.addEventListener("click",function(){
       var lang=button.getAttribute("data-lang");
@@ -50,6 +51,7 @@ footer{margin-top:26px;color:#94a3b8;font-size:12px}
       try{
         localStorage.setItem("intereuropa_language",lang);
         localStorage.setItem("intereuropa_language_intro_seen","yes");
+        sessionStorage.setItem("intereuropa_language_selected_this_visit","yes");
         document.cookie="intereuropa_language="+encodeURIComponent(lang)+"; path=/; max-age=31536000; SameSite=Lax";
       }catch(e){}
       window.location.href="index.html";
