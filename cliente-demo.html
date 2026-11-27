@@ -94,20 +94,6 @@
   <nav>
     <a href="index.html">Página inicial</a>
   </nav>
-  <label class="intereuropa-language-wrap" aria-label="Language / Idioma">
-    <img src="assets/intereuropa-language-globe.svg" alt="Globe des neuf langues disponibles" width="42" height="42">
-    <select id="intereuropa-language" aria-label="Selecionar idioma">
-      <option value="pt">Português</option>
-      <option value="de">Deutsch</option>
-      <option value="pl">Polski</option>
-      <option value="es">Español</option>
-      <option value="it">Italiano</option>
-      <option value="el">Ελληνικά</option>
-      <option value="sk">Slovenčina</option>
-      <option value="hr">Hrvatski</option>
-      <option value="fr">Français</option>
-    </select>
-  </label>
 </header>
 
 <main>
@@ -348,7 +334,6 @@ document.getElementById("registerForm")
   const password = document.getElementById("registerPassword").value;
 
   const selectedSignupLanguage =
-    document.getElementById("intereuropa-language")?.value ||
     localStorage.getItem("intereuropa_language") || "pt";
   const signupRedirectUrl =
     "https://polskadrewno1.github.io/BancoWBD/cliente-demo.html?auth=confirmed&lang=" +
@@ -382,7 +367,7 @@ document.getElementById("registerForm")
 
   // A língua selecionada no seletor é prioritária: o parâmetro ?lang da URL
   // pode estar desatualizado depois de o utilizador mudar de idioma.
-  const languageSelector = document.getElementById("intereuropa-language");
+  const languageSelector = null;
   const showDuplicateEmailMessage = () => {
     const selectedLang = languageSelector?.value ||
       localStorage.getItem("intereuropa_language") || "pt";
@@ -470,7 +455,6 @@ document.getElementById("loginForm")
 
     if (isBanned) {
       const selectedLanguage =
-        document.getElementById("intereuropa-language")?.value ||
         localStorage.getItem("intereuropa_language") ||
         new URLSearchParams(window.location.search).get("lang") ||
         "pt";
@@ -564,7 +548,7 @@ document.getElementById("recoveryForm")
     showArea(loginArea);
     return;
   }
-  const selectedLanguage = params.get("lang") || "pt";
+  const selectedLanguage = params.get("lang") || localStorage.getItem("intereuropa_language") || "pt";
   window.location.replace(
     "inscricao-aguarda-aprovacao.html?lang=" + encodeURIComponent(selectedLanguage)
   );
@@ -636,6 +620,6 @@ document.getElementById("newPasswordForm")
 </script>
 
 
-<script src="assets/i18n.js?v=20261126b"></script>
+<script src="assets/i18n.js?v=20261127c"></script>
 </body>
 </html>
