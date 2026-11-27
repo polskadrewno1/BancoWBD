@@ -1815,6 +1815,18 @@
   Object.assign(translations.sk, {"Documentos":"Dokumenty","Digitais":"digitálne","Débito | *8539":"Debetná | *8539"});
   Object.assign(translations.hr, {"Documentos":"Digitalni","Digitais":"dokumenti","Débito | *8539":"Debitna | *8539"});
   Object.assign(translations.fr, {"Documentos":"Documents","Digitais":"numériques","Débito | *8539":"Débit | *8539"});
+
+  // Traductions du menu secondaire du tableau de bord client.
+  Object.assign(translations.en, {"Menu":"Menu","Carregar":"Top up","Configure o que vê":"Configure what you see","Voltar":"Back","Débito | *8539":"Debit | *8539"});
+  Object.assign(translations.de, {"Menu":"Menü","Carregar":"Aufladen","Configure o que vê":"Ansicht konfigurieren","Voltar":"Zurück","Débito | *8539":"Debitkarte | *8539"});
+  Object.assign(translations.pl, {"Menu":"Menu","Carregar":"Doładuj","Configure o que vê":"Skonfiguruj widok","Voltar":"Wstecz","Débito | *8539":"Debetowa | *8539"});
+  Object.assign(translations.es, {"Menu":"Menú","Carregar":"Recargar","Configure o que vê":"Configurar lo que ves","Voltar":"Volver","Débito | *8539":"Débito | *8539"});
+  Object.assign(translations.it, {"Menu":"Menu","Carregar":"Ricarica","Configure o que vê":"Configura ciò che vedi","Voltar":"Indietro","Débito | *8539":"Debito | *8539"});
+  Object.assign(translations.el, {"Menu":"Μενού","Carregar":"Φόρτιση","Configure o que vê":"Ρυθμίστε τι εμφανίζεται","Voltar":"Επιστροφή","Débito | *8539":"Χρεωστική | *8539"});
+  Object.assign(translations.sk, {"Menu":"Menu","Carregar":"Dobiť","Configure o que vê":"Nastaviť zobrazenie","Voltar":"Späť","Débito | *8539":"Debetná | *8539"});
+  Object.assign(translations.hr, {"Menu":"Izbornik","Carregar":"Nadoplati","Configure o que vê":"Prilagodi prikaz","Voltar":"Natrag","Débito | *8539":"Debitna | *8539"});
+  Object.assign(translations.fr, {"Menu":"Menu","Carregar":"Recharger","Configure o que vê":"Configurer l’affichage","Voltar":"Retour","Débito | *8539":"Débit | *8539"});
+  Object.assign(translations.pt, {"Menu":"Menu","Carregar":"Carregar","Configure o que vê":"Configure o que vê","Voltar":"Voltar","Débito | *8539":"Débito | *8539"});
   const originalTextNodes = new WeakMap();
   const originalAttributes = new WeakMap();
   const getLang = () => {
