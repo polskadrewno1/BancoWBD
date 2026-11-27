@@ -2,10 +2,12 @@
   const languages = {
     pt: ["Português", "pt-PT"], de: ["Deutsch", "de-DE"], pl: ["Polski", "pl-PL"],
     es: ["Español", "es-ES"], it: ["Italiano", "it-IT"], el: ["Ελληνικά", "el-GR"],
-    sk: ["Slovenčina", "sk-SK"], hr: ["Hrvatski", "hr-HR"], fr: ["Français", "fr-FR"]
+    sk: ["Slovenčina", "sk-SK"], hr: ["Hrvatski", "hr-HR"], fr: ["Français", "fr-FR"],
+    en: ["English", "en-GB"]
   };
   const translations = {
     pt: {},
+    en: {},
     de: {
       "Início":"Startseite","Serviços":"Dienstleistungen","Financiamento":"Finanzierung","Área de cliente":"Kundenbereich","Contacto":"Kontakt",
       "SOLUÇÕES DE FINANCIAMENTO":"FINANZIERUNGSLÖSUNGEN","O futuro financeiro começa com uma nova experiência.":"Die finanzielle Zukunft beginnt mit einer neuen Erfahrung.",
@@ -1690,6 +1692,36 @@
     Object.assign(translations[lang], clientTransferPageTranslations[lang] || {});
   }
 
+  Object.assign(translations.en, {
+    "Início":"Home","Serviços":"Services","Financiamento":"Financing","Área de cliente":"Client area","Contacto":"Contact",
+    "SOLUÇÕES DE FINANCIAMENTO":"FINANCING SOLUTIONS","O futuro financeiro começa com uma nova experiência.":"The financial future begins with a new experience.",
+    "Solicitar um empréstimo":"Apply for financing","Solicitar financiamento":"Apply for financing","Entrar na minha conta":"Log in to my account",
+    "Conheça os nossos serviços":"Discover our services","Fale connosco":"Contact us","Página inicial":"Home page",
+    "CRIAR UMA CONTA":"CREATE AN ACCOUNT","INICIAR SESSÃO":"LOG IN","Criar uma conta":"Create an account",
+    "Registe-se para aceder à sua área pessoal.":"Register to access your client area.","Nome completo":"Full name",
+    "Número de WhatsApp":"WhatsApp number","Endereço de e-mail":"Email address","Criar palavra-passe":"Create password",
+    "Criar conta":"Create account","Voltar":"Back","Iniciar sessão":"Log in","Palavra-passe":"Password",
+    "Entrar":"Log in","Esqueceu-se da palavra-passe?":"Forgot your password?","Recuperar palavra-passe":"Reset password",
+    "Enviar link de recuperação":"Send recovery link","Criar nova palavra-passe":"Create a new password","Nova palavra-passe":"New password",
+    "Confirmar palavra-passe":"Confirm password","Guardar nova palavra-passe":"Save new password","Terminar sessão":"Log out",
+    "Atualizar pedidos":"Refresh requests","Pedido de financiamento":"Financing request","Enviar candidatura":"Submit application",
+    "Informações do requerente":"Applicant information","Dados bancários":"Bank details","País":"Country","Cidade":"City",
+    "Profissão":"Occupation","Montante pretendido (€)":"Requested amount (€)","Prazo de reembolso (meses)":"Repayment term (months)",
+    "Finalidade do financiamento":"Purpose of financing","Nome do banco":"Bank name",
+    "SEU DINHEIRO":"YOUR MONEY","Saldo disponível":"Available balance","Saldo disponível — valor exclusivamente fictício de demonstração":"Available balance — fictional demonstration value only",
+    "Conta INTEREUROPA":"INTEREUROPA Account","Número de cartão ilustrativo":"Illustrative card number","Identificador fictício (não utilizável)":"Fictional identifier (not for use)",
+    "Esta é uma interface de demonstração. O identificador e os valores apresentados não representam uma conta bancária real nem fundos disponíveis.":"This is a demonstration interface. The identifier and displayed amounts do not represent a real bank account or available funds.",
+    "EMPRÉSTIMOS":"LOANS","Simular Crédito Pessoal":"Simulate a personal loan","SEGUROS":"INSURANCE","Contratar Seguros":"Get insurance",
+    "Documentos Digitais":"Digital documents","Mais opções":"More options","Históricos":"History","Accueil":"Home","Faire un virement":"Make a transfer",
+    "Histórico":"History","Aide":"Help","Fundos insuficientes.":"Insufficient funds.","Ativação do virement em attente":"Transfer activation pending",
+    "Activation du virement en attente":"Transfer activation pending","O seu pedido de transferência":"Your transfer request","Conta interna":"Internal account",
+    "Saldo inicial":"Initial balance","Ainda não tem pedidos registados.":"You have no registered requests yet.",
+    "Os meus pedidos de financiamento":"My financing requests","Nova solicitação de financiamento":"New financing request",
+    "Demande enregistrée":"Simulated request","Examen de la demande":"Request review","Activation en attente":"Activation pending",
+    "Compte destinataire":"Recipient account","IBAN :":"IBAN:","O transferência não foi executada":"The transfer has not been executed",
+    "Ordem de transferência":"Transfer order","Recebido":"Received","Em análise":"Under review","Aprovado":"Approved","Recusado":"Declined"
+  });
+
   const key = "intereuropa_language";
   // Traduções completas da identificação da área de cliente e da assinatura da marca.
   Object.assign(translations.pt, {
@@ -1838,47 +1870,8 @@
         el.setAttribute(attr, translateText(originals[attr], dict));
       });
     });
-    const selector = document.getElementById("intereuropa-language");
-    if (selector) selector.value = lang;
-  }
-  function installSelector() {
-    const header = document.querySelector("header");
-    if (!header) return;
-    let select = document.getElementById("intereuropa-language");
-    if (!select) {
-      const wrap = document.createElement("label");
-      wrap.className = "intereuropa-language-wrap";
-      wrap.setAttribute("aria-label", "Language / Idioma");
-      select = document.createElement("select");
-      select.id = "intereuropa-language";
-      select.setAttribute("aria-label", "Selecionar idioma");
-      Object.entries(languages).forEach(([code, info]) => {
-        const option = document.createElement("option");
-        option.value = code; option.textContent = info[0]; select.appendChild(option);
-      });
-      const globe = document.createElement("img");
-      globe.src = "assets/intereuropa-language-globe.svg";
-      globe.alt = "Globe des neuf langues disponíveis";
-      globe.width = 42;
-      globe.height = 42;
-      globe.loading = "eager";
-      wrap.appendChild(globe);
-      wrap.appendChild(select);
-      header.appendChild(wrap);
-    }
-    if (!select.dataset.languageHandler) {
-      select.addEventListener("change", () => applyLanguage(select.value));
-      select.dataset.languageHandler = "true";
-    }
-    if (!document.getElementById("intereuropa-language-style")) {
-      const style = document.createElement("style");
-      style.id = "intereuropa-language-style";
-      style.textContent = `.intereuropa-language-wrap{display:inline-flex!important;align-items:center!important;gap:11px!important;margin:10px 12px!important;padding:12px 17px!important;border:2px solid #d7e8ff!important;border-radius:16px!important;background-color:#08264b!important;background-image:linear-gradient(120deg,rgba(4,24,52,.18),rgba(15,73,132,.12)),url("${window.location.pathname.startsWith("/BancoWBD/") ? "/BancoWBD" : ""}/assets/intereuropa-language-wallpaper.svg")!important;background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important;box-shadow:0 7px 22px rgba(4,20,43,.42),0 0 0 3px rgba(48,111,177,.16),inset 0 1px 0 rgba(255,255,255,.55)!important;position:relative!important}.intereuropa-language-wrap img{display:block!important;width:44px!important;height:44px!important;object-fit:contain!important;border-radius:50%!important;flex:0 0 44px!important;filter:drop-shadow(0 2px 4px rgba(0,0,0,.55))!important}.intereuropa-language-wrap select{padding:9px 12px!important;border:1px solid rgba(235,245,255,.78)!important;border-radius:9px!important;background:rgba(3,20,43,.78)!important;color:#fff!important;font:inherit!important;font-weight:700!important;max-width:150px!important;min-width:118px!important;outline-offset:3px!important;color-scheme:dark!important;text-shadow:0 1px 2px rgba(0,0,0,.55)!important}.intereuropa-language-wrap select option{background:#102b4e!important;color:#fff!important}@media(max-width:750px){.intereuropa-language-wrap{margin:7px 0;padding:8px 10px;gap:8px}.intereuropa-language-wrap img{width:38px;height:38px;flex-basis:38px}.intereuropa-language-wrap select{max-width:140px;min-width:110px;padding:8px 9px}}`;
-      document.head.appendChild(style);
-    }
   }
   function start() {
-    installSelector();
     applyLanguage(getLang());
     const observer = new MutationObserver(() => {
       clearTimeout(window.__intereuropaI18nTimer);
