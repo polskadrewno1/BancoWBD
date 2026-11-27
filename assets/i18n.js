@@ -1868,6 +1868,23 @@
   };
   Object.entries(dashboardMenuTranslations).forEach(([lang, dictionary]) => Object.assign(translations[lang], dictionary));
 
+
+  // Textes fixes du tableau de bord écrits à l'origine en français.
+  // Ils doivent suivre la langue choisie, y compris dans les panneaux dynamiques.
+  const fixedDashboardTranslations = {
+    en: {"Se déconnecter":"Log out","Vous n'avez pas encore de notification":"You do not have any notifications yet.","Aucune carte n’est associée à votre compte. Commandez la carte associée à votre compte.":"No card is associated with your account. Order the card linked to your account."},
+    fr: {"Se déconnecter":"Se déconnecter","Vous n'avez pas encore de notification":"Vous n'avez pas encore de notification","Aucune carte n’est associée à votre compte. Commandez la carte associée à votre compte.":"Aucune carte n’est associée à votre compte. Commandez la carte associée à votre compte."},
+    de: {"Se déconnecter":"Abmelden","Vous n'avez pas encore de notification":"Sie haben noch keine Benachrichtigungen.","Aucune carte n’est associée à votre compte. Commandez la carte associée à votre compte.":"Mit Ihrem Konto ist keine Karte verknüpft. Bestellen Sie die Ihrem Konto zugeordnete Karte."},
+    pl: {"Se déconnecter":"Wyloguj się","Vous n'avez pas encore de notification":"Nie masz jeszcze żadnych powiadomień.","Aucune carte n’est associée à votre compte. Commandez la carte associée à votre compte.":"Do Twojego konta nie jest przypisana żadna karta. Zamów kartę powiązaną z kontem."},
+    es: {"Se déconnecter":"Cerrar sesión","Vous n'avez pas encore de notification":"Todavía no tiene notificaciones.","Aucune carte n’est associée à votre compte. Commandez la carte associée à votre compte.":"No hay ninguna tarjeta asociada a su cuenta. Solicite la tarjeta vinculada a su cuenta."},
+    it: {"Se déconnecter":"Esci","Vous n'avez pas encore de notification":"Non hai ancora notifiche.","Aucune carte n’est associée à votre compte. Commandez la carte associée à votre compte.":"Nessuna carta è associata al tuo conto. Richiedi la carta collegata al tuo conto."},
+    el: {"Se déconnecter":"Αποσύνδεση","Vous n'avez pas encore de notification":"Δεν έχετε ακόμη ειδοποιήσεις.","Aucune carte n’est associée à votre compte. Commandez la carte associée à votre compte.":"Δεν υπάρχει κάρτα συνδεδεμένη με τον λογαριασμό σας. Ζητήστε την κάρτα που αντιστοιχεί στον λογαριασμό σας."},
+    sk: {"Se déconnecter":"Odhlásiť sa","Vous n'avez pas encore de notification":"Zatiaľ nemáte žiadne upozornenia.","Aucune carte n’est associée à votre compte. Commandez la carte associée à votre compte.":"K vášmu účtu nie je priradená žiadna karta. Požiadajte o kartu priradenú k svojmu účtu."},
+    hr: {"Se déconnecter":"Odjava","Vous n'avez pas encore de notification":"Još nemate obavijesti.","Aucune carte n’est associée à votre compte. Commandez la carte associée à votre compte.":"Uz vaš račun nije povezana nijedna kartica. Zatražite karticu povezanu s računom."},
+    pt: {"Se déconnecter":"Terminar sessão","Vous n'avez pas encore de notification":"Ainda não tem notificações.","Aucune carte n’est associée à votre compte. Commandez la carte associée à votre compte.":"Não existe nenhum cartão associado à sua conta. Solicite o cartão associado à sua conta."}
+  };
+  Object.entries(fixedDashboardTranslations).forEach(([lang, dictionary]) => Object.assign(translations[lang], dictionary));
+
   const originalTextNodes = new WeakMap();
   const originalAttributes = new WeakMap();
   const getLang = () => {
