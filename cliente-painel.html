@@ -902,7 +902,7 @@ function mostrarAccueilClient(pedido, nomClient) {
     approvedRequest && clientCardLastFour
       ? "XXXXXXXXXX" + clientCardLastFour
       : "XXXXXXXXXXXXXX";
-  if (cardSuffixElement) cardSuffixElement.textContent = "* " + cardSuffix;
+  if (cardSuffixElement) cardSuffixElement.textContent = "*" + cardSuffix;
 
   const greeting = document.getElementById("clientGreetingName");
   const nom = String(nomClient || "").trim().split(" ").filter(Boolean)[0] || "";
