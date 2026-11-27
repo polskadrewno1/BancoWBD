@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 110" role="img" aria-label="IE">
+  <rect width="180" height="110" fill="none"/>
+  <g font-family="Arial, Helvetica, sans-serif" font-weight="800">
+    <path d="M36 12h25v75H36z" fill="#0754a2"/>
+    <path d="M72 12h65v17H91v13h39v16H91v13h46v16H72z" fill="#159bd0"/>
+    <path d="M8 91C53 52 101 30 172 22 112 45 63 69 8 91Z" fill="#0754a2"/>
+  </g>
+</svg>
