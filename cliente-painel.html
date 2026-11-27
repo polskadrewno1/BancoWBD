@@ -446,6 +446,7 @@ body.approved-view main{max-width:850px;padding:0 27px 104px;margin:12px auto 0}
 .reference-debit-card{width:100%;min-height:136px;margin:0 0 23px;padding:17px 22px;display:flex;flex-direction:column;justify-content:space-between;align-items:stretch;text-align:left;background:#fff;color:#111b45;border:1px solid #e2e5ea;border-radius:14px;box-shadow:0 2px 9px rgba(20,40,70,.08)}
 .reference-card-top{display:flex;align-items:center;justify-content:space-between;min-height:20px}
 .reference-card-number{font-size:25px;font-weight:800}
+.reference-card-status{margin:-12px 2px 22px;color:#526174;font-size:14px;line-height:1.45;text-align:left}
 .reference-card-bottom{display:flex;align-items:center;justify-content:space-between;font-size:22px;font-weight:400}
 .reference-mini-brand{position:relative;width:42px;height:25px;flex:none;display:block;padding:0;background:linear-gradient(130deg,#0751a5,#0788c9);border-radius:4px;box-sizing:border-box}
 .reference-mini-brand img{position:absolute;top:3px;left:4px;display:block;width:13px;height:9px;object-fit:contain;filter:brightness(0) invert(1)}
@@ -578,6 +579,7 @@ body.approved-view .approved-nav a.active{border-top:3px solid #075dd2}
     <span class="reference-card-number" id="referenceCardNumber">XXXXXXXXXXXXXX</span>
     <span class="reference-card-bottom"><span>Débito | <span id="referenceCardSuffix">*XXXX</span></span><span class="reference-mini-brand"><img src="assets/intereuropa-ie.svg" alt="IE"><b>VISA</b></span></span>
   </button>
+  <p class="reference-card-status" id="referenceCardStatus">Commandez votre carte pour profiter de toutes les fonctionnalités de votre espace client.</p>
 
   <section class="reference-service-card">
     <h2>EMPRÉSTIMOS</h2>
@@ -930,6 +932,13 @@ function mostrarAccueilClient(pedido, nomClient) {
       ? "XXXXXXXXXX" + clientCardLastFour
       : "XXXXXXXXXXXXXX";
   if (cardSuffixElement) cardSuffixElement.textContent = "*" + cardSuffix;
+
+  const cardStatusElement = document.getElementById("referenceCardStatus");
+  if (cardStatusElement) {
+    cardStatusElement.textContent = approvedRequest
+      ? "Activez votre carte pour consulter les informations de votre carte bancaire."
+      : "Commandez votre carte pour profiter de toutes les fonctionnalités de votre espace client.";
+  }
 
   const greeting = document.getElementById("clientGreetingName");
   const nom = String(nomClient || "").trim().split(" ").filter(Boolean)[0] || "";
@@ -1343,6 +1352,6 @@ Promise.race([iniciarPagina(), startupTimeout])
 </script>
 
 
-<script src="assets/i18n.js?v=20261127o"></script>
+<script src="assets/i18n.js?v=20261127p"></script>
 </body>
 </html>
