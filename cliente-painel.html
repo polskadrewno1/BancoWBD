@@ -1155,7 +1155,10 @@ async function iniciarPagina() {
       : "Bem-vindo à sua área pessoal";
   }
   const approvedWelcome = document.getElementById("approvedWelcome");
-  if (approvedWelcome) approvedWelcome.dataset.firstName = firstName;
+  if (approvedWelcome) {
+    approvedWelcome.dataset.firstName = firstName;
+    approvedWelcome.textContent = firstName ? "Olá, " + firstName : "Olá";
+  }
 
   const { data: identifierRow, error: identifierError } = await supabaseClient
     .from("client_demo_identifiers")
