@@ -502,6 +502,11 @@ body.approved-view .approved-nav a.active{border-top:3px solid #075dd2}
  body.approved-view .approved-nav svg{width:27px;height:27px;margin-bottom:2px}
 }
 
+
+.demo-menu-account-actions{display:grid;gap:9px;margin-top:18px;padding-top:16px;border-top:1px solid #e2e8f0}
+.demo-menu-account-actions label{font-size:13px;font-weight:700;color:#123f83}
+.demo-menu-account-actions select{width:100%;min-height:44px;padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;background:#fff;color:#123f83;font-size:15px}
+.demo-menu-account-actions #logoutButton{width:100%;min-height:46px;margin:0;background:#123f83;color:#fff}
 </style>
 </head>
 
@@ -518,19 +523,7 @@ body.approved-view .approved-nav a.active{border-top:3px solid #075dd2}
   </div>
   <div class="approved-header-actions">
     <button id="messageIconButton" class="header-icon-button" type="button" aria-label="Messages" title="Messages">✉</button>
-    <select id="clientLanguageSelect" aria-label="Langue" title="Langue">
-      <option value="pt">Português</option>
-      <option value="de">Deutsch</option>
-      <option value="pl">Polski</option>
-      <option value="es">Español</option>
-      <option value="it">Italiano</option>
-      <option value="el">Ελληνικά</option>
-      <option value="sk">Slovenčina</option>
-      <option value="hr">Hrvatski</option>
-      <option value="fr">Français</option>
-      <option value="en">English</option>
-    </select>
-    <button id="logoutButton" type="button">Terminar sessão</button>
+    <button id="menuIconButton" class="header-icon-button" type="button" aria-label="Menu" title="Menu">☰</button>
   </div>
 </header>
 
@@ -612,6 +605,22 @@ body.approved-view .approved-nav a.active{border-top:3px solid #075dd2}
       <button type="button" data-demo-action="more">Mais opções</button>
       <button type="button" data-demo-action="configure">Configure o que vê</button>
       <button type="button" data-demo-action="debit">Débito | *8539</button>
+    </div>
+    <div class="demo-menu-account-actions">
+      <label for="clientLanguageSelect">Langue / Idioma</label>
+      <select id="clientLanguageSelect" aria-label="Langue">
+        <option value="pt">Português</option>
+        <option value="de">Deutsch</option>
+        <option value="pl">Polski</option>
+        <option value="es">Español</option>
+        <option value="it">Italiano</option>
+        <option value="el">Ελληνικά</option>
+        <option value="sk">Slovenčina</option>
+        <option value="hr">Hrvatski</option>
+        <option value="fr">Français</option>
+        <option value="en">English</option>
+      </select>
+      <button id="logoutButton" type="button">Se déconnecter</button>
     </div>
     <button type="button" class="backButton" onclick="fecharDemoPanel()">Voltar</button>
   </section>
@@ -1196,6 +1205,7 @@ document.addEventListener("click", event => {
   if (actionButton) executarAcaoDemo(actionButton.dataset.demoAction);
 });
 document.getElementById("messageIconButton")?.addEventListener("click", () => abrirDemoPanel("demoMessagePanel"));
+document.getElementById("menuIconButton")?.addEventListener("click", () => abrirDemoPanel("demoMenuPanel"));
 
 const clientLanguageSelect = document.getElementById("clientLanguageSelect");
 if (clientLanguageSelect) {
