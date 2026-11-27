@@ -1572,6 +1572,20 @@
   fr: {"Conta interna":"Compte interne","Saldo inicial":"Solde initial","Identificador fictício":"Identifiant fictif","Identificador fictício — não utilizável para transferências bancárias.":"Identifiant fictif — non utilisable pour les virements bancaires.","Nova solicitação de financiamento":"Nouvelle demande de financement","Identificador indisponível":"Identifiant indisponible","Identificador em curso de atribuição":"Attribution de l’identifiant en cours"}
 };
   const clientTransferPageTranslations = {
+    en: {
+      "Activation du virement en attente":"Transfer activation pending",
+      "Le transfert n'est pas encore exécuté. Les fonds ne sont donc pas encore disponibles sur le compte du bénéficiaire.":"The transfer has not yet been executed. The funds are therefore not yet available in the beneficiary's account.",
+      "Pedido simulado":"Simulated request",
+      "Demande enregistrée":"Simulated request",
+      "Examen de la demande":"Request review",
+      "Activation en attente":"Activation pending",
+      "Le transfert n'est pas encore activé. Le bénéficiaire peut contacter INTEREUROPA.PT pour connaître les démarches nécessaires.":"The transfer has not yet been activated. The beneficiary can contact INTEREUROPA.PT to find out the required steps.",
+      "Compte destinataire":"Recipient account",
+      "IBAN :":"IBAN:",
+      "Retour":"Back",
+      "Envoyer la demande":"Submit request",
+      "© 2026 — estabilidade financeira de cada cliente":"© 2026 — financial stability for every client"
+    },
     pt: {
       "Activation du virement en attente":"Ativação da transferência pendente",
       "Le transfert n'est pas encore exécuté. Les fonds ne sont donc pas encore disponibles sur le compte du bénéficiaire.":"A transferência ainda não foi executada. Por isso, os fundos ainda não estão disponíveis na conta do beneficiário.",
