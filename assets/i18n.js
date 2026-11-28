@@ -2122,4 +2122,124 @@
     observer.observe(document.body, {childList:true,subtree:true});
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
+
+  // Traductions de la solution Poupança INTEREUROPA
+  const savingsTranslations = {
+    de: {
+      "Poupança INTEREUROPA": "INTEREUROPA-Sparen",
+      "Conheça a nossa solução de poupança e escolha a duração da aplicação de acordo com os seus objetivos. Consulte as informações e as condições aplicáveis.": "Lernen Sie unsere Sparlösung kennen und wählen Sie die Laufzeit entsprechend Ihren Zielen. Informieren Sie sich über die geltenden Bedingungen.",
+      "Conhecer a solução de poupança →": "Sparlösung kennenlernen →",
+      "Conheça a solução de poupança INTEREUROPA e escolha a duração da aplicação de acordo com os seus objetivos.": "Lernen Sie die INTEREUROPA-Sparlösung kennen und wählen Sie die Laufzeit entsprechend Ihren Zielen.",
+      "Taxa anual anunciada": "Angekündigter Jahreszinssatz",
+      "30% ao ano, sujeita às condições contratuais aplicáveis.": "30 % pro Jahr, vorbehaltlich der geltenden Vertragsbedingungen.",
+      "Duração da aplicação": "Anlagedauer",
+      "O cliente poderá escolher a duração da aplicação em anos inteiros, de acordo com os seus objetivos e com as condições do contrato.": "Der Kunde kann die Anlagedauer in vollen Jahren entsprechend seinen Zielen und den Vertragsbedingungen wählen.",
+      "Cálculo e crédito dos juros": "Berechnung und Gutschrift der Zinsen",
+      "Os juros serão calculados de acordo com a taxa e a duração contratualmente estabelecidas. No vencimento, o capital inicial e os juros serão creditados imediatamente na conta interna INTEREUROPA do cliente, conforme as condições contratuais.": "Die Zinsen werden entsprechend dem vertraglich vereinbarten Zinssatz und der Laufzeit berechnet. Bei Fälligkeit werden das Anfangskapital und die Zinsen gemäß den Vertragsbedingungen unverzüglich dem internen INTEREUROPA-Konto des Kunden gutgeschrieben.",
+      "Esta informação é demonstrativa. A disponibilidade, a taxa e as condições do produto devem ser confirmadas através de documentação contratual e das autorizações aplicáveis.": "Diese Informationen dienen nur zur Demonstration. Die Verfügbarkeit, der Zinssatz und die Produktbedingungen müssen durch Vertragsunterlagen und die erforderlichen Genehmigungen bestätigt werden.",
+      "Voltar aos serviços ↑": "Zurück zu den Dienstleistungen ↑"
+    },
+    pl: {
+      "Poupança INTEREUROPA": "Oszczędności INTEREUROPA",
+      "Conheça a nossa solução de poupança e escolha a duração da aplicação de acordo com os seus objetivos. Consulte as informações e as condições aplicáveis.": "Poznaj nasze rozwiązanie oszczędnościowe i wybierz okres lokaty zgodnie ze swoimi celami. Zapoznaj się z informacjami i obowiązującymi warunkami.",
+      "Conhecer a solução de poupança →": "Poznaj rozwiązanie oszczędnościowe →",
+      "Conheça a solução de poupança INTEREUROPA e escolha a duração da aplicação de acordo com os seus objetivos.": "Poznaj rozwiązanie oszczędnościowe INTEREUROPA i wybierz okres lokaty zgodnie ze swoimi celami.",
+      "Taxa anual anunciada": "Ogłoszona roczna stopa procentowa",
+      "30% ao ano, sujeita às condições contratuais aplicáveis.": "30% rocznie, z zastrzeżeniem obowiązujących warunków umowy.",
+      "Duração da aplicação": "Okres lokaty",
+      "O cliente poderá escolher a duração da aplicação em anos inteiros, de acordo com os seus objetivos e com as condições do contrato.": "Klient może wybrać okres lokaty w pełnych latach, zgodnie ze swoimi celami i warunkami umowy.",
+      "Cálculo e crédito dos juros": "Obliczanie i dopisywanie odsetek",
+      "Os juros serão calculados de acordo com a taxa e a duração contratualmente estabelecidas. No vencimento, o capital inicial e os juros serão creditados imediatamente na conta interna INTEREUROPA do cliente, conforme as condições contratuais.": "Odsetki będą obliczane zgodnie ze stopą procentową i okresem ustalonymi w umowie. W terminie zapadalności kapitał początkowy i odsetki zostaną niezwłocznie zaksięgowane na wewnętrznym koncie klienta INTEREUROPA, zgodnie z warunkami umowy.",
+      "Esta informação é demonstrativa. A disponibilidade, a taxa e as condições do produto devem ser confirmadas através de documentação contratual e das autorizações aplicáveis.": "Informacje te mają charakter demonstracyjny. Dostępność produktu, stopa procentowa i warunki muszą zostać potwierdzone w dokumentacji umownej oraz na podstawie wymaganych zezwoleń.",
+      "Voltar aos serviços ↑": "Powrót do usług ↑"
+    },
+    es: {
+      "Poupança INTEREUROPA": "Ahorro INTEREUROPA",
+      "Conheça a nossa solução de poupança e escolha a duração da aplicação de acordo com os seus objetivos. Consulte as informações e as condições aplicáveis.": "Conozca nuestra solución de ahorro y elija la duración de la inversión de acuerdo con sus objetivos. Consulte la información y las condiciones aplicables.",
+      "Conhecer a solução de poupança →": "Conocer la solución de ahorro →",
+      "Conheça a solução de poupança INTEREUROPA e escolha a duração da aplicação de acordo com os seus objetivos.": "Conozca la solución de ahorro INTEREUROPA y elija la duración de la inversión de acuerdo con sus objetivos.",
+      "Taxa anual anunciada": "Tipo anual anunciado",
+      "30% ao ano, sujeita às condições contratuais aplicáveis.": "30 % anual, sujeto a las condiciones contractuales aplicables.",
+      "Duração da aplicação": "Duración de la inversión",
+      "O cliente poderá escolher a duração da aplicação em anos inteiros, de acordo com os seus objetivos e com as condições do contrato.": "El cliente podrá elegir la duración de la inversión en años completos, de acuerdo con sus objetivos y las condiciones del contrato.",
+      "Cálculo e crédito dos juros": "Cálculo y abono de los intereses",
+      "Os juros serão calculados de acordo com a taxa e a duração contratualmente estabelecidas. No vencimento, o capital inicial e os juros serão creditados imediatamente na conta interna INTEREUROPA do cliente, conforme as condições contratuais.": "Los intereses se calcularán según el tipo y la duración establecidos en el contrato. Al vencimiento, el capital inicial y los intereses se abonarán inmediatamente en la cuenta interna INTEREUROPA del cliente, conforme a las condiciones contractuales.",
+      "Esta informação é demonstrativa. A disponibilidade, a taxa e as condições do produto devem ser confirmadas através de documentação contratual e das autorizações aplicáveis.": "Esta información es demostrativa. La disponibilidad, el tipo y las condiciones del producto deben confirmarse mediante documentación contractual y las autorizaciones correspondientes.",
+      "Voltar aos serviços ↑": "Volver a los servicios ↑"
+    },
+    it: {
+      "Poupança INTEREUROPA": "Risparmio INTEREUROPA",
+      "Conheça a nossa solução de poupança e escolha a duração da aplicação de acordo com os seus objetivos. Consulte as informações e as condições aplicáveis.": "Scoprite la nostra soluzione di risparmio e scegliete la durata dell'investimento in base ai vostri obiettivi. Consultate le informazioni e le condizioni applicabili.",
+      "Conhecer a solução de poupança →": "Scopri la soluzione di risparmio →",
+      "Conheça a solução de poupança INTEREUROPA e escolha a duração da aplicação de acordo com os seus objetivos.": "Scoprite la soluzione di risparmio INTEREUROPA e scegliete la durata dell'investimento in base ai vostri obiettivi.",
+      "Taxa anual anunciada": "Tasso annuo annunciato",
+      "30% ao ano, sujeita às condições contratuais aplicáveis.": "30% annuo, soggetto alle condizioni contrattuali applicabili.",
+      "Duração da aplicação": "Durata dell'investimento",
+      "O cliente poderá escolher a duração da aplicação em anos inteiros, de acordo com os seus objetivos e com as condições do contrato.": "Il cliente potrà scegliere la durata dell'investimento in anni interi, in base ai propri obiettivi e alle condizioni contrattuali.",
+      "Cálculo e crédito dos juros": "Calcolo e accredito degli interessi",
+      "Os juros serão calculados de acordo com a taxa e a duração contratualmente estabelecidas. No vencimento, o capital inicial e os juros serão creditados imediatamente na conta interna INTEREUROPA do cliente, conforme as condições contratuais.": "Gli interessi saranno calcolati in base al tasso e alla durata stabiliti contrattualmente. Alla scadenza, il capitale iniziale e gli interessi saranno accreditati immediatamente sul conto interno INTEREUROPA del cliente, secondo le condizioni contrattuali.",
+      "Esta informação é demonstrativa. A disponibilidade, a taxa e as condições do produto devem ser confirmadas através de documentação contratual e das autorizações aplicáveis.": "Queste informazioni sono dimostrative. La disponibilità, il tasso e le condizioni del prodotto devono essere confermati tramite documentazione contrattuale e le autorizzazioni applicabili.",
+      "Voltar aos serviços ↑": "Torna ai servizi ↑"
+    },
+    el: {
+      "Poupança INTEREUROPA": "Αποταμίευση INTEREUROPA",
+      "Conheça a nossa solução de poupança e escolha a duração da aplicação de acordo com os seus objetivos. Consulte as informações e as condições aplicáveis.": "Γνωρίστε τη λύση αποταμίευσής μας και επιλέξτε τη διάρκεια της τοποθέτησης σύμφωνα με τους στόχους σας. Δείτε τις πληροφορίες και τους ισχύοντες όρους.",
+      "Conhecer a solução de poupança →": "Γνωρίστε τη λύση αποταμίευσης →",
+      "Conheça a solução de poupança INTEREUROPA e escolha a duração da aplicação de acordo com os seus objetivos.": "Γνωρίστε τη λύση αποταμίευσης INTEREUROPA και επιλέξτε τη διάρκεια της τοποθέτησης σύμφωνα με τους στόχους σας.",
+      "Taxa anual anunciada": "Ανακοινωμένο ετήσιο επιτόκιο",
+      "30% ao ano, sujeita às condições contratuais aplicáveis.": "30% ετησίως, υπό τους ισχύοντες συμβατικούς όρους.",
+      "Duração da aplicação": "Διάρκεια τοποθέτησης",
+      "O cliente poderá escolher a duração da aplicação em anos inteiros, de acordo com os seus objetivos e com as condições do contrato.": "Ο πελάτης μπορεί να επιλέξει τη διάρκεια της τοποθέτησης σε ακέραια έτη, σύμφωνα με τους στόχους του και τους όρους της σύμβασης.",
+      "Cálculo e crédito dos juros": "Υπολογισμός και πίστωση τόκων",
+      "Os juros serão calculados de acordo com a taxa e a duração contratualmente estabelecidas. No vencimento, o capital inicial e os juros serão creditados imediatamente na conta interna INTEREUROPA do cliente, conforme as condições contratuais.": "Οι τόκοι θα υπολογίζονται σύμφωνα με το επιτόκιο και τη διάρκεια που ορίζονται στη σύμβαση. Κατά τη λήξη, το αρχικό κεφάλαιο και οι τόκοι θα πιστώνονται αμέσως στον εσωτερικό λογαριασμό INTEREUROPA του πελάτη, σύμφωνα με τους συμβατικούς όρους.",
+      "Esta informação é demonstrativa. A disponibilidade, a taxa e as condições do produto devem ser confirmadas através de documentação contratual e das autorizações aplicáveis.": "Οι πληροφορίες αυτές είναι ενδεικτικές. Η διαθεσιμότητα, το επιτόκιο και οι όροι του προϊόντος πρέπει να επιβεβαιωθούν μέσω συμβατικών εγγράφων και των απαιτούμενων εγκρίσεων.",
+      "Voltar aos serviços ↑": "Επιστροφή στις υπηρεσίες ↑"
+    },
+    sk: {
+      "Poupança INTEREUROPA": "Sporenie INTEREUROPA",
+      "Conheça a nossa solução de poupança e escolha a duração da aplicação de acordo com os seus objetivos. Consulte as informações e as condições aplicáveis.": "Spoznajte naše riešenie sporenia a vyberte si dobu uloženia podľa svojich cieľov. Pozrite si informácie a príslušné podmienky.",
+      "Conhecer a solução de poupança →": "Spoznajte riešenie sporenia →",
+      "Conheça a solução de poupança INTEREUROPA e escolha a duração da aplicação de acordo com os seus objetivos.": "Spoznajte riešenie sporenia INTEREUROPA a vyberte si dobu uloženia podľa svojich cieľov.",
+      "Taxa anual anunciada": "Oznámená ročná sadzba",
+      "30% ao ano, sujeita às condições contratuais aplicáveis.": "30 % ročne, podľa príslušných zmluvných podmienok.",
+      "Duração da aplicação": "Doba uloženia",
+      "O cliente poderá escolher a duração da aplicação em anos inteiros, de acordo com os seus objetivos e com as condições do contrato.": "Klient si môže zvoliť dobu uloženia v celých rokoch podľa svojich cieľov a zmluvných podmienok.",
+      "Cálculo e crédito dos juros": "Výpočet a pripísanie úrokov",
+      "Os juros serão calculados de acordo com a taxa e a duração contratualmente estabelecidas. No vencimento, o capital inicial e os juros serão creditados imediatamente na conta interna INTEREUROPA do cliente, conforme as condições contratuais.": "Úroky sa vypočítajú podľa sadzby a doby stanovenej v zmluve. Pri splatnosti bude počiatočný kapitál a úroky okamžite pripísané na interný účet klienta INTEREUROPA v súlade so zmluvnými podmienkami.",
+      "Esta informação é demonstrativa. A disponibilidade, a taxa e as condições do produto devem ser confirmadas através de documentação contratual e das autorizações aplicáveis.": "Tieto informácie majú demonštratívny charakter. Dostupnosť, sadzba a podmienky produktu musia byť potvrdené zmluvnou dokumentáciou a príslušnými povoleniami.",
+      "Voltar aos serviços ↑": "Späť na služby ↑"
+    },
+    hr: {
+      "Poupança INTEREUROPA": "Štednja INTEREUROPA",
+      "Conheça a nossa solução de poupança e escolha a duração da aplicação de acordo com os seus objetivos. Consulte as informações e as condições aplicáveis.": "Upoznajte naše rješenje štednje i odaberite trajanje ulaganja u skladu sa svojim ciljevima. Pogledajte informacije i primjenjive uvjete.",
+      "Conhecer a solução de poupança →": "Upoznajte rješenje štednje →",
+      "Conheça a solução de poupança INTEREUROPA e escolha a duração da aplicação de acordo com os seus objetivos.": "Upoznajte INTEREUROPA rješenje štednje i odaberite trajanje ulaganja u skladu sa svojim ciljevima.",
+      "Taxa anual anunciada": "Objavljena godišnja kamatna stopa",
+      "30% ao ano, sujeita às condições contratuais aplicáveis.": "30% godišnje, podložno primjenjivim ugovornim uvjetima.",
+      "Duração da aplicação": "Trajanje ulaganja",
+      "O cliente poderá escolher a duração da aplicação em anos inteiros, de acordo com os seus objetivos e com as condições do contrato.": "Klijent može odabrati trajanje ulaganja u punim godinama, u skladu sa svojim ciljevima i uvjetima ugovora.",
+      "Cálculo e crédito dos juros": "Izračun i pripis kamata",
+      "Os juros serão calculados de acordo com a taxa e a duração contratualmente estabelecidas. No vencimento, o capital inicial e os juros serão creditados imediatamente na conta interna INTEREUROPA do cliente, conforme as condições contratuais.": "Kamate će se obračunavati prema stopi i trajanju utvrđenima ugovorom. Po dospijeću, početni kapital i kamate bit će odmah uplaćeni na interni račun klijenta INTEREUROPA, u skladu s ugovornim uvjetima.",
+      "Esta informação é demonstrativa. A disponibilidade, a taxa e as condições do produto devem ser confirmadas através de documentação contratual e das autorizações aplicáveis.": "Ove informacije služe samo u demonstrativne svrhe. Dostupnost, kamatna stopa i uvjeti proizvoda moraju se potvrditi ugovornom dokumentacijom i potrebnim odobrenjima.",
+      "Voltar aos serviços ↑": "Povratak na usluge ↑"
+    },
+    fr: {
+      "Poupança INTEREUROPA": "Épargne INTEREUROPA",
+      "Conheça a nossa solução de poupança e escolha a duração da aplicação de acordo com os seus objetivos. Consulte as informações e as condições aplicáveis.": "Découvrez notre solution d’épargne et choisissez la durée du placement en fonction de vos objectifs. Consultez les informations et les conditions applicables.",
+      "Conhecer a solução de poupança →": "Découvrir la solution d’épargne →",
+      "Conheça a solução de poupança INTEREUROPA e escolha a duração da aplicação de acordo com os seus objetivos.": "Découvrez la solution d’épargne INTEREUROPA et choisissez la durée du placement en fonction de vos objectifs.",
+      "Taxa anual anunciada": "Taux annuel annoncé",
+      "30% ao ano, sujeita às condições contratuais aplicáveis.": "30 % par an, sous réserve des conditions contractuelles applicables.",
+      "Duração da aplicação": "Durée du placement",
+      "O cliente poderá escolher a duração da aplicação em anos inteiros, de acordo com os seus objetivos e com as condições do contrato.": "Le client pourra choisir la durée du placement en années entières, selon ses objectifs et les conditions du contrat.",
+      "Cálculo e crédito dos juros": "Calcul et versement des intérêts",
+      "Os juros serão calculados de acordo com a taxa e a duração contratualmente estabelecidas. No vencimento, o capital inicial e os juros serão creditados imediatamente na conta interna INTEREUROPA do cliente, conforme as condições contratuais.": "Les intérêts seront calculés selon le taux et la durée prévus au contrat. À l’échéance, le capital initial et les intérêts seront immédiatement crédités sur le compte interne INTEREUROPA du client, conformément aux conditions contractuelles.",
+      "Esta informação é demonstrativa. A disponibilidade, a taxa e as condições do produto devem ser confirmadas através de documentação contratual e das autorizações aplicáveis.": "Ces informations sont fournies à titre démonstratif. La disponibilité, le taux et les conditions du produit doivent être confirmés par une documentation contractuelle et les autorisations applicables.",
+      "Voltar aos serviços ↑": "Retour aux services ↑"
+    }
+  };
+
+  for (const [language, entries] of Object.entries(savingsTranslations)) {
+    Object.assign(translations[language], entries);
+  }
 })();
