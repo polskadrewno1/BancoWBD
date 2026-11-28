@@ -1854,19 +1854,111 @@
   Object.assign(translations.pt, {"Menu":"Menu","Carregar":"Carregar","Configure o que vê":"Configure o que vê","Voltar":"Voltar","Débito | *8539":"Débito | *8539"});
 
   // Traductions des textes des panneaux et des notifications du tableau de bord.
+  
   const dashboardMenuTranslations = {
-    en: {"Langue / Idioma":"Language","Para informações sobre a demonstração, contacte a equipa INTEREUROPA.":"For information about this demonstration, contact the INTEREUROPA team.","Esta área é exclusivamente demonstrativa. Não são realizadas operações bancárias.":"This area is for demonstration purposes only. No banking transactions are carried out.","Esta operação não está disponível, uma vez que não tem cartões associados ao MB WAY":"This operation is not available because you do not have any cards linked to MB WAY.","Pretende contratar um seguro? Contacte a INTEREUROPA para obter mais informações.":"Would you like to take out insurance? Contact INTEREUROPA for more information.","© 2026 — estabilidade financeira de cada cliente":"© 2026 — financial stability for every client"},
-    fr: {"Langue / Idioma":"Langue","Para informações sobre a demonstração, contacte a equipa INTEREUROPA.":"Pour toute information concernant cette démonstration, contactez l’équipe INTEREUROPA.","Esta área é exclusivamente demonstrativa. Não são realizadas operações bancárias.":"Cet espace est exclusivement destiné à la démonstration. Aucune opération bancaire n’est effectuée.","Esta operação não está disponível, uma vez que não tem cartões associados ao MB WAY":"Cette opération n’est pas disponible, car aucune carte n’est associée à MB WAY.","Pretende contratar um seguro? Contacte a INTEREUROPA para obter mais informações.":"Vous souhaitez souscrire une assurance ? Contactez INTEREUROPA pour obtenir plus d’informations.","© 2026 — estabilidade financeira de cada cliente":"© 2026 — la stabilité financière de chaque client"},
-    de: {"Langue / Idioma":"Sprache","Para informações sobre a demonstração, contacte a equipa INTEREUROPA.":"Für Informationen zu dieser Demonstration wenden Sie sich bitte an das INTEREUROPA-Team.","Esta área é exclusivamente demonstrativa. Não são realizadas operações bancárias.":"Dieser Bereich dient ausschließlich Demonstrationszwecken. Es werden keine Bankgeschäfte durchgeführt.","Esta operação não está disponível, uma vez que não tem cartões associados ao MB WAY":"Dieser Vorgang ist nicht verfügbar, da keine Karten mit MB WAY verknüpft sind.","Pretende contratar um seguro? Contacte a INTEREUROPA para obter mais informações.":"Möchten Sie eine Versicherung abschließen? Kontaktieren Sie INTEREUROPA für weitere Informationen.","© 2026 — estabilidade financeira de cada cliente":"© 2026 — finanzielle Stabilität für jeden Kunden"},
-    pl: {"Langue / Idioma":"Język","Para informações sobre a demonstração, contacte a equipa INTEREUROPA.":"Aby uzyskać informacje o tej wersji demonstracyjnej, skontaktuj się z zespołem INTEREUROPA.","Esta área é exclusivamente demonstrativa. Não são realizadas operações bancárias.":"Ten obszar służy wyłącznie do prezentacji. Nie są wykonywane żadne operacje bankowe.","Esta operação não está disponível, uma vez que não tem cartões associados ao MB WAY":"Ta operacja jest niedostępna, ponieważ nie masz kart powiązanych z MB WAY.","Pretende contratar um seguro? Contacte a INTEREUROPA para obter mais informações.":"Chcesz wykupić ubezpieczenie? Skontaktuj się z INTEREUROPA, aby uzyskać więcej informacji.","© 2026 — estabilidade financeira de cada cliente":"© 2026 — stabilność finansowa każdego klienta"},
-    es: {"Langue / Idioma":"Idioma","Para informações sobre a demonstração, contacte a equipa INTEREUROPA.":"Para obtener información sobre esta demostración, contacte con el equipo de INTEREUROPA.","Esta área é exclusivamente demonstrativa. Não são realizadas operações bancárias.":"Esta área es exclusivamente demostrativa. No se realizan operaciones bancarias.","Esta operação não está disponível, uma vez que não tem cartões associados ao MB WAY":"Esta operación no está disponible porque no tiene tarjetas asociadas a MB WAY.","Pretende contratar um seguro? Contacte a INTEREUROPA para obter mais informações.":"¿Desea contratar un seguro? Contacte con INTEREUROPA para obtener más información.","© 2026 — estabilidade financeira de cada cliente":"© 2026 — estabilidad financiera de cada cliente"},
-    it: {"Langue / Idioma":"Lingua","Para informações sobre a demonstração, contacte a equipa INTEREUROPA.":"Per informazioni su questa dimostrazione, contatta il team INTEREUROPA.","Esta área é exclusivamente demonstrativa. Não são realizadas operações bancárias.":"Quest'area è esclusivamente dimostrativa. Non vengono effettuate operazioni bancarie.","Esta operação não está disponível, uma vez que não tem cartões associados ao MB WAY":"Questa operazione non è disponibile perché non hai carte associate a MB WAY.","Pretende contratar um seguro? Contacte a INTEREUROPA para obter mais informações.":"Desideri stipulare un'assicurazione? Contatta INTEREUROPA per maggiori informazioni.","© 2026 — estabilidade financeira de cada cliente":"© 2026 — stabilità finanziaria per ogni cliente"},
-    el: {"Langue / Idioma":"Γλώσσα","Para informações sobre a demonstração, contacte a equipa INTEREUROPA.":"Για πληροφορίες σχετικά με αυτήν την επίδειξη, επικοινωνήστε με την ομάδα INTEREUROPA.","Esta área é exclusivamente demonstrativa. Não são realizadas operações bancárias.":"Αυτή η ενότητα είναι αποκλειστικά για επίδειξη. Δεν πραγματοποιούνται τραπεζικές συναλλαγές.","Esta operação não está disponível, uma vez que não tem cartões associados ao MB WAY":"Αυτή η λειτουργία δεν είναι διαθέσιμη, επειδή δεν έχετε κάρτες συνδεδεμένες με το MB WAY.","Pretende contratar um seguro? Contacte a INTEREUROPA para obter mais informações.":"Θέλετε να συνάψετε ασφάλιση; Επικοινωνήστε με την INTEREUROPA για περισσότερες πληροφορίες.","© 2026 — estabilidade financeira de cada cliente":"© 2026 — οικονομική σταθερότητα για κάθε πελάτη"},
-    sk: {"Langue / Idioma":"Jazyk","Para informações sobre a demonstração, contacte a equipa INTEREUROPA.":"Informácie o tejto ukážke získate od tímu INTEREUROPA.","Esta área é exclusivamente demonstrativa. Não são realizadas operações bancárias.":"Táto oblasť slúži výlučne na ukážku. Nevykonávajú sa tu žiadne bankové operácie.","Esta operação não está disponível, uma vez que não tem cartões associados ao MB WAY":"Táto operácia nie je dostupná, pretože nemáte k MB WAY priradené žiadne karty.","Pretende contratar um seguro? Contacte a INTEREUROPA para obter mais informações.":"Chcete uzatvoriť poistenie? Pre viac informácií kontaktujte INTEREUROPA.","© 2026 — estabilidade financeira de cada cliente":"© 2026 — finančná stabilita každého klienta"},
-    hr: {"Langue / Idioma":"Jezik","Para informações sobre a demonstração, contacte a equipa INTEREUROPA.":"Za informacije o ovoj demonstraciji obratite se timu INTEREUROPA.","Esta área é exclusivamente demonstrativa. Não são realizadas operações bancárias.":"Ovo je područje isključivo demonstracijsko. Ne provode se bankovne transakcije.","Esta operação não está disponível, uma vez que não tem cartões associados ao MB WAY":"Ova operacija nije dostupna jer nemate kartice povezane s uslugom MB WAY.","Pretende contratar um seguro? Contacte a INTEREUROPA para obter mais informações.":"Želite ugovoriti osiguranje? Za više informacija obratite se INTEREUROPA.","© 2026 — estabilidade financeira de cada cliente":"© 2026 — financijska stabilnost svakog klijenta"},
-    pt: {"Langue / Idioma":"Idioma","Para informações sobre a demonstração, contacte a equipa INTEREUROPA.":"Para informações sobre a demonstração, contacte a equipa INTEREUROPA.","Esta área é exclusivamente demonstrativa. Não são realizadas operações bancárias.":"Esta área é exclusivamente demonstrativa. Não são realizadas operações bancárias.","Esta operação não está disponível, uma vez que não tem cartões associados ao MB WAY":"Esta operação não está disponível, uma vez que não tem cartões associados ao MB WAY","Pretende contratar um seguro? Contacte a INTEREUROPA para obter mais informações.":"Pretende contratar um seguro? Contacte a INTEREUROPA para obter mais informações.","© 2026 — estabilidade financeira de cada cliente":"© 2026 — estabilidade financeira de cada cliente"}
+    en: {
+      "Langue / Idioma":"Language",
+      "Para informações sobre a demonstração, contacte a equipa INTEREUROPA.":"For information about this demonstration, contact the INTEREUROPA team.",
+      "Esta área é exclusivamente demonstrativa. Não são realizadas operações bancárias.":"This area is for demonstration purposes only. No banking transactions are carried out.",
+      "Esta operação não está disponível, uma vez que não tem cartões associados ao MB WAY":"This operation is not available because you do not have any cards linked to MB WAY.",
+      "Pretende contratar um seguro? Contacte a INTEREUROPA para obter mais informações.":"Would you like to take out insurance? Contact INTEREUROPA for more information.",
+      "© 2026 — estabilidade financeira de cada cliente":"© 2026 — financial stability for every client",
+      "Para informações sobre empréstimos pessoais ou empresariais, contacte a equipa da INTEREUROPA.":"For information about personal or business loans, please contact the INTEREUROPA team.",
+      "O empréstimo bancário é concedido imediatamente aos clientes elegíveis na área europeia, e no máximo em 72 horas.":"The bank loan is granted immediately to eligible customers in the European area, and within a maximum of 72 hours."
+    },
+    fr: {
+      "Langue / Idioma":"Langue",
+      "Para informações sobre a demonstração, contacte a equipa INTEREUROPA.":"Pour toute information concernant cette démonstration, contactez l’équipe INTEREUROPA.",
+      "Esta área é exclusivamente demonstrativa. Não são realizadas operações bancárias.":"Cet espace est exclusivement destiné à la démonstration. Aucune opération bancaire n’est effectuée.",
+      "Esta operação não está disponível, uma vez que não tem cartões associados ao MB WAY":"Cette opération n’est pas disponible, car aucune carte n’est associée à MB WAY.",
+      "Pretende contratar um seguro? Contacte a INTEREUROPA para obter mais informações.":"Vous souhaitez souscrire une assurance ? Contactez INTEREUROPA pour obtenir plus d’informations.",
+      "© 2026 — estabilidade financeira de cada cliente":"© 2026 — la stabilité financière de chaque client",
+      "Para informações sobre empréstimos pessoais ou empresariais, contacte a equipa da INTEREUROPA.":"Pour toute information sur les prêts personnels ou professionnels, veuillez contacter l’équipe d’INTEREUROPA.",
+      "O empréstimo bancário é concedido imediatamente aos clientes elegíveis na área europeia, e no máximo em 72 horas.":"Le prêt bancaire est accordé immédiatement aux clients éligibles dans l’espace européen, et au plus tard dans un délai de 72 heures."
+    },
+    de: {
+      "Langue / Idioma":"Sprache",
+      "Para informações sobre a demonstração, contacte a equipa INTEREUROPA.":"Für Informationen zu dieser Demonstration wenden Sie sich bitte an das INTEREUROPA-Team.",
+      "Esta área é exclusivamente demonstrativa. Não são realizadas operações bancárias.":"Dieser Bereich dient ausschließlich Demonstrationszwecken. Es werden keine Bankgeschäfte durchgeführt.",
+      "Esta operação não está disponível, uma vez que não tem cartões associados ao MB WAY":"Dieser Vorgang ist nicht verfügbar, da keine Karten mit MB WAY verknüpft sind.",
+      "Pretende contratar um seguro? Contacte a INTEREUROPA para obter mais informações.":"Möchten Sie eine Versicherung abschließen? Kontaktieren Sie INTEREUROPA für weitere Informationen.",
+      "© 2026 — estabilidade financeira de cada cliente":"© 2026 — finanzielle Stabilität für jeden Kunden",
+      "Para informações sobre empréstimos pessoais ou empresariais, contacte a equipa da INTEREUROPA.":"Für Informationen zu Privat- oder Unternehmenskrediten wenden Sie sich bitte an das INTEREUROPA-Team.",
+      "O empréstimo bancário é concedido imediatamente aos clientes elegíveis na área europeia, e no máximo em 72 horas.":"Der Bankkredit wird berechtigten Kunden im europäischen Raum sofort und spätestens innerhalb von 72 Stunden gewährt."
+    },
+    pl: {
+      "Langue / Idioma":"Język",
+      "Para informações sobre a demonstração, contacte a equipa INTEREUROPA.":"Aby uzyskać informacje o tej wersji demonstracyjnej, skontaktuj się z zespołem INTEREUROPA.",
+      "Esta área é exclusivamente demonstrativa. Não são realizadas operações bancárias.":"Ten obszar służy wyłącznie do prezentacji. Nie są wykonywane żadne operacje bankowe.",
+      "Esta operação não está disponível, uma vez que não tem cartões associados ao MB WAY":"Ta operacja jest niedostępna, ponieważ nie masz kart powiązanych z MB WAY.",
+      "Pretende contratar um seguro? Contacte a INTEREUROPA para obter mais informações.":"Chcesz wykupić ubezpieczenie? Skontaktuj się z INTEREUROPA, aby uzyskać więcej informacji.",
+      "© 2026 — estabilidade financeira de cada cliente":"© 2026 — stabilność finansowa każdego klienta",
+      "Para informações sobre empréstimos pessoais ou empresariais, contacte a equipa da INTEREUROPA.":"Aby uzyskać informacje na temat pożyczek osobistych lub firmowych, skontaktuj się z zespołem INTEREUROPA.",
+      "O empréstimo bancário é concedido imediatamente aos clientes elegíveis na área europeia, e no máximo em 72 horas.":"Kredyt bankowy jest przyznawany uprawnionym klientom na obszarze Europy natychmiast, najpóźniej w ciągu 72 godzin."
+    },
+    es: {
+      "Langue / Idioma":"Idioma",
+      "Para informações sobre a demonstração, contacte a equipa INTEREUROPA.":"Para obtener información sobre esta demostración, contacte con el equipo de INTEREUROPA.",
+      "Esta área é exclusivamente demonstrativa. Não são realizadas operações bancárias.":"Esta área es exclusivamente demostrativa. No se realizan operaciones bancarias.",
+      "Esta operação não está disponível, uma vez que não tem cartões associados ao MB WAY":"Esta operación no está disponible porque no tiene tarjetas asociadas a MB WAY.",
+      "Pretende contratar um seguro? Contacte a INTEREUROPA para obter mais informações.":"¿Desea contratar un seguro? Contacte con INTEREUROPA para obtener más información.",
+      "© 2026 — estabilidade financeira de cada cliente":"© 2026 — estabilidad financiera de cada cliente",
+      "Para informações sobre empréstimos pessoais ou empresariais, contacte a equipa da INTEREUROPA.":"Para obtener información sobre préstamos personales o empresariales, póngase en contacto con el equipo de INTEREUROPA.",
+      "O empréstimo bancário é concedido imediatamente aos clientes elegíveis na área europeia, e no máximo em 72 horas.":"El préstamo bancario se concede inmediatamente a los clientes que cumplen los requisitos en el ámbito europeo y, como máximo, en un plazo de 72 horas."
+    },
+    it: {
+      "Langue / Idioma":"Lingua",
+      "Para informações sobre a demonstração, contacte a equipa INTEREUROPA.":"Per informazioni su questa dimostrazione, contatta il team INTEREUROPA.",
+      "Esta área é exclusivamente demonstrativa. Não são realizadas operações bancárias.":"Quest'area è esclusivamente dimostrativa. Non vengono effettuate operazioni bancarie.",
+      "Esta operação não está disponível, uma vez que não tem cartões associados ao MB WAY":"Questa operazione non è disponibile perché non hai carte associate a MB WAY.",
+      "Pretende contratar um seguro? Contacte a INTEREUROPA para obter mais informações.":"Desideri stipulare un'assicurazione? Contatta INTEREUROPA per maggiori informazioni.",
+      "© 2026 — estabilidade financeira de cada cliente":"© 2026 — stabilità finanziaria per ogni cliente",
+      "Para informações sobre empréstimos pessoais ou empresariais, contacte a equipa da INTEREUROPA.":"Per informazioni sui prestiti personali o aziendali, contatta il team di INTEREUROPA.",
+      "O empréstimo bancário é concedido imediatamente aos clientes elegíveis na área europeia, e no máximo em 72 horas.":"Il prestito bancario viene concesso immediatamente ai clienti idonei nell'area europea e, al massimo, entro 72 ore."
+    },
+    el: {
+      "Langue / Idioma":"Γλώσσα",
+      "Para informações sobre a demonstração, contacte a equipa INTEREUROPA.":"Για πληροφορίες σχετικά με αυτήν την επίδειξη, επικοινωνήστε με την ομάδα INTEREUROPA.",
+      "Esta área é exclusivamente demonstrativa. Não são realizadas operações bancárias.":"Αυτή η ενότητα είναι αποκλειστικά για επίδειξη. Δεν πραγματοποιούνται τραπεζικές συναλλαγές.",
+      "Esta operação não está disponível, uma vez que não tem cartões associados ao MB WAY":"Αυτή η λειτουργία δεν είναι διαθέσιμη, επειδή δεν έχετε κάρτες συνδεδεμένες με το MB WAY.",
+      "Pretende contratar um seguro? Contacte a INTEREUROPA para obter mais informações.":"Θέλετε να συνάψετε ασφάλιση; Επικοινωνήστε με την INTEREUROPA για περισσότερες πληροφορίες.",
+      "© 2026 — estabilidade financeira de cada cliente":"© 2026 — οικονομική σταθερότητα για κάθε πελάτη",
+      "Para informações sobre empréstimos pessoais ou empresariais, contacte a equipa da INTEREUROPA.":"Για πληροφορίες σχετικά με προσωπικά ή επιχειρηματικά δάνεια, επικοινωνήστε με την ομάδα της INTEREUROPA.",
+      "O empréstimo bancário é concedido imediatamente aos clientes elegíveis na área europeia, e no máximo em 72 horas.":"Το τραπεζικό δάνειο χορηγείται άμεσα στους επιλέξιμους πελάτες στην Ευρώπη και το αργότερο εντός 72 ωρών."
+    },
+    sk: {
+      "Langue / Idioma":"Jazyk",
+      "Para informações sobre a demonstração, contacte a equipa INTEREUROPA.":"Informácie o tejto ukážke získate od tímu INTEREUROPA.",
+      "Esta área é exclusivamente demonstrativa. Não são realizadas operações bancárias.":"Táto oblasť slúži výlučne na ukážku. Nevykonávajú sa tu žiadne bankové operácie.",
+      "Esta operação não está disponível, uma vez que não tem cartões associados ao MB WAY":"Táto operácia nie je dostupná, pretože nemáte k MB WAY priradené žiadne karty.",
+      "Pretende contratar um seguro? Contacte a INTEREUROPA para obter mais informações.":"Chcete uzatvoriť poistenie? Pre viac informácií kontaktujte INTEREUROPA.",
+      "© 2026 — estabilidade financeira de cada cliente":"© 2026 — finančná stabilita každého klienta",
+      "Para informações sobre empréstimos pessoais ou empresariais, contacte a equipa da INTEREUROPA.":"Ak potrebujete informácie o osobných alebo podnikateľských úveroch, kontaktujte tím INTEREUROPA.",
+      "O empréstimo bancário é concedido imediatamente aos clientes elegíveis na área europeia, e no máximo em 72 horas.":"Bankový úver sa poskytuje oprávneným klientom v európskom priestore okamžite, najneskôr do 72 hodín."
+    },
+    hr: {
+      "Langue / Idioma":"Jezik",
+      "Para informações sobre a demonstração, contacte a equipa INTEREUROPA.":"Za informacije o ovoj demonstraciji obratite se timu INTEREUROPA.",
+      "Esta área é exclusivamente demonstrativa. Não são realizadas operações bancárias.":"Ovo je područje isključivo demonstracijsko. Ne provode se bankovne transakcije.",
+      "Esta operação não está disponível, uma vez que não tem cartões associados ao MB WAY":"Ova operacija nije dostupna jer nemate kartice povezane s uslugom MB WAY.",
+      "Pretende contratar um seguro? Contacte a INTEREUROPA para obter mais informações.":"Želite ugovoriti osiguranje? Za više informacija obratite se INTEREUROPA.",
+      "© 2026 — estabilidade financeira de cada cliente":"© 2026 — financijska stabilnost svakog klijenta",
+      "Para informações sobre empréstimos pessoais ou empresariais, contacte a equipa da INTEREUROPA.":"Za informacije o osobnim ili poslovnim kreditima obratite se timu INTEREUROPA.",
+      "O empréstimo bancário é concedido imediatamente aos clientes elegíveis na área europeia, e no máximo em 72 horas.":"Bankovni kredit odobrava se odmah klijentima koji ispunjavaju uvjete na području Europe, a najkasnije u roku od 72 sata."
+    },
+    pt: {
+      "Langue / Idioma":"Idioma",
+      "Para informações sobre a demonstração, contacte a equipa INTEREUROPA.":"Para informações sobre a demonstração, contacte a equipa INTEREUROPA.",
+      "Esta área é exclusivamente demonstrativa. Não são realizadas operações bancárias.":"Esta área é exclusivamente demonstrativa. Não são realizadas operações bancárias.",
+      "Esta operação não está disponível, uma vez que não tem cartões associados ao MB WAY":"Esta operação não está disponível, uma vez que não tem cartões associados ao MB WAY",
+      "Pretende contratar um seguro? Contacte a INTEREUROPA para obter mais informações.":"Pretende contratar um seguro? Contacte a INTEREUROPA para obter mais informações.",
+      "© 2026 — estabilidade financeira de cada cliente":"© 2026 — estabilidade financeira de cada cliente",
+      "Para informações sobre empréstimos pessoais ou empresariais, contacte a equipa da INTEREUROPA.":"Para informações sobre empréstimos pessoais ou empresariais, contacte a equipa da INTEREUROPA.",
+      "O empréstimo bancário é concedido imediatamente aos clientes elegíveis na área europeia, e no máximo em 72 horas.":"O empréstimo bancário é concedido imediatamente aos clientes elegíveis na área europeia, e no máximo em 72 horas."
+    }
   };
   Object.entries(dashboardMenuTranslations).forEach(([lang, dictionary]) => Object.assign(translations[lang], dictionary));
+
 
 
   // Textes fixes du tableau de bord écrits à l'origine en français.
